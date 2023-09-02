@@ -34,7 +34,6 @@ namespace utils
 				
 			private:
 				bool on_update(float dt) override final;
-				WIDGET_REGISTRATOR(imgui::widget_factory, text);
 
 			private:
 				std::string m_text;

@@ -16,9 +16,6 @@ namespace utils
 			public:
 				using base = utils::ui::dialog_message;
 				dialog_message();
-				
-			private:
-				WIDGET_REGISTRATOR(imgui::widget_factory, dialog_message);
 			};
 		}
 	}

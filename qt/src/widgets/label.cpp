@@ -8,7 +8,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(qt::label);
+			REGISTER_WIDGET_DECLARATIVELY(qt::label);
 		}
 	}
 }

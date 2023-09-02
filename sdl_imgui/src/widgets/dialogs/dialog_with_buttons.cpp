@@ -7,7 +7,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(dialog_with_buttons);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, dialog_with_buttons);
 		}
 	}
 }

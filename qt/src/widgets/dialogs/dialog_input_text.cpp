@@ -7,7 +7,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(qt::dialog_input_text);
+			REGISTER_WIDGET_DECLARATIVELY(qt::dialog_input_text);
 		}
 	}
 }

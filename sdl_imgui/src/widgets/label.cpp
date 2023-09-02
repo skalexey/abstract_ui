@@ -10,7 +10,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(label);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, label);
 
 			bool imgui::label::on_update(float dt)
 			{

@@ -23,7 +23,7 @@ namespace utils
 	{
 		namespace qt
         {
-			REGISTER_WIDGET(qt::button);
+			REGISTER_WIDGET_DECLARATIVELY(qt::button);
 
 			int qt::button::init()
 			{

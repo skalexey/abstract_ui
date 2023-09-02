@@ -21,9 +21,6 @@ namespace utils
 				void on_show() override {
 					qt::dialog::on_show();
 				}
-
-			private:
-				WIDGET_REGISTRATOR(qt::widget_factory, qt::dialog_input_text);
 			};
 		}
 	}

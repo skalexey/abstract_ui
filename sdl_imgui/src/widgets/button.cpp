@@ -9,7 +9,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(imgui::button);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::button);
 
 			bool button::on_update(float dt)
 			{

@@ -8,7 +8,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(qt::dialog_yes_no);
+			REGISTER_WIDGET_DECLARATIVELY(qt::dialog_yes_no);
 
 			void qt::dialog_yes_no::construct(
 				const std::string& msg

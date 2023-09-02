@@ -31,7 +31,6 @@ namespace utils
 				void on_set_on_new_value() override;
 
 			private:
-				WIDGET_REGISTRATOR(qt::widget_factory, text_input);
 				text_input_model* m_model = nullptr;
 				mutable std::string m_tmp_value; // Needed as get_value() returns const std::string&,
 				// but Qt can only return std::string created from QString which in turn is created from QVariant.

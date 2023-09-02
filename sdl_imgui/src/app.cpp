@@ -5,6 +5,7 @@
 #ifdef ANDROID
 #include "bridge.h"
 #endif
+#include <abstract_ui/imgui/register_widgets.h>
 
 namespace utils
 {
@@ -12,7 +13,9 @@ namespace utils
 	{
 		namespace imgui
 		{
-			int app::on_run() {
+			int app::on_run()
+			{
+				imgui::register_widgets();
 
 				//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 				//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -45,7 +48,6 @@ namespace utils
 				if (!utils::file::exists(fpath))
 					android_copy_assets();
 				ImFont* font = io.Fonts->AddFontFromFileTTF((resources_dir + "/arial.ttf").c_str(), 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-				
 #else
 
 				ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\Arial.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());

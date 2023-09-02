@@ -7,7 +7,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(dialog_with_buttons);
+			REGISTER_WIDGET_DECLARATIVELY(dialog_with_buttons);
 		}
 	}
 }

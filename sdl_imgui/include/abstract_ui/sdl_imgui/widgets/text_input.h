@@ -35,9 +35,6 @@ namespace utils
 				void on_set_label() override;
 
 			private:
-				WIDGET_REGISTRATOR(imgui::widget_factory, imgui::text_input);
-
-			private:
 				std::string m_input_label;
 				std::string m_edit_value;
 			};

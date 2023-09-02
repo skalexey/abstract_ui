@@ -7,7 +7,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(imgui::dialog_input_text);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::dialog_input_text);
 		}
 	}
 }

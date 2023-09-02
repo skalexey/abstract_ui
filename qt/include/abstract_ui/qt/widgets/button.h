@@ -32,7 +32,6 @@ namespace utils
 
 			private:
 				vec2i m_calculated_size;
-				WIDGET_REGISTRATOR(qt::widget_factory, qt::button);
 				button_model* m_model = nullptr;
 			};
 			using button_ptr = std::shared_ptr<button>;

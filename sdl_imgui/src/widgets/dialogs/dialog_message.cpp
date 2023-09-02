@@ -9,7 +9,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(imgui::dialog_message);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::dialog_message);
 
 			imgui::dialog_message::dialog_message()
 			{

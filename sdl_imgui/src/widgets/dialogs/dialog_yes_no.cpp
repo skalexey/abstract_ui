@@ -9,7 +9,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(imgui::dialog_yes_no);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::dialog_yes_no);
 
 			imgui::dialog_yes_no::dialog_yes_no()
 			{

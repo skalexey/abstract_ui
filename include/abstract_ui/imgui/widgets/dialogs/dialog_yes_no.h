@@ -35,7 +35,6 @@ namespace utils
 			
 			private:
 				int this_on_post_construct();
-				WIDGET_REGISTRATOR(imgui::widget_factory, imgui::dialog_yes_no);
 			};
 		}
 	}

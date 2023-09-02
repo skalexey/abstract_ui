@@ -32,8 +32,6 @@ namespace utils
 				bool on_update(float dt) override final;
 			private:
 				vec2i m_calculated_size;
-				WIDGET_REGISTRATOR(imgui::widget_factory, imgui::button);
-
 			};
 			using button_ptr = std::shared_ptr<button>;
 		}

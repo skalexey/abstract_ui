@@ -11,7 +11,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET(imgui::text_input);
+			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::text_input);
 
             bool imgui::text_input::update_input(float dt)
 			{

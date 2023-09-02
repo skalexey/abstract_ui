@@ -11,6 +11,7 @@ namespace utils
 		{
 			class dialog : public imgui::window, public virtual ui::dialog
 			{
+			public:
 				using base = ui::dialog;
 
 			public:

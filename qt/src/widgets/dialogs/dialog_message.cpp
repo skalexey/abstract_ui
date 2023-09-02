@@ -8,7 +8,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(qt::dialog_message);
+			REGISTER_WIDGET_DECLARATIVELY(qt::dialog_message);
 
 			void qt::dialog_message::button_ok_show()
 			{

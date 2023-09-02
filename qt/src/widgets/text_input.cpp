@@ -17,7 +17,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET(text_input);
+			REGISTER_WIDGET_DECLARATIVELY(text_input);
 
 			int qt::text_input::init()
 			{

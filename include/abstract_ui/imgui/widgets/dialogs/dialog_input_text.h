@@ -21,9 +21,6 @@ namespace utils
 				void on_show() override {
 					imgui::dialog::on_show();
 				}
-
-			private:
-				WIDGET_REGISTRATOR(imgui::widget_factory, imgui::dialog_input_text);
 			};
 		}
 	}
