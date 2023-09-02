@@ -14,6 +14,8 @@ macro(setup_module)
 	GROUP_SRC("${UTILS_HEADERS}" "${UTILS_DIR}/include")
 	module_message("UTILS_DIR: ${UTILS_DIR}")
 	module_add_includes(${UTILS_DIR}/include)
+	set_headers()
+	add_src(${HEADERS}) # for IDE
 	
 	# add library
 	module_add_library()
