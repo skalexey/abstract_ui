@@ -10,7 +10,7 @@ Supported platforms:
  + Mac OS.
  + Android.
 
-Below are the screenshots of the same application "Vocabulary" built for 2 platforms (Windows, Android) and 2 implementations (SDL-ImGui, Qt):
+Below are the screenshots of the same application "[Vocabulary](https://github.com/skalexey/vocabulary)" built for 2 platforms (Windows, Android) and 2 implementations (SDL-ImGui, Qt):
 
 ![Vocabulary App Qt Windows](https://github.com/skalexey/abstract_ui/assets/7895659/ec75b23a-6ca5-4b78-96bd-2de40e9bbeb0)
 ![Vocabulary App ImGui-SDL Windows](https://github.com/skalexey/abstract_ui/assets/7895659/bd085c42-9c9a-4d01-8155-8527a21813e1)
