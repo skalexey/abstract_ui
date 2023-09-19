@@ -23,7 +23,7 @@ namespace utils
 				std::mutex mtx;
 				std::unique_lock ul(mtx);
 				std::condition_variable cv;
-				std::atomic<int> result = INT_MAX;
+				int result = INT_MAX;
 				add_on_update([&](float dt) {
 					LOG_VERBOSE("Calling a job from thread " << std::this_thread::get_id() << "\n");
 					result = job();

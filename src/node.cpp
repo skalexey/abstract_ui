@@ -9,6 +9,7 @@ namespace utils
 		// All the dynamic casts require a fully defined type.
 		void ui::node::add_node(const node_ptr& node)
 		{
+			// TODO: support concurrency
 			assert(node && "Adding a null node");
 			assert(node.get() && "Adding a half-null node");
 			// This code is called from parent to avoid having a potentially called method

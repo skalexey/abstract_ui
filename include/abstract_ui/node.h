@@ -30,13 +30,13 @@ namespace utils
 			virtual ~node() {
 				remove_from_parent();
 				foreach_child<node>([](node* child) {
+					// TODO: support concurrency
 					child->m_parent = nullptr;
 					return true;
 				});
 			}
 
 			int post_construct() {
-				
 				RETURN_IF_NE_0(on_post_construct());
 				return on_after_post_construct();
 			}
@@ -46,6 +46,7 @@ namespace utils
 			}
 
 			bool remove_node(node* node) {
+				// TODO: support concurrency
 				for (auto it = m_children.begin(); it != m_children.end(); ++it)
 					if (it->get() == node) {
 						node->m_parent = nullptr;

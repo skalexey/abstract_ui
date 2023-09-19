@@ -67,6 +67,7 @@ namespace utils
 			}
 
 			void add_on_update(const base::on_update_t& on_update) {
+				// TODO: support concurrency
 				m_on_update.push_back(on_update);
 			}
 

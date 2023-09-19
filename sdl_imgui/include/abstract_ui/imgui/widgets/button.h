@@ -32,7 +32,6 @@ namespace utils
 				bool on_update(float dt) override final;
 			private:
 				vec2i m_calculated_size;
-
 			};
 			using button_ptr = std::shared_ptr<button>;
 		}
