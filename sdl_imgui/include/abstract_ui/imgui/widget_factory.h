@@ -16,9 +16,6 @@ namespace utils
 					static imgui::widget_factory inst;
 					return inst;
 				}
-
-			private:
-				static creators_t* m_creators;
 			};
 		}
 	}
