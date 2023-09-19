@@ -13,7 +13,7 @@ namespace utils
 			{
 			public:
 				static widget_factory& instance() {
-					static widget_factory inst;
+					static qt::widget_factory inst;
 					return inst;
 				}
 			};
