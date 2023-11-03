@@ -41,7 +41,7 @@ namespace utils
 				return on_after_post_construct();
 			}
 
-			void do_on_post_construct(const utils::int_cb& cb) {
+			virtual void do_on_post_construct(const utils::int_cb& cb) {
 				m_on_post_construct.push_back(cb);
 			}
 

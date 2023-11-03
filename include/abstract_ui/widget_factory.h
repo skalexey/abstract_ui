@@ -21,6 +21,13 @@ namespace utils
 		{
 		public:
 			template <typename T>
+			std::shared_ptr<T> create_final(node& parent) const {
+				auto impl = create<T::impl_t>(&parent);
+				auto ptr = std::make_shared<T>(impl);
+				return ptr;
+			}
+			
+			template <typename T>
 			std::shared_ptr<T> create(node* parent = nullptr) const {
 				auto it = m_creators.find(typeid(T).name());
 #ifdef LOG_ON
