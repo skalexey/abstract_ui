@@ -54,7 +54,7 @@ namespace utils
 					return m_is_visible;
 				}
 
-				void set_on_show(const on_show_cb& on_show) {
+				virtual void set_on_show(const on_show_cb& on_show) {
 					m_on_show = on_show;
 				}
 				
@@ -89,8 +89,8 @@ namespace utils
 				void set_position_relative(const vec2f& pos, const vec2f& anchor) {
 					set_position(vec2i(pos * vec2f(get_screen_size())), anchor);
 				}
-				void set_size(const vec2i& size) { m_size = size; }
-				void set_size_relative(const vec2f& size) {
+				virtual void set_size(const vec2i& size) { m_size = size; }
+				virtual void set_size_relative(const vec2f& size) {
 					m_size = size / vec2f(get_screen_size());
 				}
 				void set_vertical_alignment(const alignment& align) { m_vertical_alignment = align; }

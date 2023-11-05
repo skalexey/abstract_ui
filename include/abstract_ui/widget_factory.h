@@ -21,6 +21,15 @@ namespace utils
 		{
 		public:
 			template <typename T>
+			std::shared_ptr<T> create_final(node& parent) const {
+				auto impl = create<T::impl_t>();
+				auto ptr = std::make_shared<T>(impl);
+				parent.add_node(ptr);
+				ptr->post_construct(); // Allow to run code after the constructor worked out
+				return ptr;
+			}
+			
+			template <typename T>
 			std::shared_ptr<T> create(node* parent = nullptr) const {
 				auto it = m_creators.find(typeid(T).name());
 #ifdef LOG_ON
@@ -37,7 +46,8 @@ namespace utils
 			void register_creator() {
 				m_creators[typeid(Base).name()] = [](ui::node* parent) {
 					auto ptr = std::make_shared<Final>();
-					parent->add_node(ptr);
+					if (parent)
+						parent->add_node(ptr);
 					ptr->post_construct(); // Allow to run code after the constructor worked out
 					return ptr;
 				};

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <abstract_ui/final/fwd.h>
 
 namespace utils
 {

@@ -1,11 +1,19 @@
 #include <cassert>
 #include <abstract_ui/node.h>
 #include <abstract_ui/app.h>
+#include <abstract_ui/final/node.h>
 
 namespace utils
 {
 	namespace ui
 	{
+		const node* ui::node::get_parent() const {
+			auto final_node = dynamic_cast<const final::node*>(m_parent);
+			if (final_node)
+				return final_node->get_impl().get();
+			return m_parent;
+		}
+
 		// All the dynamic casts require a fully defined type.
 		void ui::node::add_node(const node_ptr& node)
 		{

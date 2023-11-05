@@ -41,7 +41,7 @@ namespace utils
 				return on_after_post_construct();
 			}
 
-			void do_on_post_construct(const utils::int_cb& cb) {
+			virtual void do_on_post_construct(const utils::int_cb& cb) {
 				m_on_post_construct.push_back(cb);
 			}
 
@@ -81,12 +81,10 @@ namespace utils
 				return true;
 			}
 
-			const node* get_parent() const {
-				return m_parent;
-			}
+			const node* get_parent() const;
 
 			node* parent() {
-				return m_parent;
+				return const_cast<node*>(const_cast<const node*>(this)->get_parent());
 			}
 
 			node* root() {
