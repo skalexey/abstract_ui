@@ -7,14 +7,13 @@ project(abstract_ui_qt C CXX)
 
 macro(setup_module)
 	module_message("Setting up module: ${MODULE_NAME}")
-	
 	# Base dependency
 	add_dependency_module(${DEPS}/abstract_ui abstract_ui)
 
-	add_src(
-		include/widgets/button_model.h
-		include/widgets/text_input_model.h
-	)
+	# add_src(
+	# 	include/abstract_ui/qt/widgets/button_model.h
+	# 	include/abstract_ui/qt/widgets/text_input_model.h
+	# )
 	# add library
 	module_add_library()
 endmacro()

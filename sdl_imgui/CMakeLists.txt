@@ -41,7 +41,7 @@ macro(setup_module)
 	module_add_includes(${IMGUI_INCLUDES})
 
 	# Base dependency	
-	add_dependency_module(${DEPS}/abstract_ui abstract_ui INCLUDE_ONLY)
+	add_dependency_module(${DEPS}/abstract_ui abstract_ui)
 
 	# add library
 	module_add_library()
