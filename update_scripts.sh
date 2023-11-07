@@ -29,6 +29,16 @@ function update_scripts()
 
 	[ $? -ne 0 ] && log_error "Error while delivering files" && return 2
 
+	./update_cmake_modules.sh .
+	[ $? -ne 0 ] && log_error "Error while updating cmake modules in root directory" && return 3
+
+	./update_cmake_modules.sh qt
+	[ $? -ne 0 ] && log_error "Error while updating cmake modules in qt directory" && return 4
+
+	./update_cmake_modules.sh sdl_imgui
+	[ $? -ne 0 ] && log_error "Error while updating cmake modules in sdl_imgui directory" && return 5
+
+
 	log_success "Done"
 }
 
