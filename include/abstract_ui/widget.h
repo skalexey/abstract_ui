@@ -46,8 +46,7 @@ namespace utils
 					if (!visible && m_is_visible)
 						hide();
 					else if (!m_is_visible && visible)
-						// show() should be called explicitly because it is supposed to be called in every frame
-						m_is_visible = true;
+						show();
 				}
 
 				bool is_visible() const {
@@ -132,7 +131,7 @@ namespace utils
 				on_hide_cb m_on_hide;
 				on_show_cb m_on_show;
 				on_show_cb m_on_before_show;
-				bool m_is_visible = false;
+				bool m_is_visible = true;
 		};
 
 		using widget_ptr = std::shared_ptr<widget>;

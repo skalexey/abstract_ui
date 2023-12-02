@@ -22,14 +22,6 @@ namespace utils
 
 				dialog_input_text()
 				{
-					// Factory here is supposed to be already created in the implementation class
-					set_on_show([this]() {
-						m_message_label->show();
-						m_ok_button->show();
-						m_cancel_button->show();
-						m_text_input->show();
-					});
-
 					do_on_post_construct([self = this] {
 						return self->this_on_post_construct();
 					});

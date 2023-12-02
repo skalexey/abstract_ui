@@ -154,6 +154,7 @@ namespace utils
 				return true;
 			}
 
+			// This function is available for users to override, but node::on_update should be called anyway.
 			virtual bool on_update(float dt) {
 				if (!foreach_child<ui::node>([dt](ui::node* child) {
 					child->update(dt);
