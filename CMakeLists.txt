@@ -1,7 +1,4 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
-# and include sub-projects here.
-#
-cmake_minimum_required (VERSION 3.15)
+﻿cmake_minimum_required (VERSION 3.15)
 
 project(abstract_ui C CXX)
 
@@ -14,8 +11,7 @@ macro(setup_module)
 	GROUP_SRC("${UTILS_HEADERS}" "${UTILS_DIR}/include")
 	module_message("UTILS_DIR: ${UTILS_DIR}")
 	module_add_includes(${UTILS_DIR}/include)
-	set_headers()
-	add_src(${HEADERS}) # for IDE
+	add_headers_to_sources()
 	
 	# add library
 	module_add_library()
