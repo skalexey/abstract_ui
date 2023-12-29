@@ -18,6 +18,14 @@ namespace utils
 			bool update(float dt) {
 				return true;
 			}
+
+			const utils::ui::app& get_app() const {
+				return m_app;
+			}
+
+			utils::ui::app& app() {
+				return m_app;
+			}
 			
 		protected:
 			void set_view(const utils::ui::window_ptr& view) {
