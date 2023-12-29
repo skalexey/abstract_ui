@@ -10,7 +10,7 @@ namespace utils
 	{
 		namespace imgui
 		{
-			bool imgui::window::on_update(float dt)
+			bool imgui::window::update_children(float dt)
 			{
 				if (!is_open())
 					return false;
@@ -37,10 +37,7 @@ namespace utils
 					return true;
 				}
 					
-				if (!base::on_update(dt))
-					return false;
-
-				if (!on_imgui_window_update(dt))
+				if (!base::update_children(dt))
 					return false;
 
 				// Close button

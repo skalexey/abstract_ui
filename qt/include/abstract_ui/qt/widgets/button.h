@@ -27,6 +27,8 @@ namespace utils
 				void on_set_text(const std::string& text) override;
 				void on_set_on_click(const on_click_t& on_click) override;
 
+				void set_enabled(bool enabled) override;
+				
 			protected:
 				int init() override;
 

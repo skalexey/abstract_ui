@@ -25,11 +25,6 @@ namespace utils
 				void on_set_title() override;
 				int init() override;
 				void on_set_modal() override;
-				bool qt_dialog_update(float dt);
-				
-				virtual bool on_qt_dialog_update(float dt) {
-					return true;
-				}
 
 			private:
 				bool on_update(float dt) override final;

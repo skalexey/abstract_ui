@@ -98,7 +98,17 @@ namespace utils
 			virtual bool update(float dt) {
 				if (!on_before_update(dt))
 					return false;
-				return on_update(dt);
+				if (!update_children(dt))
+					return false;
+				if (!on_update(dt))
+					return false;
+				if (!user_update(dt))
+					return false;
+				return true;
+			}
+
+			virtual bool on_update(float dt) {
+				return true;
 			}
 
 			using on_update_t = std::function<bool(float)>;
@@ -153,14 +163,15 @@ namespace utils
 					return m_on_before_update(dt);
 				return true;
 			}
-
-			// This function is available for users to override, but node::on_update should be called anyway.
-			virtual bool on_update(float dt) {
-				if (!foreach_child<ui::node>([dt](ui::node* child) {
+			
+			virtual bool update_children(float dt) {
+				return foreach_child<ui::node>([dt](ui::node* child) {
 					child->update(dt);
 					return true;
-				}))
-					return false;
+				});
+			}
+
+			bool user_update(float dt) {
 				if (m_on_update)
 					return m_on_update(dt);
 				return true;

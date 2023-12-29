@@ -19,14 +19,8 @@ namespace utils
 				dialog();
 				
 			protected:
-				bool imgui_dialog_update(float dt);
-				virtual bool on_imgui_dialog_update(float dt) {
-					return base::on_update(dt);
-				}
+				bool update_children(float dt) override final;
 				
-			private:
-				bool on_update(float dt) override final;
-
 			private:
 				vec2i m_last_size;
 				vec2i m_last_position;

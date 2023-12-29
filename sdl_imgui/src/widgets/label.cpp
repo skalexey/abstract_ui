@@ -14,15 +14,14 @@ namespace utils
 
 			bool imgui::label::on_update(float dt)
 			{
-				if (!imgui_label_update(dt))
-					return false;
-				return imgui::widget::on_update(dt);
-			}
-
-			bool imgui::label::imgui_label_update(float dt)
-			{
 				ImGui::Text("%s", get_text().c_str());
-				return on_imgui_label_update(dt);
+				if (!on_imgui_label_update(dt))
+					return false;
+				if (!imgui::widget::on_update(dt))
+					return false;
+				if (!ui::label::on_update(dt))
+					return false;
+				return true;
 			}
 		}
 	}

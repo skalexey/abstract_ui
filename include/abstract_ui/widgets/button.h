@@ -14,6 +14,7 @@ namespace utils
 		{
 		public:
 			using on_click_t = utils::void_bool_cb;
+			using enable_if_pred_t = std::function<bool()>;
 			using base = widget;
 
 			void construct(const std::string& label, const on_click_t& on_click = nullptr)
@@ -45,9 +46,26 @@ namespace utils
 				return m_label;
 			}
 
+			void set_enable_if(const enable_if_pred_t& pred) {
+				m_enable_if = pred;
+			}
+
+			bool on_update(float dt) override {
+				if (m_enable_if)
+					set_enabled(m_enable_if());
+				return base::on_update(dt);
+			}
+
+			bool update(float dt) override {
+				return base::update(dt);
+			}
+
+			virtual void set_enabled(bool enabled) = 0;
+
 		private:
 			on_click_t m_on_click;
 			std::string m_label;
+			enable_if_pred_t m_enable_if;
 		};
 		using button_ptr = std::shared_ptr<button>;
 	}

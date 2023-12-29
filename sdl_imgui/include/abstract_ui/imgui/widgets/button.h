@@ -22,16 +22,22 @@ namespace utils
 					return m_calculated_size;
 				}
 
+				void set_enabled(bool enabled) override {
+					m_enabled = enabled;
+				}
+
 			protected:
-				bool imgui_button_update(float dt);
 				virtual bool on_imgui_button_update(float dt) {
 					return true;
 				}
 
 			private:
+				bool imgui_button_update(float dt);
 				bool on_update(float dt) override final;
+
 			private:
 				vec2i m_calculated_size;
+				bool m_enabled = true;
 			};
 			using button_ptr = std::shared_ptr<button>;
 		}

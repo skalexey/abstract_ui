@@ -26,7 +26,6 @@ namespace utils
 				}
 
 			protected:
-				bool imgui_label_update(float dt);
 				virtual bool on_imgui_label_update(float dt) {
 					return true;
 				}

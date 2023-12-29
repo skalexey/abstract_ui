@@ -95,8 +95,6 @@ namespace utils
 			virtual void on_set_on_new_value() {}
 			
 			bool on_update(float dt) override final {
-				if (!ui::node::on_update(dt))
-					return false;
 				if (!update_text(dt))
 					return false;
 				if (!update_input(dt))

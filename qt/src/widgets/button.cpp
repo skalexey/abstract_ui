@@ -55,6 +55,11 @@ namespace utils
 			{
 				qobject()->setProperty("text", QString(text.c_str()));
 			}
+
+			void qt::button::set_enabled(bool enabled)
+			{
+				qobject()->setProperty("enabled", enabled);
+			}
 		}
 	}
 }

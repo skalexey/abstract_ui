@@ -15,12 +15,7 @@ namespace utils
 				set_title("ImGui Dialog");
 			}
 
-			bool imgui::dialog::on_update(float dt)
-			{
-				return imgui_dialog_update(dt);
-			}
-
-			bool imgui::dialog::imgui_dialog_update(float dt)
+			bool imgui::dialog::update_children(float dt)
 			{
 				if (!is_open())
 					return false;
@@ -72,7 +67,7 @@ namespace utils
 					}
 				}
 
-				if (!on_imgui_dialog_update(dt))
+				if (!base::update_children(dt))
 					return false;
 
 				// Close button

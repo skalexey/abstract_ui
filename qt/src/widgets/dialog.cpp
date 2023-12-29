@@ -73,7 +73,7 @@ namespace utils
 				qt::window::on_before_show();
 			}
 
-			bool qt::dialog::qt_dialog_update(float dt)
+			bool qt::dialog::on_update(float dt)
 			{
 				if (!is_open())
 					return false;
@@ -85,14 +85,7 @@ namespace utils
 				// auto label = utils::format_str("%s##", get_title().c_str());
 				// bool p_open = true;
 				// auto p_open_ptr = is_close_button_enabled() ? &p_open : nullptr;
-				return on_qt_dialog_update(dt);
-			}
-
-			bool qt::dialog::on_update(float dt)
-			{
-				if (!qt_dialog_update(dt))
-					return false;
-				return base::on_update(dt);
+				return true;
 			}
 		}
 	}
