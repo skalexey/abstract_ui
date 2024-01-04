@@ -48,8 +48,9 @@ namespace utils
 				if (!utils::file::exists(fpath))
 					android_copy_assets();
 				ImFont* font = io.Fonts->AddFontFromFileTTF((resources_dir + "/arial.ttf").c_str(), 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
-#else
-
+#elif defined(__linux__)
+				ImFont* font = io.Fonts->AddFontFromFileTTF("/usr/share/fonts/truetype/open-sans/OpenSans-Regular.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+#elif defined(_WIN32)
 				ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\Arial.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 #endif
 				IM_ASSERT(font != NULL);
