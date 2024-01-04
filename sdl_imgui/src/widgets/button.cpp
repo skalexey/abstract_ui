@@ -4,14 +4,17 @@
 #include <abstract_ui/imgui/widgets/button.h>
 #include <abstract_ui/imgui/widget_factory.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::button);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::button);
-
 			bool button::on_update(float dt)
 			{
 				if (!imgui_button_update(dt))

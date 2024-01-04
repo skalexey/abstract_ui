@@ -47,7 +47,7 @@ namespace utils
 				}
 
 				label& message_label() { return *m_message_label; }
-				text_input& text_input() { return *m_text_input; }
+				ui::text_input& text_input() { return *m_text_input; }
 				button& ok_button() { return *m_ok_button; }
 				button& cancel_button() { return *m_cancel_button; }
 

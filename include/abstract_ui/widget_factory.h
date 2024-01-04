@@ -22,7 +22,7 @@ namespace utils
 		public:
 			template <typename T>
 			std::shared_ptr<T> create_final(node& parent) const {
-				auto impl = create<T::impl_t>();
+				auto impl = create<typename T::impl_t>();
 				auto ptr = std::make_shared<T>(impl);
 				parent.add_node(ptr);
 				ptr->post_construct(); // Allow to run code after the constructor worked out

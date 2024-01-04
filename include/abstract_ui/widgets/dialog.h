@@ -34,7 +34,7 @@ namespace utils
 			}
 			
 			bool is_close_button_enabled() const { return m_use_close_button; }
-			bool set_close_button_enabled(bool enabled) { m_use_close_button = enabled; }
+			void set_close_button_enabled(bool enabled) { m_use_close_button = enabled; }
 
 			bool is_modal() const { return m_is_modal; }
 			void set_modal(bool modal) { m_is_modal = modal; }

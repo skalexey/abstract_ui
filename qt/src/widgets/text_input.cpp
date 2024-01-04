@@ -9,6 +9,7 @@
 namespace
 {
 	std::string empty_string;
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::qt::widget_factory, utils::ui::qt::text_input);
 }
 
 namespace utils
@@ -17,8 +18,6 @@ namespace utils
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET_DECLARATIVELY(text_input);
-
 			int qt::text_input::init()
 			{
 				const QUrl url(u"qrc:QtGUI/TextInput.qml"_qs);

@@ -3,14 +3,17 @@
 #include <abstract_ui/imgui/common.h>
 #include <imgui.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::dialog_message);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::dialog_message);
-
 			imgui::dialog_message::dialog_message()
 			{
 				do_on_post_construct([self = this] {

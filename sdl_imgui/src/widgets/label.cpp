@@ -4,14 +4,17 @@
 #include <abstract_ui/imgui/widgets/label.h>
 #include <imgui.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::label);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, label);
-
 			bool imgui::label::on_update(float dt)
 			{
 				ImGui::Text("%s", get_text().c_str());

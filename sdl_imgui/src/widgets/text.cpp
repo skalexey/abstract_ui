@@ -4,14 +4,17 @@
 #include <abstract_ui/imgui/widget_factory.h>
 #include <abstract_ui/imgui/widgets/text.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::text);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, text);
-
 			bool imgui::text::on_update(float dt)
 			{
 				if (!imgui_text_update(dt))

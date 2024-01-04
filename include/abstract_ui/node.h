@@ -91,7 +91,7 @@ namespace utils
 				return m_parent ? m_parent->root() : this;
 			}
 
-            app& app() {
+            ui::app& app() {
 				return const_cast<ui::app&>(const_cast<const node*>(this)->get_app());
 			}
 

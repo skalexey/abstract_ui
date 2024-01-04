@@ -1,3 +1,4 @@
+#include <climits>
 #include <mutex>
 #include <atomic>
 #include <condition_variable>

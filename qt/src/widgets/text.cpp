@@ -5,14 +5,17 @@
 #include <abstract_ui/qt/widgets/text.h>
 #include <abstract_ui/qt/app.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::qt::widget_factory, utils::ui::qt::text);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET_DECLARATIVELY(text);
-
 			int qt::text::init()
 			{
 				std::string file_name = "qrc:QtGUI/" + qml_file_name();

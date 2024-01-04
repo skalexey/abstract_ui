@@ -2,14 +2,17 @@
 #include <abstract_ui/qt/widgets/dialogs/dialog_yes_no.h>
 #include <abstract_ui/qt/common.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::qt::widget_factory, utils::ui::qt::dialog_yes_no);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace qt
 		{
-			REGISTER_WIDGET_DECLARATIVELY(qt::dialog_yes_no);
-
 			void qt::dialog_yes_no::construct(
 				const std::string& msg
 				, const on_answer_t& on_answer

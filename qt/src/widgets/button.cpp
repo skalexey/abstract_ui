@@ -17,14 +17,17 @@
 LOG_PREFIX("[qt::button] ");
 LOG_POSTFIX("\n");
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::qt::widget_factory, utils::ui::qt::button);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace qt
         {
-			REGISTER_WIDGET_DECLARATIVELY(qt::button);
-
 			int qt::button::init()
 			{
 				const QUrl url(u"qrc:QtGUI/Button.qml"_qs);

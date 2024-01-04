@@ -136,7 +136,7 @@ namespace utils
 
 		using widget_ptr = std::shared_ptr<widget>;
 
-		#define REGISTER_WIDGET(factory_t, widget_t) factory_t::instance().register_creator<typename widget_t::base, widget_t>();
+		#define REGISTER_WIDGET(factory_t, widget_t) factory_t::instance().template register_creator<typename widget_t::base, widget_t>();
 		
 		template <typename Factory_t, typename Widget_t>
 		struct [[maybe_unused]] registrator

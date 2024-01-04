@@ -3,6 +3,11 @@
 #include <abstract_ui/imgui/common.h>
 #include <imgui.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::dialog_yes_no);
+}
+
 namespace utils
 {
 	namespace ui

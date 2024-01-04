@@ -5,14 +5,17 @@
 #include <abstract_ui/imgui/sdl_app.h>
 #include <abstract_ui/imgui/widget_factory.h>
 
+namespace
+{
+	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::text_input);
+}
+
 namespace utils
 {
 	namespace ui
 	{
 		namespace imgui
 		{
-			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::text_input);
-
             bool imgui::text_input::update_input(float dt)
 			{
 				// TODO: do smth with this resize:
