@@ -30,12 +30,8 @@ namespace utils
 				}
 				
 			protected:
-				ui::widget_ptr impl() {
+				ui::widget_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::widget>(final::node::impl());
-				}
-
-				const ui::widget_ptr& get_impl() const {
-					return std::dynamic_pointer_cast<ui::widget>(final::node::get_impl());
 				}
 			};
 		}

@@ -10,7 +10,7 @@ namespace utils
 		const node* ui::node::get_parent() const {
 			auto final_node = dynamic_cast<const final::node*>(m_parent);
 			if (final_node)
-				return final_node->get_impl().get();
+				return final_node->impl().get();
 			return m_parent;
 		}
 

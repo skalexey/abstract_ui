@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <abstract_ui/fwd.h>
 #include <abstract_ui/node.h>
 
@@ -22,14 +23,10 @@ namespace utils
 				// Create a widget of type T and add it as a child to this node.
 				template <typename T>
 				std::shared_ptr<T> create() {
-					return impl()->get_factory().create<T>(impl().get());
+					return impl()->get_factory().template create<T>(impl().get());
 				}
 
-				ui::node_ptr impl() {
-					return m_impl;
-				}
-
-				const ui::node_ptr& get_impl() const {
+				ui::node_ptr impl() const {
 					return m_impl;
 				}
 

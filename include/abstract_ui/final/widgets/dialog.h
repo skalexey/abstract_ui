@@ -24,12 +24,8 @@ namespace utils
 					impl()->set_title(get_title());
 				}
 
-				ui::dialog_ptr impl() {
+				ui::dialog_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::dialog>(final::window::impl());
-				}
-
-				const ui::window_ptr& get_impl() const {
-					return std::dynamic_pointer_cast<ui::dialog>(final::window::get_impl());
 				}
 			};
 		}

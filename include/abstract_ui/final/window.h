@@ -20,16 +20,12 @@ namespace utils
 
 				// Pure virtual methods specifications
 				vec2i get_screen_size() const override {
-					return get_impl()->get_screen_size();
+					return impl()->get_screen_size();
 				}
 
 			protected:
-				ui::window_ptr impl() {
+				ui::window_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::window>(final::widget::impl());
-				}
-
-				const ui::window_ptr& get_impl() const {
-					return std::dynamic_pointer_cast<ui::window>(final::widget::get_impl());
 				}
 			};
 		}
