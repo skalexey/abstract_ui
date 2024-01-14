@@ -29,10 +29,9 @@ namespace utils
 		public:
 			using on_update_list_t = std::list<on_update_t>;
 
-			app(int argc, char* argv[])
-				: m_args{argc, argv}
-				, m_thread_id(std::this_thread::get_id())
-			{}
+			app(int argc, char* argv[]);
+
+			static app& get();
 
 			std::thread::id get_thread_id() const {
 				return m_thread_id;

@@ -16,6 +16,8 @@ namespace utils
 				using impl_t = ui::window;
 				using base = final::widget;
 
+				window() = default;
+				
 				window(const ui::window_ptr& impl) : base(impl) {}
 
 				// Pure virtual methods specifications

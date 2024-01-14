@@ -34,7 +34,7 @@ namespace utils
 				}
 
 			protected:
-        		QObject* content_qobject() override;
+				QObject* content_qobject() const override;
 
 			protected:
 				void update_qt();

@@ -13,13 +13,18 @@ namespace utils
 		{
 			class dialog : public qt::window, public virtual ui::dialog
 			{
+			public:
 				using base = ui::dialog;
 
-			public:
 				// We don't pass the title as argument because of virtual inheritance
 				dialog();
-				QObject* content_qobject() override;
-				
+				QObject* content_qobject() const override {
+					return m_content;
+				}
+				QObject* widget_qobject() const override {
+					return m_dialog;
+				}
+
 			protected:
 				void on_before_show() override;
 				void on_set_title() override;
@@ -30,9 +35,8 @@ namespace utils
 				bool on_update(float dt) override final;
 
 			private:
-				vec2i m_last_size;
-				vec2i m_last_position;
 				QObject* m_content = nullptr;
+				QObject* m_dialog = nullptr;
 			};
 			using dialog_ptr = std::shared_ptr<dialog>;
 		}

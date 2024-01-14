@@ -14,6 +14,13 @@ namespace utils
 			{
 			public:
 				vec2i get_screen_size() const override;
+				void set_size(const vec2i& size) override {
+					bool size_changed = size != m_size;
+					m_size = size;
+					on_set_size();
+					if (size_changed)
+						on_size_changed();
+				}
 			};
 
 			using widget_ptr = std::shared_ptr<imgui::widget>;

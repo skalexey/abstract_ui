@@ -17,8 +17,9 @@ namespace utils
 		namespace qt
 		{
 			// Hide ui::node* interface using protected inheritance
-			class node : protected virtual ui::node
+			class node : public virtual ui::node
 			{
+				friend class ui::widget_factory;
 				using base = ui::node;
 
 			public:
@@ -49,20 +50,22 @@ namespace utils
 				qt::app& app();
 				const qt::app& get_app() const;
 
-				
-				virtual QObject* qobject() {
+				// Root node of the widget. Some properties like position are taken from it.
+				virtual QObject* qobject() const {
 					return m_object;
 				} // = 0; // TODO: set it to 0 then
 
-				virtual QObject* get_qobject() const {
+				// Object for adding child nodes. It may be nested into qobject() due to layouting.
+				virtual QObject* content_qobject() const {
 					return m_object;
 				} // = 0; // TODO: set it to 0 then
 
-				virtual QObject* content_qobject() {
-					return m_object;
-				} // = 0; // TODO: set it to 0 then
+				QObject* parent_qobject() const;
 
 			protected:
+				virtual void on_qobject_created() {}
+				void on_set_parent(const ui::node* parent) override;
+				
 				// Contains shared code to be called by derived classes upon the construction
 				int init(const QUrl& componentUrl, const QVariantMap& initial_properties);
 				
@@ -71,17 +74,12 @@ namespace utils
 					return 0;
 				}
 
-				virtual void on_add_node(qt::node* node) {}
 				virtual int on_qt_node_post_construct() {
 					return 0;
 				}
 
 			private:
 				int on_post_construct() override final;
-
-				void on_add_node(ui::node* node) override {
-					on_add_node(dynamic_cast<qt::node*>(node));
-				}
 
 			private:
 				QObject* m_object = nullptr;

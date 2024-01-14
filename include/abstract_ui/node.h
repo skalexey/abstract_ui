@@ -26,6 +26,8 @@ namespace utils
 	{
 		class node : public virtual entity
 		{
+			friend class widget_factory;
+
 		public:
 			virtual ~node() {
 				remove_from_parent();
@@ -76,15 +78,26 @@ namespace utils
 				// A child can be removed during iteration, so we need iterate through a copy.
 				auto children = m_children;
 				for (auto child : children)
+				{
+					assert(child);
 					if (!cb(dynamic_cast<T*>(child.get())))
 						return false;
+				}
 				return true;
 			}
 
-			const node* get_parent() const;
+			const node* get_parent() const {
+				return m_parent;
+			}
+
+			const node* get_impl_parent() const;
 
 			node* parent() {
-				return const_cast<node*>(const_cast<const node*>(this)->get_parent());
+				return const_cast<node*>(get_parent());
+			}
+
+			node* impl_parent() {
+				return const_cast<node*>(get_impl_parent());
 			}
 
 			node* root() {
@@ -113,12 +126,8 @@ namespace utils
 
 			using on_update_t = std::function<bool(float)>;
 
-			void set_on_update(const on_update_t& on_update) {
-				m_on_update = on_update;
-			}
-
-			const on_update_t& get_on_update() const {
-				return m_on_update;
+			void add_on_update(const on_update_t& on_update) {
+				m_on_update.push_back(on_update);
 			}
 
 			void set_on_before_update(const on_update_t& on_before_update) {
@@ -134,16 +143,21 @@ namespace utils
 				return *m_factory;
 			}
 
-			const ui::app& get_app() const {
-				assert(m_app && "Why do you need app() from a half-initialized widget?");
-				return *m_app;
-			}
+			const ui::app& get_app() const;
 
 			virtual int init() {
 				return 0;
 			}
 
 		protected:
+			template <typename T>
+			const T* get_typed_parent() const {
+				auto base_parent = get_impl_parent();
+				auto casted_parent = dynamic_cast<const T*>(base_parent);
+				assert(base_parent == casted_parent && "The parent is not a qt::node*");
+				return casted_parent;
+			}
+			
 			virtual int on_post_construct() {
 				RETURN_IF_NE_0(init());
 				// We need to keep it here to be able to overload and call it from another thread (ex. for Qt)
@@ -153,8 +167,10 @@ namespace utils
 			}
 
 			virtual int on_after_post_construct() {
-				if (auto parent_ptr = parent())
+				auto parent_ptr = parent();
+				if (parent_ptr)
 					parent_ptr->on_add_node(this);
+				on_set_parent(parent_ptr);
 				return 0;
 			}
 			
@@ -166,18 +182,21 @@ namespace utils
 			
 			virtual bool update_children(float dt) {
 				return foreach_child<ui::node>([dt](ui::node* child) {
+					assert(child);
 					child->update(dt);
 					return true;
 				});
 			}
 
 			bool user_update(float dt) {
-				if (m_on_update)
-					return m_on_update(dt);
+				for (auto&& m_on_update : m_on_update)
+					if (!m_on_update(dt))
+						return false;
 				return true;
 			}
 
 			virtual void on_add_node(node* node) {}
+			virtual void on_set_parent(const ui::node* parent) {}
 
 		private:
 			node* m_parent = nullptr;
@@ -185,7 +204,7 @@ namespace utils
 			ui::app* m_app = nullptr;
 			widget_factory* m_factory = nullptr;
 			on_update_t m_on_before_update;
-			on_update_t m_on_update;
+			std::vector<on_update_t> m_on_update;
 			std::vector<utils::int_cb> m_on_post_construct;
 		};
 		using node_ptr = std::shared_ptr<node>;

@@ -17,13 +17,16 @@ namespace utils
 				using impl_t = ui::dialog;
 				using base = final::window;
 
+				dialog() = default;
 				dialog(const ui::dialog_ptr& impl) : base(impl) {}
-			
+
 			protected:
+				void on_set_modal() override {
+					impl()->set_modal(is_modal());
+				}
 				void on_set_title() override {
 					impl()->set_title(get_title());
 				}
-
 				ui::dialog_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::dialog>(final::window::impl());
 				}

@@ -7,10 +7,17 @@ macro(setup_module)
 	
 	# Utils dependency
 	set(UTILS_DIR "${DEPS}/Utils")
-	file(GLOB_RECURSE UTILS_HEADERS "${UTILS_DIR}/include/*")
-	GROUP_SRC("${UTILS_HEADERS}" "${UTILS_DIR}/include")
 	module_message("UTILS_DIR: ${UTILS_DIR}")
 	module_add_includes(${UTILS_DIR}/include)
+	# For IDE
+	file(GLOB_RECURSE UTILS_HEADERS "${UTILS_DIR}/include/*")
+	GROUP_SRC("${UTILS_HEADERS}" "${UTILS_DIR}/include")
+	
+	# VL dependency
+	set(VL_DIR "${DEPS}/VL")
+	add_dependency_module(${VL_DIR} VL)
+
+	# For IDE
 	add_headers_to_sources()
 	
 	# add library

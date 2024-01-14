@@ -53,7 +53,7 @@ namespace utils
 		protected:
 			int init() override
 			{
-				set_auto_resize(true);
+				set_size_policy(size_policy::type::automatic, size_policy::type::automatic);
 				set_title("Dialog With Buttons");
 				// Factory here is supposed to be already set in the implementation class
 				set_message_text(get_factory().create<ui::text>(this));

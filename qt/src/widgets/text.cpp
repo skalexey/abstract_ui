@@ -38,7 +38,7 @@ namespace utils
 
 			const std::string& qt::text::get_text() const
 			{
-				if (auto object = get_qobject())
+				if (auto object = qobject())
 					m_tmp_text = object->property("text").toString().toStdString();
 				return m_tmp_text;
 			}

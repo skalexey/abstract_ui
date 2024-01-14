@@ -8,6 +8,8 @@ function deps_scenario()
 	
     source $THIS_DIR/dependencies.sh
     source $THIS_DIR/deps_config.sh
+
+    download_dependency "VL" "$depsLocation" "git@github.com:skalexey/VL.git"
 }
 
 deps_scenario $@

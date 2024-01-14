@@ -30,6 +30,20 @@ namespace utils
 					, bottom
 				};
 
+				
+
+				struct size_policy
+				{
+					enum type : int
+					{
+						unchanged = 0
+						, fixed
+						, automatic
+					};
+					size_policy::type horizontal = size_policy::type::unchanged;
+					size_policy::type vertical = size_policy::type::unchanged;
+				};
+
 				bool show() {
 					on_before_show();
 					m_is_visible = true;
@@ -70,27 +84,59 @@ namespace utils
 					return default_title;
 				};
 				virtual vec2i get_screen_size() const = 0;
-				virtual const vec2i& get_position() const { return m_position; }
-				virtual const vec2i& get_size() const { return m_size; }
+				virtual const vec2i& get_position() const {
+					return m_position;
+				}
+				virtual const vec2i& get_size() const {
+					return m_size;
+				}
                 const vec2f get_relative_position() const {
 					return vec2f(get_position()) / vec2f(get_screen_size());
 				}
                 const vec2f get_relative_size() const {
 					return vec2f(get_size()) / vec2f(get_screen_size());
 				}
-				void set_position(const vec2i& pos ) { m_position = pos; }
+				virtual void set_position(const vec2i& pos) {
+					bool position_changed = pos != m_position;
+					m_position = pos;
+  					on_set_position();
+					if (position_changed)
+						on_position_changed();
+				}
 				void set_position(const vec2i& pos, const vec2f& anchor ) {
-					m_position = pos - vec2f(m_size) * anchor;
+					set_position(pos - vec2f(get_size()) * anchor);
 				}
 				void set_position_relative(const vec2f& pos) {
-					m_position = pos / vec2f(get_screen_size());
+					set_position(pos / vec2f(get_screen_size()));
 				}
 				void set_position_relative(const vec2f& pos, const vec2f& anchor) {
 					set_position(vec2i(pos * vec2f(get_screen_size())), anchor);
 				}
-				virtual void set_size(const vec2i& size) { m_size = size; }
+				virtual void set_size(const vec2i& size) {
+					if (m_size_policy.horizontal == size_policy::type::automatic && m_size_policy.vertical == size_policy::type::automatic)
+						return;
+					bool size_changed = size != m_size;
+					m_size = size;
+					on_set_size();
+					if (size_changed)
+						on_size_changed();
+				}
+				void set_size_policy(size_policy::type horizontal, size_policy::type vertical = size_policy::type::unchanged) {
+					if (vertical != size_policy::type::unchanged)
+						m_size_policy.vertical = vertical;
+					if (horizontal != size_policy::type::unchanged)
+						m_size_policy.horizontal = horizontal;
+					on_set_size_policy();
+				}
+				void set_size_policy(const size_policy& policy) {
+					m_size_policy = policy;
+					on_set_size_policy();
+				}
+				const size_policy& get_size_policy() const {
+					return m_size_policy;
+				}
 				virtual void set_size_relative(const vec2f& size) {
-					m_size = size / vec2f(get_screen_size());
+					set_size(size / vec2f(get_screen_size()));
 				}
 				void set_vertical_alignment(const alignment& align) { m_vertical_alignment = align; }
 				void set_horizontal_alignment(const alignment& align) { m_horizontal_alignment = align; }
@@ -110,6 +156,11 @@ namespace utils
 				}
 				
 			protected:
+				virtual void on_position_changed() {};
+				virtual void on_set_size_policy() {};
+				virtual void on_set_position() {};
+				virtual void on_size_changed() {};
+				virtual void on_set_size() {};
 				virtual void on_hide() {
 					if (m_on_hide)
 						m_on_hide();
@@ -123,9 +174,16 @@ namespace utils
 						m_on_show();
 				};
 
-			private:
+			protected:
+				// Actual size widget size can be changed automatically by the implementation,
+				// so get_size() const uses it to store the retrieved value.
+				// Therefore, the actual value stored in this value may be not the actual size of the widget.
+				mutable vec2i m_size;
+				// Implementation can change the position
 				vec2i m_position;
-				vec2i m_size;
+
+			private:
+				size_policy m_size_policy;
 				alignment m_vertical_alignment = alignment::none;
 				alignment m_horizontal_alignment = alignment::none;
 				on_hide_cb m_on_hide;

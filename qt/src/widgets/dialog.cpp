@@ -36,9 +36,10 @@ namespace utils
 				if (r != 0)
 					return r;
 
-				m_content = qobject()->findChild<QObject*>("content");
+				m_dialog = qobject()->findChild<QObject*>("dialog");
+				m_content = m_dialog->findChild<QObject*>("content");
 
-				QVariant result = qobject()->property("show");
+				QVariant result = widget_qobject()->property("show");
 				if (result.canConvert<QJSValue>()) {
 					QJSValue jsFunction = result.value<QJSValue>();
 					if (jsFunction.isCallable()) {
@@ -53,19 +54,14 @@ namespace utils
 
 			void qt::dialog::on_set_title()
 			{
- 				if (auto object = qobject())
+ 				if (auto object = widget_qobject())
 					object->setProperty("title", QString(get_title().c_str()));
 			}
 
 			void qt::dialog::on_set_modal()
 			{
-				if (auto object = qobject())
+				if (auto object = widget_qobject())
 					object->setProperty("modal", is_modal());
-			}
-
-			QObject* qt::dialog::content_qobject()
-			{
-				return m_content;
 			}
 
 			void qt::dialog::on_before_show()

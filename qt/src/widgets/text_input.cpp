@@ -41,10 +41,10 @@ namespace utils
 
 			const std::string& qt::text_input::get_value() const
 			{
-				if (auto object = get_qobject())
+				if (auto object = qobject())
 				{
-					Q_ASSERT(get_text_field());
-					return m_tmp_value = get_text_field()->property("text").toString().toStdString();
+					Q_ASSERT(text_field_item());
+					return m_tmp_value = text_field_item()->property("text").toString().toStdString();
 				}
 				return empty_string;
 			}

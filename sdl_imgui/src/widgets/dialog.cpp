@@ -33,16 +33,16 @@ namespace utils
 				m_last_position = pos;
 				ImGui::SetNextWindowSize(
 					ImVec2(float(sz.x), float(sz.y))
-					, sz == m_last_size ? ImGuiCond_Appearing : ImGuiCond_Always
+					, ImGuiCond_Always//sz == m_last_size ? ImGuiCond_Appearing : ImGuiCond_Always
 				);
 				m_last_size = sz;
 				// Create the window
 
 				ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
 				
-				if (is_auto_resize())
+				if (get_size_policy().horizontal == size_policy::type::automatic && get_size_policy().vertical == size_policy::type::automatic)
 					window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
-
+	
 				auto label = utils::format_str("%s##", get_title().c_str());
 				bool p_open = true;
 				auto p_open_ptr = is_close_button_enabled() ? &p_open : nullptr;
@@ -67,6 +67,20 @@ namespace utils
 					}
 				}
 
+				auto dialog_size = ImGui::GetWindowSize();
+				vec2i new_size(dialog_size.x, dialog_size.y);
+				if (new_size != get_size()) {
+					m_size = new_size;
+					on_size_changed();
+				}
+				// LOG_DEBUG("dialog '" << get_title() << "' size: (" << dialog_size.x << ", " << dialog_size.y << ")");
+				auto dialog_position = ImGui::GetWindowPos();
+				// LOG_DEBUG("dialog '" << get_title() << "' position: (" << dialog_position.x << ", " << dialog_position.y << ")");
+				vec2i new_position(dialog_position.x, dialog_position.y);
+				if (new_position != get_position()) {
+					m_position = new_position;
+					on_position_changed();
+				}
 				if (!base::update_children(dt))
 					return false;
 

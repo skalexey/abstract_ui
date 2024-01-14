@@ -7,10 +7,25 @@ namespace utils
 {
 	namespace ui
 	{
-		const node* ui::node::get_parent() const {
+		const ui::app& ui::node::get_app() const
+		{
+			if (m_app)
+				return *m_app;
+			else
+				return ui::app::get();
+		}
+
+		const node* ui::node::get_impl_parent() const
+		{
 			auto final_node = dynamic_cast<const final::node*>(m_parent);
 			if (final_node)
-				return final_node->impl().get();
+			{
+				auto impl = final_node->impl().get();
+				if (this == impl)
+					return final_node->get_parent();
+				else
+					return impl;
+			}
 			return m_parent;
 		}
 

@@ -16,6 +16,8 @@ namespace utils
 				using impl_t = ui::widget;
 				using base = final::node;
 
+				widget() = default;
+				
 				widget(const ui::widget_ptr& impl) : base(impl) {}
 
 				// Virtual methods redirections
@@ -23,13 +25,24 @@ namespace utils
 					impl()->set_on_show(on_show);
 				}
 				void set_size(const vec2i& size) override {
+					ui::widget::set_size(size);
 					impl()->set_size(size);
 				}
-				void set_size_relative(const vec2f& size) override {
-					impl()->set_size_relative(size);
+				const vec2i& get_size() const override {
+					return impl()->get_size();
 				}
-				
+				const vec2i& get_position() const override {
+					return impl()->get_position();
+				}
+				void set_position(const vec2i& pos) override {
+					ui::widget::set_position(pos);
+					impl()->set_position(pos);
+				}
+
 			protected:
+				void on_set_size_policy() override {
+					impl()->set_size_policy(get_size_policy());
+				}
 				ui::widget_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::widget>(final::node::impl());
 				}

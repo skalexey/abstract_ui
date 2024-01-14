@@ -1,4 +1,6 @@
 #include <exception>
+#include <QObject>
+#include <QQuickItem>
 #include <QtGlobal>
 #include <QQmlContext>
 #include <QUrl>
@@ -43,15 +45,16 @@ namespace utils
 					try
 					{
 						QVariantMap finalinitial_properties = initial_properties;
-						auto parent_ptr = self->parent();
-						Q_ASSERT(parent_ptr);
-						if (!parent_ptr)
-							return -2;
-						QObject* parentObject = parent_ptr->content_qobject();
-						if (parentObject)
-							finalinitial_properties["parent"] = QVariant::fromValue(parentObject);
-						else
-							LOG_WARNING("Parent object is null!");
+						if (auto parent_ptr = self->parent())
+						{
+							if (QObject* parent_qbject = parent_ptr->content_qobject())
+							{
+								LOCAL_VERBOSE("Setting parent to " << parent_qbject);
+								finalinitial_properties["parent"] = QVariant::fromValue(parent_qbject);
+							}
+							else
+								LOG_WARNING("Parent content object is null!");
+						}
 
 						QQmlComponent component(&self->app().engine(), componentUrl);
 						QQmlContext* ctx = self->app().engine().rootContext();
@@ -87,6 +90,51 @@ namespace utils
 					RETURN_IF_NE_0(self->on_qt_node_post_construct());
                     return 0;
 				});
+			}
+
+			void qt::node::on_set_parent(const ui::node* parent)
+			{
+				// TODO: don't do it if the parent is the same
+				app().do_in_main_thread([self = this, parent]() {
+					QObject* parent_qobject = nullptr;
+					if (parent)
+					{
+						auto parent_qnode_to_add = dynamic_cast<const qt::node*>(parent);
+						auto parent_to_add = parent;
+						int level_up = 0;
+						while (!parent_qnode_to_add && parent_to_add)
+						{
+							parent_to_add = parent_to_add->get_parent();
+							parent_qnode_to_add = dynamic_cast<const qt::node*>(parent_to_add);
+							++level_up;
+						}
+						if (parent_qnode_to_add)
+						{
+							parent_qobject = parent_qnode_to_add->content_qobject();
+							if (level_up > 0)
+							{
+								LOG_WARNING(self << "on_set_parent(" << parent << "): The parent is not a qt::node, so this node will be attached to " << level_up << " level above ");
+							}
+						}
+					}
+					QObject* qobject = self->content_qobject();
+					Q_ASSERT(qobject);
+					auto current_parent = qobject->parent();
+					if (current_parent != parent_qobject)
+						qobject->setParent(parent_qobject);
+					return 0;
+				});
+			}
+
+			QObject* qt::node::parent_qobject() const
+			{
+				auto content_qobject = this->content_qobject();
+				if (!content_qobject)
+					return nullptr;
+				QObject* parent_qobject = content_qobject->parent();
+				if (!parent_qobject)
+					content_qobject = m_object->property("parent").value<QObject*>();
+				return parent_qobject;
 			}
 		}
 	}

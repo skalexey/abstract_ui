@@ -45,7 +45,7 @@ namespace utils
 				return 0;
 			}
 
-            QObject* app::content_qobject()
+            QObject* app::content_qobject() const
 			{
 				return m_main_window->contentItem();
 			}

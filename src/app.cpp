@@ -10,10 +10,31 @@
 LOG_POSTFIX("\n");
 LOG_PREFIX("[utils::ui::app]: ");
 
+namespace
+{
+	utils::ui::app* g_app = nullptr;
+	int g_app_count = 0;
+}
+
 namespace utils
 {
 	namespace ui
 	{
+		app::app(int argc, char* argv[])
+			: m_args{argc, argv}
+			, m_thread_id(std::this_thread::get_id())
+		{
+			if (!g_app)
+				g_app = this;
+			++g_app_count;
+		}
+
+		app& app::get()
+		{
+			assert(g_app_count == 1 && "This method is used only for a single app");
+			return *g_app;
+		}
+		
 		int app::do_in_main_thread(const utils::int_cb& job)
 		{
 			LOG_VERBOSE("do_in_main_thread: main_thread_id: " << get_thread_id() << ", current_thread_id: " << std::this_thread::get_id() << "\n");

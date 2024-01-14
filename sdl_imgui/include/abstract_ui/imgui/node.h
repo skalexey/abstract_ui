@@ -13,8 +13,9 @@ namespace utils
 		namespace imgui
 		{
 			// Hide ui::node* interface using protected inheritance
-			class node : protected virtual ui::node
+			class node : public virtual ui::node
 			{
+				friend class ui::widget_factory;
 				using base = ui::node;
 
 			public:

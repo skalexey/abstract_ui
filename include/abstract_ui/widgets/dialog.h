@@ -12,17 +12,17 @@ namespace utils
 	{
 		class dialog : public virtual window
 		{
+		public:
 			using base = window;
 
-		public:
 			dialog()
 			// We don't pass a factory into the constructor because of virtual inheritance,
 			// so it should be set using set_factory() method
 			{
 				// Default size
 				set_size(vec2i(500, 320));
-				set_vertical_alignment(alignment::center);
-				set_horizontal_alignment(alignment::center);
+				// set_vertical_alignment(alignment::center);
+				// set_horizontal_alignment(alignment::center);
 			}
 
 			const std::string& get_title() const override {
@@ -37,10 +37,10 @@ namespace utils
 			void set_close_button_enabled(bool enabled) { m_use_close_button = enabled; }
 
 			bool is_modal() const { return m_is_modal; }
-			void set_modal(bool modal) { m_is_modal = modal; }
-
-			bool is_auto_resize() const { return m_auto_resize; }
-			void set_auto_resize(bool auto_resize) { m_auto_resize = auto_resize; }
+			void set_modal(bool modal) {
+				m_is_modal = modal;
+				on_set_modal();
+			}
 
 		protected:	
 			virtual void on_set_title() {}
@@ -69,7 +69,6 @@ namespace utils
 			std::string m_title = "Dialog";
 			bool m_use_close_button = false;
 			bool m_is_modal = false;
-			bool m_auto_resize = false;
 		};
 		using dialog_ptr = std::shared_ptr<dialog>;
 	}

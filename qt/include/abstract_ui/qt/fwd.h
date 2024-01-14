@@ -11,6 +11,7 @@ namespace utils
 			class node;
 			class app;
 			class widget;
+			class widget_model;
 			class window;
 			class dialog;
 			class widget_factory;

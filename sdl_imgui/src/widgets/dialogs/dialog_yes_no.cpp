@@ -35,7 +35,7 @@ namespace utils
 					utils::ui::imgui::AlignForWidth(width);
 					return true;
 				});
-				yes_button().set_on_update([this](float dt) {
+				yes_button().add_on_update([this](float dt) {
 					ImGui::SameLine();
 					ImGui::Dummy({ 60, 0 });
 					ImGui::SameLine();
