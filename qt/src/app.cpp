@@ -9,6 +9,7 @@
 #include <abstract_ui/qt/app_environment.h>
 #include <abstract_ui/qt/import_qml_components_plugins.h>
 #include <abstract_ui/qt/import_qml_plugins.h>
+#include <abstract_ui/qt/register_widgets.h>
 #include <utils/Log.h>
 
 LOG_PREFIX("[qt::app]: ");
@@ -51,6 +52,8 @@ namespace utils
 
 			int app::on_run()
 			{
+				qt::register_widgets();
+				
 				// Setup Qt
 				set_qt_environment();
 
