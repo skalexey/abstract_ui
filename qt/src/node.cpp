@@ -9,7 +9,10 @@
 #include <abstract_ui/qt/widget_factory.h>
 #include <utils/common_macros.h>
 #include <abstract_ui/qt/node.h>
+#include <abstract_ui/helpers/user_input.h>
+#include <utils/log_stream.h>
 #include <utils/Log.h>
+SET_LOCAL_LOG_VERBOSE(true);
 #ifdef LOG_ON
 #include <QDebug>
 #endif
@@ -63,7 +66,13 @@ namespace utils
 						else
 						{
 							for (const auto& error : component.errors())
-								LOG_ERROR("QQmlComponent error: " << error.toString().toStdString());
+							{
+								auto&& e = error.toString().toStdString();
+								LOG_ERROR("QQmlComponent error: " << e);
+								// TODO: make it turn-offable or convert to error codes
+								if (auto uinput = dynamic_cast<utils::ui::user_input*>(&self->app()))
+									uinput->show_message(e);
+							}
 							LOG_ERROR("There were errors during creating a dialog from qml");
 							return -1;
 						}
