@@ -70,6 +70,9 @@ namespace utils
 
 			bool qt::dialog::on_update(float dt)
 			{
+				if (!base::on_update(dt))
+					return false;
+
 				if (!is_open())
 					return false;
 
