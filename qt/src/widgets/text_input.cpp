@@ -52,30 +52,19 @@ namespace utils
 			void qt::text_input::set_value(const std::string& value)
 			{
 				app().do_in_main_thread([self = this, value]() {
-					if (auto object = self->text_field())
+					if (auto object = self->text_field_item())
 						object->setProperty("text", QString(value.c_str()));
 					return 0;
 				});
 			}
 
-			const QQuickItem* qt::text_input::get_text_field() const
+			void qt::text_input::on_set_label()
 			{
-				return m_text_field;
-			}
-
-			QQuickItem* qt::text_input::text_field()
-			{
-				return m_text_field;
-			}
-
-			const QQuickItem* qt::text_input::get_label() const
-			{
-				return m_label;
-			}
-
-			QQuickItem* qt::text_input::label()
-			{
-				return m_label;
+				if (auto item = label_item())
+				{
+					auto& label = get_label();
+					item->setProperty("text", QString(label.c_str()));
+				}
 			}
 		}
 	}

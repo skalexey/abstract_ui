@@ -21,14 +21,17 @@ namespace utils
 
 				const std::string& get_value() const override;
 				void set_value(const std::string& value) override;
-				const QQuickItem* get_text_field() const;
-				const QQuickItem* get_label() const;
-				QQuickItem* text_field();
-				QQuickItem* label();
+				QQuickItem* text_field_item() const {
+					return m_text_field;
+				}
+				QQuickItem* label_item() const{
+					return m_label;
+				}
 
 			protected:
 				int init() override;
 				void on_set_on_new_value() override;
+				void on_set_label() override;
 
 			private:
 				text_input_model* m_model = nullptr;
