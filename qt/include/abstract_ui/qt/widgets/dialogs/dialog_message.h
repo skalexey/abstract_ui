@@ -29,9 +29,6 @@ namespace utils
 					RETURN_IF_NE_0(qt::dialog::init());
 					return ui::dialog_message::init();
 				}
-
-			private:
-				WIDGET_REGISTRATOR(qt::widget_factory, dialog_message);
 			};
 		}
 	}

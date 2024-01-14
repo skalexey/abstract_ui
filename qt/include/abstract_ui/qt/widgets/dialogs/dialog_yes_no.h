@@ -36,8 +36,6 @@ namespace utils
 					RETURN_IF_NE_0(qt::dialog::init());
 					return base::init();
 				}
-
-				WIDGET_REGISTRATOR(qt::widget_factory, qt::dialog_yes_no);
 			};
 		}
 	}

@@ -25,7 +25,6 @@ namespace utils
 					return "Text.qml";
 				}
 				int init() override;
-				WIDGET_REGISTRATOR(qt::widget_factory, text);
 
 			private:
 				mutable std::string m_tmp_text; // Needed as get_text() returns const std::string&,
