@@ -27,14 +27,11 @@ namespace utils
 				node();
 				
 				const qt::node* get_parent() const {
-					return dynamic_cast<const qt::node*>(base::get_parent());
+					return get_typed_parent<qt::node>();
 				}
 				
 				qt::node* parent() {
-					auto base_parent = base::parent();
-					auto casted_parent = dynamic_cast<qt::node*>(base_parent);
-					assert(base_parent == casted_parent && "The parent is not a qt::node*");
-					return casted_parent;
+					return const_cast<qt::node*>(get_parent());
 				}
 
 				qt::node* root() {

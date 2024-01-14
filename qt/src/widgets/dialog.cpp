@@ -9,7 +9,6 @@
 #ifdef LOG_ON
 #include <QDebug>
 #endif
-#include "QtGUI/include/app.h"
 
 LOG_POSTFIX("\n");
 LOG_PREFIX("[qt::dialog]: ");

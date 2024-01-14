@@ -23,11 +23,11 @@ namespace utils
 				node();
 
 				const imgui::node* get_parent() const {
-					return dynamic_cast<const imgui::node*>(base::get_parent());
+					return get_typed_parent<imgui::node>();
 				}
 				
 				imgui::node* parent() {
-					return dynamic_cast<imgui::node*>(base::parent());
+					return const_cast<imgui::node*>(get_parent());
 				}
 
 				imgui::node* root() {
