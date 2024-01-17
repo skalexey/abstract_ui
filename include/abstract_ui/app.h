@@ -3,9 +3,11 @@
 #include <thread>
 #include <cassert>
 #include <functional>
+#include <memory>
 #include <list>
 #include <abstract_ui/fwd.h>
 #include <abstract_ui/node.h>
+#include <utils/timer.h>
 #include <utils/common.h>
 
 namespace utils
@@ -71,6 +73,20 @@ namespace utils
 			}
 
 			int do_in_main_thread(const utils::int_cb& job);
+
+			using timer_ptr = std::shared_ptr<utils::timer>;
+			using timer_id = timer_ptr;
+			using timer_cb = std::function<void(const timer_id&)>;
+			timer_id set_timer(float interval, const timer_cb& on_timer) {
+				timer_ptr t = std::make_shared<utils::timer>(interval);
+				add_on_update([=](float dt) {
+					if (t->update(dt))
+						return true;
+					on_timer(t);
+					return !t->is_expired();
+				});
+				return t;
+			}
 
 			void exit(int erc) {
 				throw run_exception(erc);
