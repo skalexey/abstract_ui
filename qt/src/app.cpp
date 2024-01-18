@@ -32,6 +32,7 @@ namespace utils
 			
 			int app::init()
 			{
+				// Default style. Actual style is set in qtquickcontrols2.conf
 				QQuickStyle::setStyle("fusion");
 				QList<QObject*> rootObjects = engine().rootObjects();
 				for (QObject* obj : rootObjects)
