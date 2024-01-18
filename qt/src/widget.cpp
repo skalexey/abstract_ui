@@ -79,6 +79,16 @@ namespace utils
 				return m_size;
 			}
 
+			const vec2i& qt::widget::get_position() const
+			{
+				if (auto object = qobject())
+				{
+					m_position.x = object->property("x").toInt();
+					m_position.y = object->property("y").toInt();
+				}
+				return m_position;
+			}
+
 			void qt::widget::collect_property_updates()
 			{
 				if (!m_model)

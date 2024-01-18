@@ -39,6 +39,7 @@ namespace utils
 				}
 
 				const vec2i& get_size() const override;
+				const vec2i& get_position() const override;
 				void set_position(const vec2i& pos ) override;
 				void set_size(const vec2i& size) override;
 				
