@@ -62,7 +62,10 @@ namespace utils
 						QQmlComponent component(&self->app().engine(), componentUrl);
 						QQmlContext* ctx = self->app().engine().rootContext();
 						if (self->m_object = component.createWithInitialProperties(finalinitial_properties, ctx))
+						{
+							self->on_qobject_created();
 							return 0;
+						}
 						else
 						{
 							for (const auto& error : component.errors())
