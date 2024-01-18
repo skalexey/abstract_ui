@@ -127,7 +127,7 @@ namespace utils
 			using on_update_t = std::function<bool(float)>;
 
 			void add_on_update(const on_update_t& on_update) {
-				m_on_update.push_back(on_update);
+				m_added_on_update.push_back(on_update);
 			}
 
 			void set_on_before_update(const on_update_t& on_before_update) {
@@ -189,6 +189,11 @@ namespace utils
 			}
 
 			bool user_update(float dt) {
+				if (!m_added_on_update.empty())
+				{
+					m_on_update.insert(m_on_update.end(), m_added_on_update.begin(), m_added_on_update.end());
+					m_added_on_update.clear();
+				}
 				for (auto&& m_on_update : m_on_update)
 					if (!m_on_update(dt))
 						return false;
@@ -205,6 +210,7 @@ namespace utils
 			widget_factory* m_factory = nullptr;
 			on_update_t m_on_before_update;
 			std::vector<on_update_t> m_on_update;
+			std::vector<on_update_t> m_added_on_update;
 			std::vector<utils::int_cb> m_on_post_construct;
 		};
 		using node_ptr = std::shared_ptr<node>;

@@ -55,6 +55,10 @@ namespace utils
 			bool update(float dt) override {
 				if (!base::update(dt))
 					return false;
+
+				if (!m_added_on_update.empty())
+					m_on_update.splice(m_on_update.end(), m_added_on_update);
+					
 				for (auto it = m_on_update.begin(); it != m_on_update.end();)
 					if (!(*it)(dt))
 						it = m_on_update.erase(it);
@@ -69,7 +73,7 @@ namespace utils
 
 			void add_on_update(const base::on_update_t& on_update) {
 				// TODO: support concurrency
-				m_on_update.push_back(on_update);
+				m_added_on_update.push_back(on_update);
 			}
 
 			int do_in_main_thread(const utils::int_cb& job);
@@ -110,6 +114,7 @@ namespace utils
 		private:
 			args_t m_args;
 			on_update_list_t m_on_update;
+			on_update_list_t m_added_on_update;
 			std::thread::id m_thread_id;
 		};
 	}
