@@ -96,6 +96,7 @@ namespace utils
                 const vec2f get_relative_size() const {
 					return vec2f(get_size()) / vec2f(get_screen_size());
 				}
+
 				virtual void set_position(const vec2i& pos) {
 					bool position_changed = pos != m_position;
 					m_position = pos;
@@ -111,6 +112,12 @@ namespace utils
 				}
 				void set_position_relative(const vec2f& pos, const vec2f& anchor) {
 					set_position(vec2i(pos * vec2f(get_screen_size())), anchor);
+				}
+				void set_y(int y) {
+					set_position({ get_position().x, y });
+				}
+				void set_x(int x) {
+					set_position({ x, get_position().y });
 				}
 				virtual void set_size(const vec2i& size) {
 					if (m_size_policy.horizontal == size_policy::type::automatic && m_size_policy.vertical == size_policy::type::automatic)
