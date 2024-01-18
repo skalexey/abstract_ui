@@ -29,8 +29,6 @@ namespace utils
 					ok_button().set_on_click([this](bool up) {
 						this->on_answer(true);
 					});
-					// Center dialog manually while we are temporarily using dragging
-					set_position_relative({ 0.5f, 0.5f }, { 0.5f, 0.5f });
 					return 0;
 				}
 				

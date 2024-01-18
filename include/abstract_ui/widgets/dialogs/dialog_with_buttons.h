@@ -57,6 +57,10 @@ namespace utils
 				set_title("Dialog With Buttons");
 				// Factory here is supposed to be already set in the implementation class
 				set_message_text(get_factory().create<ui::text>(this));
+				add_on_update([self = this](float dt) {
+					self->set_position_relative({ 0.5f, 0.5f }, { 0.5f, 0.5f });
+					return true;
+				});
 				return 0;
 			}
 			
