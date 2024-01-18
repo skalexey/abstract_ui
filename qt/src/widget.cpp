@@ -39,8 +39,9 @@ namespace utils
 			
 			vec2i qt::widget::get_screen_size() const
 			{
-				// TODO: implement
-				return vec2i(1920, 1080);
+				// Initial size is specified in Constants.qml
+				auto main_window = get_app().content_qobject();
+				return vec2i(main_window->property("width").toInt(), main_window->property("height").toInt());
 			}
 
 			void qt::widget::set_position(const vec2i& pos)

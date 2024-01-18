@@ -33,7 +33,6 @@ namespace utils
 					return m_qml_engine;
 				}
 
-			protected:
 				QObject* content_qobject() const override;
 
 			protected:
