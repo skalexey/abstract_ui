@@ -36,6 +36,8 @@ namespace utils
 				, const char* ok_btn_text = nullptr
 			);
 
+			void show_hint(const std::string& message);
+
 		private:
 			app* m_app;
 		};

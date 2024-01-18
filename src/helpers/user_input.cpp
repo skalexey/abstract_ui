@@ -76,5 +76,10 @@ namespace utils
 			d->show();
 		}
 
+		void user_input::show_hint(const std::string& message)
+		{
+			LOG("show_hint: '" << message << "'\n");
+			// TODO: implement
+		}
 	}
 }
