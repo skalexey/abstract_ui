@@ -105,7 +105,10 @@ namespace utils
 				if (has_y)
 					m_position.y = update.Get("y").AsNumber().Val();
 				if (has_x || has_y)
+				{
 					on_position_changed();
+					LOG_VERBOSE("Position changed to (" << m_position.x << ", " << m_position.y << ")");
+				}
 				// Size
 				bool has_width = update.Has("width");
 				bool has_height = update.Has("height");
