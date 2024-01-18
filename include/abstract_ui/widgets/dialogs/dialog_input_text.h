@@ -82,6 +82,10 @@ namespace utils
 							m_on_result(m_text_input->get_value(), true);
 						close();
 					});
+					add_on_update([self = this](float dt) {
+						self->set_position_relative({ 0.5f, 0.5f }, { 0.5f, 0.5f });
+						return true;
+					});
 					return 0;
 				}
 
