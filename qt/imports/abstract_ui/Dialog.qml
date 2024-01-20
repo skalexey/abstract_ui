@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 Item {
 	id: dialog_root
+	property var model
 	height: dialog.height
 	width: dialog.width
 	property bool modal: true
@@ -13,7 +14,7 @@ Item {
 		id: dialog
 		objectName: "dialog"
 		title: dialog_root.title
-
+		
 		property var onShow: function() {
 			console.log("Dialog.onShow default handler");
 		}
@@ -40,7 +41,7 @@ Item {
 		ColumnLayout {
 			id: mainLayout
 			objectName: "content"
-			Layout.maximumWidth: 400
+			Layout.maximumWidth: model.maximumWidth
 		}
 	}
 

@@ -21,6 +21,13 @@ namespace utils
 					if (size_changed)
 						on_size_changed();
 				}
+				void set_max_width(int value) override {
+					// TODO: implement
+				}
+				int get_max_width() const override {
+					// TODO: implement
+					return -1;
+				}
 			};
 
 			using widget_ptr = std::shared_ptr<imgui::widget>;

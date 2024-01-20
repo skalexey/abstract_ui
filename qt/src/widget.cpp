@@ -15,28 +15,27 @@ namespace utils
 	{
 		namespace qt
 		{
-			widget::~widget()
+			int qt::widget::init()
 			{
-				if (auto object = qobject())
-				{
-					QVariant result = object->property("onDestroy");
-					if (result.canConvert<QJSValue>()) {
-						QJSValue jsFunction = result.value<QJSValue>();
-						if (jsFunction.isCallable()) {
-							QJSValueList args;
-							QJSValue returnValue = jsFunction.call(args);
-						}
-					}
-					object->setParent(nullptr);
-					object->deleteLater();
-				}
+				m_model = create_model();
+				return qt::node::init();
 			}
 
-			void qt::widget::on_qobject_created()
+			int qt::widget::init(const QUrl& component_url, const QVariantMap& initial_properties)
 			{
-				m_model = new widget_model(this);
+				m_model = create_model();
+				auto final_properties = initial_properties;
+				final_properties["model"] = QVariant::fromValue(m_model);
+				auto r = qt::node::init(component_url, final_properties);
+				m_model->connect_to_node(this);
+				return r;
 			}
-			
+
+			qt::widget_model* qt::widget::create_model() const
+			{
+				return new widget_model();
+			}
+
 			vec2i qt::widget::get_screen_size() const
 			{
 				// Initial size is specified in Constants.qml
@@ -118,6 +117,19 @@ namespace utils
 					m_size.y = update.Get("height").AsNumber().Val();
 				if (has_width || has_height)
 					on_size_changed();
+			}
+
+			void qt::widget::set_max_width(int value)
+			{
+				if (m_model)
+					m_model->set_max_width(value);
+			}
+			
+			int qt::widget::get_max_width() const
+			{
+				if (m_model)
+					return m_model->max_width();
+				return -1;
 			}
 		}
 	}

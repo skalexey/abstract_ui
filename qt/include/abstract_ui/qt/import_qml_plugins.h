@@ -5,5 +5,4 @@
 
 #include <QtQml/qqmlextensionplugin.h>
 
-Q_IMPORT_QML_PLUGIN(contentPlugin)
-Q_IMPORT_QML_PLUGIN(QtGUIPlugin)
+Q_IMPORT_QML_PLUGIN(abstract_ui_qmlPlugin)

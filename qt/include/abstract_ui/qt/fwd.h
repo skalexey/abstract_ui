@@ -20,6 +20,7 @@ namespace utils
 			class button;
 			class button_model;
 			class text_input;
+			class text_input_model;
 			using window_ptr = std::shared_ptr<window>;
 			using widget_ptr = std::shared_ptr<widget>;
 			using dialog_ptr = std::shared_ptr<dialog>;

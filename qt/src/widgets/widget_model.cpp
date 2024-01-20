@@ -30,25 +30,25 @@ namespace utils
 	{
 		namespace qt
         {
-			widget_model::widget_model(qt::node* node, QObject* parent)
-				: m_node(node)
-				, QObject(parent)
+			void widget_model::connect_to_node(qt::node* node)
 			{
 				assert(node);
-				if (auto object = m_node->qobject())
-				{
-					INIT_AND_CHECK_RPOPERTY(object, x);
-					m_x.connectNotifySignal(this, SLOT(xChanged()));
-						
-					INIT_AND_CHECK_RPOPERTY(object, y);
-					m_y.connectNotifySignal(this, SLOT(yChanged()));
+				m_node = node;
+				auto object = m_node->qobject();
+				assert(object);
+				setParent(object);
 
-					INIT_AND_CHECK_RPOPERTY(object, width);
-					m_width.connectNotifySignal(this, SLOT(widthChanged()));
+				INIT_AND_CHECK_RPOPERTY(object, x);
+				m_x.connectNotifySignal(this, SLOT(xChanged()));
+					
+				INIT_AND_CHECK_RPOPERTY(object, y);
+				m_y.connectNotifySignal(this, SLOT(yChanged()));
 
-					INIT_AND_CHECK_RPOPERTY(object, height);
-					m_height.connectNotifySignal(this, SLOT(heightChanged()));
-				}
+				INIT_AND_CHECK_RPOPERTY(object, width);
+				m_width.connectNotifySignal(this, SLOT(widthChanged()));
+
+				INIT_AND_CHECK_RPOPERTY(object, height);
+				m_height.connectNotifySignal(this, SLOT(heightChanged()));
 			}
 
 			vl::VarPtr widget_model::grab_update()

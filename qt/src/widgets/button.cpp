@@ -30,21 +30,25 @@ namespace utils
         {
 			int qt::button::init()
 			{
-				const QUrl url(u"qrc:QtGUI/Button.qml"_qs);
+				const QUrl url(u"qrc:abstract_ui_qml/Button.qml"_qs);
 				QVariantMap initial_properties;
 				initial_properties["text"] = QString(get_text().c_str());
-				m_model = new button_model();
-				initial_properties["model"] = QVariant::fromValue(m_model);
-				auto r = qt::node::init(url, initial_properties);
-				if (r != 0)
-					return r;
-				m_model->setParent(qobject());
-				return 0;
+				return qt::widget::init(url, initial_properties);
+			}
+
+			widget_model* qt::button::create_model() const
+			{
+				return new button_model();
+			}
+
+			const button_model* qt::button::get_model() const
+			{
+				return dynamic_cast<const button_model*>(qt::widget::get_model());
 			}
 
 			void qt::button::on_set_on_click(const on_click_t& on_click)
 			{
-				m_model->set_on_click(on_click);
+				model()->set_on_click(on_click);
 			}
 
 			const vec2i& qt::button::text_size()

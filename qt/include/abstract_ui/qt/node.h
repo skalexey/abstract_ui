@@ -60,11 +60,13 @@ namespace utils
 				QObject* parent_qobject() const;
 
 			protected:
-				virtual void on_qobject_created() {}
 				void on_set_parent(const ui::node* parent) override;
 				
+				int init() override {
+					return base::init();
+				}
 				// Contains shared code to be called by derived classes upon the construction
-				int init(const QUrl& componentUrl, const QVariantMap& initial_properties);
+				virtual int init(const QUrl& componentUrl, const QVariantMap& initial_properties);
 				
 				int init(QObject* object) {
 					m_object = object;

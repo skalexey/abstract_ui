@@ -161,6 +161,9 @@ namespace utils
 				const on_show_cb& get_on_before_show() const {
 					return m_on_before_show;
 				}
+
+				virtual void set_max_width(int width) = 0;
+				virtual int get_max_width() const = 0;
 				
 			protected:
 				virtual void on_position_changed() {};

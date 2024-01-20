@@ -38,6 +38,12 @@ namespace utils
 					ui::widget::set_position(pos);
 					impl()->set_position(pos);
 				}
+				void set_max_width(int value) override {
+					impl()->set_max_width(value);
+				}
+				int get_max_width() const override {
+					return impl()->get_max_width();
+				}
 
 			protected:
 				void on_set_size_policy() override {

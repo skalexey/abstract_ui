@@ -2,7 +2,6 @@
 
 #include <string>
 #include <abstract_ui/qt/fwd.h>
-#include <abstract_ui/qt/widgets/text_input_model.h>
 #include <abstract_ui/widgets/text_input.h>
 #include <abstract_ui/qt/widget.h>
 
@@ -28,13 +27,18 @@ namespace utils
 					return m_label;
 				}
 
+				text_input_model* model() {
+					return const_cast<text_input_model*>(get_model());
+				}
+				const text_input_model* get_model() const;
+				
 			protected:
 				int init() override;
+				widget_model* create_model() const override;
 				void on_set_on_new_value() override;
 				void on_set_label() override;
 
 			private:
-				text_input_model* m_model = nullptr;
 				mutable std::string m_tmp_value; // Needed as get_value() returns const std::string&,
 				// but Qt can only return std::string created from QString which in turn is created from QVariant.
 				QQuickItem* m_text_field = nullptr;

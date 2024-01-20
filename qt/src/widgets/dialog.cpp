@@ -26,11 +26,11 @@ namespace utils
 
 			int qt::dialog::init()
 			{
-				const QUrl url(u"qrc:QtGUI/Dialog.qml"_qs);
+				const QUrl url(u"qrc:abstract_ui_qml/Dialog.qml"_qs);
 				QVariantMap initial_properties;
 				initial_properties["title"] = QString(get_title().c_str());
 				initial_properties["modal"] = is_modal();
-				auto r = qt::node::init(url, initial_properties);
+				auto r = qt::widget::init(url, initial_properties);
 				Q_ASSERT(qobject());
 				if (r != 0)
 					return r;

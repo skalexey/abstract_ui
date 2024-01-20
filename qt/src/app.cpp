@@ -7,7 +7,6 @@
 #include <abstract_ui/qt/app.h>
 #include <utils/file_utils.h>
 #include <abstract_ui/qt/app_environment.h>
-#include <abstract_ui/qt/import_qml_components_plugins.h>
 #include <abstract_ui/qt/import_qml_plugins.h>
 #include <abstract_ui/qt/register_widgets.h>
 #include <utils/Log.h>

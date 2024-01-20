@@ -42,9 +42,19 @@ namespace utils
 				const vec2i& get_position() const override;
 				void set_position(const vec2i& pos ) override;
 				void set_size(const vec2i& size) override;
-				
+				void set_max_width(int value) override;
+				int get_max_width() const override;
+				const qt::widget_model* get_model() const {
+					return m_model;
+				}
+				qt::widget_model* model() {
+					return m_model;
+				}
+
 			protected:
-				void on_qobject_created() override;
+				int init() override;
+				int init(const QUrl& componentUrl, const QVariantMap& initial_properties) override;
+				virtual qt::widget_model* create_model() const;
 
 			private:
 				void collect_property_updates();

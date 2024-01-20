@@ -1,6 +1,7 @@
 #include <QtGlobal>
 #include <QQuickItem>
 #include <abstract_ui/widgets/text_input.h>
+#include <abstract_ui/qt/widgets/text_input_model.h>
 #include <utils/io_utils.h>
 #include <abstract_ui/qt/app.h>
 #include <abstract_ui/qt/widget_factory.h>
@@ -20,23 +21,30 @@ namespace utils
 		{
 			int qt::text_input::init()
 			{
-				const QUrl url(u"qrc:QtGUI/TextInput.qml"_qs);
+				const QUrl url(u"qrc:abstract_ui_qml/TextInput.qml"_qs);
 				QVariantMap initial_properties;
 				initial_properties["text"] = QString(get_default_value().c_str());
-				m_model = new text_input_model();
-				initial_properties["model"] = QVariant::fromValue(m_model);
-				auto r = qt::node::init(url, initial_properties);
+				auto r = qt::widget::init(url, initial_properties);
 				if (r != 0)
 					return r;
-				m_model->setParent(qobject());
 				m_text_field = qobject()->findChild<QQuickItem*>("input");
 				m_label = qobject()->findChild<QQuickItem*>("label");
-				return 0;
+				return r;
+			}
+
+			widget_model* qt::text_input::create_model() const
+			{
+				return new text_input_model();
+			}
+
+			const text_input_model* qt::text_input::get_model() const
+			{
+				return dynamic_cast<const text_input_model*>(qt::widget::get_model());
 			}
 
 			void qt::text_input::on_set_on_new_value()
 			{
-				m_model->set_on_new_value(get_on_new_value());
+				model()->set_on_new_value(get_on_new_value());
 			}
 
 			const std::string& qt::text_input::get_value() const
