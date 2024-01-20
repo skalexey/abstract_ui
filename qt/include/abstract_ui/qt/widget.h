@@ -24,7 +24,6 @@ namespace utils
 						return true;
 					});
 				}
-				~widget() override;
 				
 				vec2i get_screen_size() const override;
 

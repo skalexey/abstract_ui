@@ -31,6 +31,29 @@ namespace utils
 				set_factory(qt::widget_factory::instance());
 			}
 
+			qt::node::~node()
+			{
+				destroy();
+			}
+
+			void qt::node::on_destroy()
+			{
+				if (auto object = qobject())
+				{
+					QVariant result = object->property("onDestroy");
+					if (result.canConvert<QJSValue>()) {
+						QJSValue jsFunction = result.value<QJSValue>();
+						if (jsFunction.isCallable()) {
+							QJSValueList args;
+							QJSValue returnValue = jsFunction.call(args);
+						}
+					}
+					object->setParent(nullptr);
+					object->deleteLater();
+					m_object = nullptr;
+				}
+			}
+
 			// All the dynamic casts require a fully defined type.
 			qt::app& qt::node::app()
 			{

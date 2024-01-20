@@ -25,6 +25,7 @@ namespace utils
 			public:
 				// TODO: support constructor with qt::node* 
 				node();
+				~node() override;
 				
 				const qt::node* get_parent() const {
 					return get_typed_parent<qt::node>();
@@ -60,6 +61,7 @@ namespace utils
 				QObject* parent_qobject() const;
 
 			protected:
+				void on_destroy() override;
 				void on_set_parent(const ui::node* parent) override;
 				
 				int init() override {

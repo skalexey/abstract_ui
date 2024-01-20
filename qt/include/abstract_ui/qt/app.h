@@ -24,6 +24,12 @@ namespace utils
 
 			public:
 				app(int argc, char* argv[]);
+				~app() override {
+					destroy();
+				}
+				void on_destroy() override {
+					m_main_window = nullptr;
+				}
 				bool update(float dt) override final;
 				QQmlApplicationEngine& engine() {
 					return m_application_engine;

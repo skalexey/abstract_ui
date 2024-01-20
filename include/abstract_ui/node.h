@@ -30,12 +30,7 @@ namespace utils
 
 		public:
 			virtual ~node() {
-				remove_from_parent();
-				foreach_child<node>([](node* child) {
-					// TODO: support concurrency
-					child->m_parent = nullptr;
-					return true;
-				});
+				destroy();
 			}
 
 			int post_construct() {
@@ -150,6 +145,18 @@ namespace utils
 			}
 
 		protected:
+			// !!!Attention!!!
+			// Call this method in the destructor of every class that overrides on_destroy()
+			void destroy() {
+				foreach_child<node>([](node* child) {
+					// TODO: support concurrency
+					child->destroy();
+					return true;
+				});
+				on_destroy();
+				remove_from_parent();
+			}
+			virtual void on_destroy() {};
 			template <typename T>
 			const T* get_typed_parent() const {
 				auto base_parent = get_impl_parent();
