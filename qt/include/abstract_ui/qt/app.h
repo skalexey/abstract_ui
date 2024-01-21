@@ -29,6 +29,8 @@ namespace utils
 				}
 				void on_destroy() override {
 					m_main_window = nullptr;
+					// Nullify qt::node::m_object as this node does not own it and it is destroyed along with the Qt Engine.
+					qt::node::init(nullptr);
 				}
 				bool update(float dt) override final;
 				QQmlApplicationEngine& engine() {
