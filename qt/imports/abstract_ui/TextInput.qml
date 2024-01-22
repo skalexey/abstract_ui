@@ -7,16 +7,17 @@ Item {
 	property string text
 
 	height: childrenRect.height
-	width: layout.width
+	width: Math.max(layout.width, parent.width)
 	
 	RowLayout {
 		id: layout
 		spacing: 8  // Adjust the spacing as needed
-	
+		width: Math.max(parent.width, childrenRect.width)
+
 		Label {
 			id: label
 			objectName: "label"
-			Layout.alignment: Qt.AlignVCenter
+			Layout.alignment: Qt.AlignLeft
 		}
 
 		TextField {
@@ -34,7 +35,7 @@ Item {
 			}
 
 			text: parent.text
-			Layout.alignment: Qt.AlignVCenter
+			Layout.alignment: Qt.AlignRight
 			id: input
 			objectName: "input"
 			placeholderText: qsTr("Enter text")
