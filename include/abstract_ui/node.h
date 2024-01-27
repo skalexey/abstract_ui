@@ -70,7 +70,7 @@ namespace utils
 			using each_child_pred_t = std::function<bool(T*)>;
 			template <typename T>
 			bool foreach_child(const each_child_pred_t<T>& cb) {
-				// A child can be removed during iteration, so we need iterate through a copy.
+				// A child can be removed during iteration, so we need to iterate through a copy.
 				auto children = m_children;
 				for (auto child : children)
 				{
