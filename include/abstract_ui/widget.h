@@ -145,8 +145,14 @@ namespace utils
 				virtual void set_size_relative(const vec2f& size) {
 					set_size(size / vec2f(get_screen_size()));
 				}
-				void set_vertical_alignment(const alignment& align) { m_vertical_alignment = align; }
-				void set_horizontal_alignment(const alignment& align) { m_horizontal_alignment = align; }
+				void set_vertical_alignment(const alignment& align) {
+					m_vertical_alignment = align;
+					on_vertical_alignment_set();
+				}
+				void set_horizontal_alignment(const alignment& align) {
+					m_horizontal_alignment = align;
+					on_horizontal_alignment_set();
+				}
 				const alignment& get_vertical_alignment() { return m_vertical_alignment; }
 				const alignment& get_horizontal_alignment() { return m_horizontal_alignment; }
 
@@ -166,6 +172,8 @@ namespace utils
 				virtual int get_max_width() const = 0;
 				
 			protected:
+				virtual void on_horizontal_alignment_set() {};
+				virtual void on_vertical_alignment_set() {};
 				virtual void on_position_changed() {};
 				virtual void on_set_size_policy() {};
 				virtual void on_set_position() {};

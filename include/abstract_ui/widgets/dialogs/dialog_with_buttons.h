@@ -37,10 +37,13 @@ namespace utils
 
 			text& message_text() { return *m_text_message; }
 
-			void add_button(const std::string& text, const button::on_click_t& on_click = nullptr) {
+			void add_button(const std::string& text = "", const button::on_click_t& on_click = nullptr) {
 				auto btn = get_factory().create<ui::button>(this);
-				btn->set_text(text);
-				btn->set_on_click(on_click);
+				if (!text.empty())
+					btn->set_text(text);
+				if (on_click)
+					btn->set_on_click(on_click);
+				btn->set_horizontal_alignment(alignment::center);
 				add_button(btn);
 			}
 			void set_message(const std::string& message)
@@ -48,12 +51,15 @@ namespace utils
 				if (!m_text_message)
 					m_text_message = get_factory().create<ui::text>(this);
 				m_text_message->set_text(message);
+				m_text_message->set_horizontal_alignment(alignment::center);
+				m_text_message->set_text_horizontal_alignment(alignment::center);
 			}
 
 		protected:
 			int init() override
 			{
 				set_size_policy(size_policy::type::automatic, size_policy::type::automatic);
+				set_max_width(200);
 				set_title("Dialog With Buttons");
 				// Factory here is supposed to be already set in the implementation class
 				set_message_text(get_factory().create<ui::text>(this));

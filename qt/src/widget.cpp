@@ -15,6 +15,28 @@ namespace utils
 	{
 		namespace qt
 		{
+			int widget::convert_horizontal_alignment(alignment align)
+			{
+				if (align == alignment::center)
+					return Qt::AlignHCenter;
+				else if (align == alignment::left)
+					return Qt::AlignLeft;
+				else if (align == alignment::right)
+					return Qt::AlignRight;
+				return 0;
+			}
+
+			int widget::convert_vertical_alignment(alignment align)
+			{
+				if (align == alignment::center)
+					return Qt::AlignVCenter;
+				else if (align == alignment::top)
+					return Qt::AlignTop;
+				else if (align == alignment::bottom)
+					return Qt::AlignBottom;
+				return 0;
+			}
+
 			int qt::widget::init()
 			{
 				m_model = create_model();
@@ -28,6 +50,11 @@ namespace utils
 				final_properties["model"] = QVariant::fromValue(m_model);
 				auto r = qt::node::init(component_url, final_properties);
 				m_model->connect_to_node(this);
+				auto horizontal_alignment = get_horizontal_alignment();
+				auto vertical_alignment = get_vertical_alignment();
+				auto converted_horizontal_alignment = convert_horizontal_alignment(horizontal_alignment);
+				auto converted_vertical_alignment = convert_vertical_alignment(vertical_alignment);
+				final_properties["Layout.alignment"] = converted_horizontal_alignment | converted_vertical_alignment;
 				return r;
 			}
 
@@ -130,6 +157,38 @@ namespace utils
 				if (m_model)
 					return m_model->max_width();
 				return -1;
+			}
+
+			void qt::widget::on_horizontal_alignment_set()
+			{
+				app().do_in_main_thread([self = this]() {
+					// TODO: this seems to be not working
+					// TODO: Also, make it be friendly with a general dialog centering in ui/widgets/dialog.h
+					if (auto object = self->widget_qobject())
+					{
+						auto current_value = object->property("Layout.alignment").toInt();
+						auto new_alignment = self->get_horizontal_alignment();
+						auto converted_alignment = convert_horizontal_alignment(new_alignment);
+						object->setProperty("Layout.alignment", current_value | converted_alignment);
+					}
+					return 0;
+				});
+			}
+
+			void qt::widget::on_vertical_alignment_set()
+			{
+				app().do_in_main_thread([self = this]() {
+					// TODO: this seems to be not working
+					// TODO: Also, make it be friendly with a general dialog centering in ui/widgets/dialog.h
+					if (auto object = self->widget_qobject())
+					{
+						auto current_value = object->property("Layout.alignment").toInt();
+						auto new_alignment = self->get_vertical_alignment();
+						auto converted_alignment = convert_vertical_alignment(new_alignment);
+						object->setProperty("Layout.alignment", current_value | converted_alignment);
+					}
+					return 0;
+				});
 			}
 		}
 	}

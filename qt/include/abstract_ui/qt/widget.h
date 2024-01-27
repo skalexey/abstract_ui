@@ -54,6 +54,10 @@ namespace utils
 				int init() override;
 				int init(const QUrl& componentUrl, const QVariantMap& initial_properties) override;
 				virtual qt::widget_model* create_model() const;
+				void on_horizontal_alignment_set() override;
+				void on_vertical_alignment_set() override;
+				static int convert_horizontal_alignment(alignment align);
+				static int convert_vertical_alignment(alignment align);
 
 			private:
 				void collect_property_updates();

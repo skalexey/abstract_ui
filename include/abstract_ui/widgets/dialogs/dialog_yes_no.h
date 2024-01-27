@@ -81,8 +81,8 @@ namespace utils
 				int this_on_post_construct()
 				{
 					set_title("Dialog Yes No");
-					add_button(get_factory().create<ui::button>(this));
-					add_button(get_factory().create<ui::button>(this));
+					add_button();
+					add_button();
 					yes_button().set_on_click([self = this](bool up) {
 						if (up)
 							self->on_answer(true);

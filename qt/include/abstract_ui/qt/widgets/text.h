@@ -25,6 +25,8 @@ namespace utils
 					return "Text.qml";
 				}
 				int init() override;
+				void on_set_text_horizontal_alignment() override;
+				void on_set_text_vertical_alignment() override;
 
 			private:
 				mutable std::string m_tmp_text; // Needed as get_text() returns const std::string&,

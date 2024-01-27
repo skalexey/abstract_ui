@@ -47,7 +47,7 @@ namespace utils
 				QQmlProperty m_width;
 				QQmlProperty m_height;
 				vl::Object m_update_info;
-				int m_max_width = -1;
+				int m_max_width = INT_MAX;
 			};
 		}
 	}

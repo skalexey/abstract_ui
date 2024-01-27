@@ -25,7 +25,7 @@ namespace utils
 				
 				int this_on_post_construct() {
 					set_title("Message");
-					add_button(get_factory().create<ui::button>(this));
+					add_button();
 					ok_button().set_on_click([this](bool up) {
 						this->on_answer(true);
 					});
