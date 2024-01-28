@@ -2,7 +2,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <imgui_impl_sdl2.h>
-#include <imgui_impl_sdlrenderer.h>
+#include <imgui_impl_sdlrenderer2.h>
 #include <abstract_ui/imgui/sdl_app.h>
 #include <utils/file_utils.h>
 #include <abstract_ui/imgui/widget_factory.h>
@@ -83,14 +83,14 @@ namespace utils
 				ImGui::CreateContext();
 				// ----------------------------------------------------------
 				ImGui_ImplSDL2_InitForSDLRenderer(m_window, m_renderer);
-				ImGui_ImplSDLRenderer_Init(m_renderer);
+				ImGui_ImplSDLRenderer2_Init(m_renderer);
 
 				return base::on_run();
 			}
 
 			void sdl_app::cleanup()
 			{
-				ImGui_ImplSDLRenderer_Shutdown();
+				ImGui_ImplSDLRenderer2_Shutdown();
 				ImGui_ImplSDL2_Shutdown();
 				base::cleanup();
 				SDL_DestroyRenderer(m_renderer);
@@ -144,7 +144,7 @@ namespace utils
 				}
 
 				// Start the Dear ImGui frame
-				ImGui_ImplSDLRenderer_NewFrame();
+				ImGui_ImplSDLRenderer2_NewFrame();
 				ImGui_ImplSDL2_NewFrame();
 
 				if (active)
@@ -153,7 +153,7 @@ namespace utils
 				// Rendering
 				SDL_SetRenderDrawColor(m_renderer, (Uint8)(m_clear_color.x * 255), (Uint8)(m_clear_color.y * 255), (Uint8)(m_clear_color.z * 255), (Uint8)(m_clear_color.w * 255));
 				SDL_RenderClear(m_renderer);
-				ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+				ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
 				SDL_RenderPresent(m_renderer);
 					
 				return active;

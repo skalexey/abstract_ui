@@ -21,7 +21,7 @@ macro(setup_module)
 		${IMGUI_DIR}/imgui_tables.cpp
 		${IMGUI_DIR}/imgui_demo.cpp
 		${IMGUI_DIR}/backends/imgui_impl_sdl2.cpp
-		${IMGUI_DIR}/backends/imgui_impl_sdlrenderer.cpp
+		${IMGUI_DIR}/backends/imgui_impl_sdlrenderer2.cpp
 	)
 
 	# SDL dependency
