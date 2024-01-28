@@ -52,6 +52,8 @@ namespace utils
 				ImFont* font = io.Fonts->AddFontFromFileTTF("/usr/share/fonts/truetype/open-sans/OpenSans-Regular.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 #elif defined(_WIN32)
 				ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\Arial.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+#elif defined(__APPLE__)
+				ImFont* font = io.Fonts->AddFontFromFileTTF("/Library/Fonts/Arial Unicode.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 #endif
 				IM_ASSERT(font != NULL);
 				//io.Fonts->AddFontFromFileTTF("NotoSansCJKjp-Medium.otf", 20.0f, NULL, io.Fonts->GetGlyphRangesJapanese());

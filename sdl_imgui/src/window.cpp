@@ -30,7 +30,7 @@ namespace utils
 				bool p_open = true;
 				ImGuiWindowFlags window_flags = 0;
 				// TODO: optimize
-				if (!ImGui::Begin(utils::format_str("Window_%s", get_title()).c_str(), &p_open, window_flags))
+				if (!ImGui::Begin(utils::format_str("Window_%s", get_title().c_str()).c_str(), &p_open, window_flags))
 				{
 					// Early out if the window is collapsed, as an optimization.
 					ImGui::End();
