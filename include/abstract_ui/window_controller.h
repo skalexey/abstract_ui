@@ -12,7 +12,7 @@ namespace utils
 		class window_controller : public node
 		{
 		public:
-			window_controller(utils::ui::app& app);
+			window_controller();
 			
 		protected:
 			void set_view(const utils::ui::window_ptr& view) {

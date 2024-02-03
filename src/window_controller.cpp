@@ -6,10 +6,10 @@ namespace utils
 {
 	namespace ui
 	{
-		window_controller::window_controller(utils::ui::app& app)
+		window_controller::window_controller()
 		{
-			set_factory(app.get_factory()); // Window controllers are implementation-abstract.
-			do_on_post_construct([&, self = this]() {
+			do_on_post_construct([self = this]() {
+				auto& app = self->app();
 				auto ptr = self->shared_from_this();
 				app.add_node(ptr);
 				return 0;
