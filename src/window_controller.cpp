@@ -6,13 +6,14 @@ namespace utils
 {
 	namespace ui
 	{
-		bool window_controller::show() {
-			assert(m_view);
-			return m_view->show();
-		}
-
-		const widget_factory& window_controller::get_factory() const {
-			return m_app.get_factory();
+		window_controller::window_controller(utils::ui::app& app)
+		{
+			set_factory(app.get_factory()); // Window controllers are implementation-abstract.
+			do_on_post_construct([&, self = this]() {
+				auto ptr = self->shared_from_this();
+				app.add_node(ptr);
+				return 0;
+			});
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace utils
 {
 	namespace ui
 	{
-		class node : public virtual entity
+		class node : public virtual entity, public std::enable_shared_from_this<node>
 		{
 			friend class widget_factory;
 
@@ -129,8 +129,8 @@ namespace utils
 				m_on_before_update = on_before_update;
 			}
 
-			void set_factory(widget_factory& factory) {
-				m_factory = &factory;
+			void set_factory(const widget_factory& factory) {
+				m_factory = const_cast<widget_factory*>(&factory);
 			}
 			
 			const widget_factory& get_factory() const {
