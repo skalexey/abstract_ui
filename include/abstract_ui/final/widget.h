@@ -44,6 +44,9 @@ namespace utils
 				int get_max_width() const override {
 					return impl()->get_max_width();
 				}
+				vec2i get_screen_size() const override {
+					return impl()->get_screen_size();
+				}
 
 			protected:
 				void on_set_size_policy() override {
