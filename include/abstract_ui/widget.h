@@ -30,8 +30,6 @@ namespace utils
 					, bottom
 				};
 
-				
-
 				struct size_policy
 				{
 					enum type : int

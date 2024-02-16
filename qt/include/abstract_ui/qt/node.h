@@ -63,10 +63,7 @@ namespace utils
 			protected:
 				void on_destroy() override;
 				void on_set_parent(const ui::node* parent) override;
-				
-				int init() override {
-					return base::init();
-				}
+
 				// Contains shared code to be called by derived classes upon the construction
 				virtual int init(const QUrl& componentUrl, const QVariantMap& initial_properties);
 				

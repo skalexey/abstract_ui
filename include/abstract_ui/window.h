@@ -1,3 +1,4 @@
+// TODO: do we really need this class?
 #pragma once
 
 #include <memory>
