@@ -5,6 +5,7 @@
 #include <abstract_ui/widget.h>
 #include <abstract_ui/imgui/widgets/button.h>
 #include <abstract_ui/imgui/widgets/dialog.h>
+#include <abstract_ui/imgui/widgets/menu.h>
 #include <abstract_ui/imgui/widgets/label.h>
 #include <abstract_ui/imgui/widgets/text.h>
 #include <abstract_ui/imgui/widgets/text_input.h>
@@ -21,8 +22,10 @@ namespace utils
 		{
 			inline void register_widgets()
 			{
+				REGISTER_WIDGET(imgui::widget_factory, imgui::widget);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::button);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::dialog);
+				REGISTER_WIDGET(imgui::widget_factory, imgui::menu);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::label);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::text);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::text_input);

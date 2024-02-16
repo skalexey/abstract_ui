@@ -18,6 +18,10 @@ namespace utils
 		class label;
 		class button;
 		class text_input;
+		class menu;
+		class menu_manager;
+		class menu_controller;
+		class view_controller;
 		using entity_ptr = std::shared_ptr<entity>;
 		using node_ptr = std::shared_ptr<node>;
 		using window_ptr = std::shared_ptr<window>;
@@ -27,5 +31,8 @@ namespace utils
 		using label_ptr = std::shared_ptr<label>;
 		using button_ptr = std::shared_ptr<button>;
 		using text_input_ptr = std::shared_ptr<text_input>;
+		using menu_ptr = std::shared_ptr<menu>;
+		using menu_controller_ptr = std::shared_ptr<menu_controller>;
+		using view_controller_ptr = std::shared_ptr<view_controller>;
 	}
 }

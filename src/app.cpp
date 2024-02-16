@@ -6,6 +6,7 @@
 #include <cassert>
 #include <utils/Log.h>
 #include <abstract_ui/app.h>
+#include <abstract_ui/menu_manager.h>
 
 LOG_POSTFIX("\n");
 LOG_PREFIX("[utils::ui::app]: ");
@@ -56,6 +57,11 @@ namespace utils
 				assert(result != INT_MAX);
 				return result;
 			}
+		}
+
+		utils::ui::menu_manager app::menu_manager()
+		{
+			return utils::ui::menu_manager(*this);
 		}
 	}
 }

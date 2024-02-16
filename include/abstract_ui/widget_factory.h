@@ -10,6 +10,7 @@
 #include <string>
 #include <unordered_map>
 #include <functional>
+#include <VL.h>
 #include <abstract_ui/fwd.h>
 #include <abstract_ui/node.h>
 
@@ -38,7 +39,7 @@ namespace utils
 			}
 
 			template <typename T>
-			static std::shared_ptr<T> create_abstract(node* parent = nullptr, app* app = nullptr, bool deferred = false) {
+			static std::shared_ptr<T> create_abstract(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
 				auto ptr = create_node<T>(parent, app, true);
 				ptr->set_factory(ptr->get_app().get_factory());
 				if (!deferred)

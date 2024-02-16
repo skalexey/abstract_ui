@@ -13,6 +13,8 @@ namespace utils
 			class widget : public virtual imgui::node, public virtual ui::widget
 			{
 			public:
+				using base = ui::widget;
+
 				vec2i get_screen_size() const override;
 				void set_size(const vec2i& size) override {
 					bool size_changed = size != m_size;

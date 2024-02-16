@@ -16,8 +16,10 @@ namespace utils
 			class widget : public virtual qt::node, public virtual ui::widget
 			{
 				friend class qt::widget_model;
-
+				
 			public:
+				using base = ui::widget;
+
 				widget() {
 					add_on_update([self = this](float dt) {
 						self->collect_property_updates();
@@ -52,7 +54,7 @@ namespace utils
 
 			protected:
 				int init() override;
-				int init(const QUrl& componentUrl, const QVariantMap& initial_properties) override;
+				int init(const QUrl& componentUrl, const QVariantMap& initial_properties = {}) override;
 				virtual qt::widget_model* create_model() const;
 				void on_horizontal_alignment_set() override;
 				void on_vertical_alignment_set() override;

@@ -39,8 +39,8 @@ namespace utils
 
 			int qt::widget::init()
 			{
-				m_model = create_model();
-				return qt::node::init();
+				const QUrl url(u"qrc:abstract_ui_qml/Widget.qml"_qs);
+				return qt::widget::init(url);
 			}
 
 			int qt::widget::init(const QUrl& component_url, const QVariantMap& initial_properties)

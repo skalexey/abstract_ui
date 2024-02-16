@@ -91,10 +91,12 @@ namespace utils
 				});
 				return t;
 			}
-
+			
 			void exit(int erc) {
 				throw run_exception(erc);
 			}
+			
+			menu_manager menu_manager();
 
 		protected:
 			struct args_t
