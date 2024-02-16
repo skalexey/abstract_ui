@@ -37,6 +37,11 @@ namespace utils
 					return impl()->get_factory().template create<T>(impl().get());
 				}
 
+				template <typename T>
+				std::shared_ptr<T> create_final() {
+					return impl()->get_factory().template create_final<T>(*impl());
+				}
+
 				ui::node_ptr impl() const {
 					return m_impl;
 				}
