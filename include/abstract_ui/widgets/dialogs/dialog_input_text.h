@@ -20,13 +20,6 @@ namespace utils
 			public:
 				using on_result_t = std::function<void(const std::string& result, bool cancelled)>;
 
-				dialog_input_text()
-				{
-					do_on_post_construct([self = this] {
-						return self->this_on_post_construct();
-					});
-				}
-
 				// In place of a constructor as we only support default one
 				virtual void construct(
 				    const std::string& msg
@@ -55,8 +48,8 @@ namespace utils
 					m_on_result = on_result;
 				}
 				
-			private:
-				int this_on_post_construct()
+			protected:
+				int on_post_construct() override
 				{
 					set_title("Provide your input");
 					m_message_label = get_factory().create<ui::label>(this);

@@ -116,12 +116,11 @@ namespace utils
 				});
 			}
 
-			int qt::node::on_post_construct()
+			int qt::node::post_construct_1()
 			{
 				// LOG_DEBUG("Calling qt::node::on_post_construct() from thread '" << std::this_thread::get_id() << "'");
 				return app().do_in_main_thread([self = this]() {
-					RETURN_IF_NE_0(self->base::on_post_construct());
-					RETURN_IF_NE_0(self->on_qt_node_post_construct());
+					RETURN_IF_NE_0(self->base::post_construct_1());
                     return 0;
 				});
 			}

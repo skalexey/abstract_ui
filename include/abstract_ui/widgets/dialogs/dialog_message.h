@@ -17,13 +17,7 @@ namespace utils
 			public:
 				using on_answer_t = utils::void_bool_cb;
 
-				dialog_message() {
-					do_on_post_construct([self = this] {
-						return self->this_on_post_construct();
-					});
-				}
-				
-				int this_on_post_construct() {
+				int on_post_construct() override {
 					set_title("Message");
 					add_button();
 					ok_button().set_on_click([this](bool up) {

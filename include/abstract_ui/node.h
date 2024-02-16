@@ -34,8 +34,17 @@ namespace utils
 			}
 
 			int post_construct() {
-				RETURN_IF_NE_0(on_post_construct());
+				RETURN_IF_NE_0(post_construct_1());
 				return on_after_post_construct();
+			}
+
+			virtual int post_construct_1() {
+				// Other implementations may want to call it from another thread (e.g. Qt)
+				RETURN_IF_NE_0(init());
+				for (auto&& cb : m_on_post_construct)
+					RETURN_IF_NE_0(cb());
+				RETURN_IF_NE_0(on_post_construct());
+				return 0;
 			}
 
 			virtual void do_on_post_construct(const utils::int_cb& cb) {
@@ -166,10 +175,6 @@ namespace utils
 			}
 			
 			virtual int on_post_construct() {
-				RETURN_IF_NE_0(init());
-				// We need to keep it here to be able to overload and call it from another thread (ex. for Qt)
-				for (auto&& cb : m_on_post_construct)
-					RETURN_IF_NE_0(cb());
 				return 0;
 			}
 

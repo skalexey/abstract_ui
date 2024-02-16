@@ -23,12 +23,6 @@ namespace utils
 			public:
 				using on_answer_t = utils::void_bool_cb;
 
-				dialog_yes_no() {
-					do_on_post_construct([self = this] {
-						return self->this_on_post_construct();
-					});
-				}
-
 				virtual void construct(
 					const std::string& msg
 					, const on_answer_t& on_answer = {}
@@ -78,7 +72,7 @@ namespace utils
 				}
 
 			private:
-				int this_on_post_construct()
+				int on_post_construct()
 				{
 					set_title("Dialog Yes No");
 					add_button();

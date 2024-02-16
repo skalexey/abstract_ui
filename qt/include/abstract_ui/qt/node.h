@@ -75,12 +75,8 @@ namespace utils
 					return 0;
 				}
 
-				virtual int on_qt_node_post_construct() {
-					return 0;
-				}
-
 			private:
-				int on_post_construct() override final;
+				int post_construct_1() override final;
 
 			private:
 				QObject* m_object = nullptr;

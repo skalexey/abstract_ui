@@ -16,8 +16,6 @@ namespace utils
 			public:
 				using base = ui::dialog_yes_no;
 				
-				dialog_yes_no();
-
 				void construct(
 					const std::string& msg
 					, const on_answer_t& on_answer = {}
@@ -32,9 +30,7 @@ namespace utils
 
 			protected:
 				void button_yes_show() override;
-			
-			private:
-				int this_on_post_construct();
+				int on_post_construct() override;
 			};
 		}
 	}
