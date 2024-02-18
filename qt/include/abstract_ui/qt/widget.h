@@ -26,7 +26,10 @@ namespace utils
 						return true;
 					});
 				}
-				
+
+				// *** Position and size type consideration: ***
+				// All the positions and sizes are in pixels, therefore integer type is used for such properties.				
+				// *** *** *** *** *** *** *** *** *** *** *****
 				vec2i get_screen_size() const override;
 
 				widget* as_widget() override {
