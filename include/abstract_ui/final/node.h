@@ -33,8 +33,8 @@ namespace utils
 
 				// Create a widget of type T and add it as a child to this node.
 				template <typename T>
-				std::shared_ptr<T> create() {
-					return impl()->get_factory().template create<T>(impl().get());
+				std::shared_ptr<T> create(ui::node* parent = nullptr) {
+					return impl()->get_factory().template create<T>(parent ? parent : impl().get());
 				}
 
 				template <typename T>
