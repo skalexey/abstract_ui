@@ -8,6 +8,7 @@ namespace utils
 		void menu_controller::close()
 		{
 			get_view()->close();
+			remove_from_parent();
 		}
 	}
 }
