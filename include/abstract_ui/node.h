@@ -192,12 +192,21 @@ namespace utils
 				return true;
 			}
 			
+			virtual bool update_child(ui::node* const child, float dt) {
+				assert(child);
+				if (!child->update(dt))
+					return false;
+				return true;
+			}
+
 			virtual bool update_children(float dt) {
-				return foreach_child<ui::node>([dt](ui::node* child) {
-					assert(child);
-					child->update(dt);
-					return true;
+				return foreach_child<ui::node>([self = this, dt](ui::node* child) {
+					return self->update_child(child, dt);
 				});
+			}
+
+			const std::vector<node_ptr>& get_children() const {
+				return m_children;
 			}
 
 			bool user_update(float dt) {
