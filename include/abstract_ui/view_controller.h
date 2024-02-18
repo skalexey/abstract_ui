@@ -11,9 +11,6 @@ namespace utils
 	{
 		class view_controller : public node
 		{
-		public:
-			view_controller();
-			
 		protected:
 			void set_view(const utils::ui::node_ptr& view) {
 				m_view = view;
