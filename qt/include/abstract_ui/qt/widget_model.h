@@ -1,5 +1,6 @@
 #pragma once
 
+#include <climits>
 #include <VL.h>
 #include <QObject>
 #include <QQmlProperty>
