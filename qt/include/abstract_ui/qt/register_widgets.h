@@ -3,6 +3,8 @@
 #include <memory>
 #include <abstract_ui/qt/widget_factory.h>
 #include <abstract_ui/widget.h>
+#include <abstract_ui/qt/widgets/layouts/vertical_layout.h>
+#include <abstract_ui/qt/widgets/layouts/horizontal_layout.h>
 #include <abstract_ui/qt/widgets/button.h>
 #include <abstract_ui/qt/widgets/dialog.h>
 #include <abstract_ui/qt/widgets/menu.h>
@@ -23,6 +25,8 @@ namespace utils
 			inline void register_widgets()
 			{
 				REGISTER_WIDGET(qt::widget_factory, qt::widget);
+				REGISTER_WIDGET(qt::widget_factory, qt::vertical_layout);
+				REGISTER_WIDGET(qt::widget_factory, qt::horizontal_layout);
 				REGISTER_WIDGET(qt::widget_factory, qt::button);
 				REGISTER_WIDGET(qt::widget_factory, qt::dialog);
 				REGISTER_WIDGET(qt::widget_factory, qt::menu);

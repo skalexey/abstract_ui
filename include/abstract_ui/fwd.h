@@ -11,6 +11,9 @@ namespace utils
 		class node;
 		class app;
 		class widget;
+		class layout;
+		class vertical_layout;
+		class horizontal_layout;
 		class window;
 		class dialog;
 		class widget_factory;
@@ -26,6 +29,9 @@ namespace utils
 		using node_ptr = std::shared_ptr<node>;
 		using window_ptr = std::shared_ptr<window>;
 		using widget_ptr = std::shared_ptr<widget>;
+		using layout_ptr = std::shared_ptr<layout>;
+		using vertical_layout_ptr = std::shared_ptr<vertical_layout>;
+		using horizontal_layout_ptr = std::shared_ptr<horizontal_layout>;
 		using dialog_ptr = std::shared_ptr<dialog>;
 		using text_ptr = std::shared_ptr<text>;
 		using label_ptr = std::shared_ptr<label>;
