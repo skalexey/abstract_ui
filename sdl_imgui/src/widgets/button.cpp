@@ -3,7 +3,8 @@
 #include <imgui_internal.h>
 #include <abstract_ui/imgui/widgets/button.h>
 #include <abstract_ui/imgui/widget_factory.h>
-
+#include <utils/Log.h>
+LOG_TITLE("imgui::button");
 namespace
 {
 	REGISTER_WIDGET_DECLARATIVELY(utils::ui::imgui::widget_factory, utils::ui::imgui::button);
