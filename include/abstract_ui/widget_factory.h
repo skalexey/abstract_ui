@@ -18,6 +18,20 @@
 namespace
 {
 	void set_factory(utils::ui::node* node, const utils::ui::app& app);
+	#define BEGIN_DO_IN_MAIN_THREAD() \
+		auto create_f = [&]() {
+
+	#define END_DO_IN_MAIN_THREAD(parent) \
+		}; \
+		std::shared_ptr<T> ptr; \
+		if (parent) \
+			parent->app().do_in_main_thread([&ptr, create_f]() { \
+				ptr = create_f(); \
+				return 0; \
+			}); \
+		else \
+			ptr = create_f(); \
+		return ptr;
 
 	#define DO_IN_MAIN_THREAD(parent, expr) \
 		auto create_f = [&]() { \
@@ -44,7 +58,7 @@ namespace utils
 			template <typename T>
 			static std::shared_ptr<T> create_node(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
 				// Make sure no update() is called between add_node and post_construct
-				DO_IN_MAIN_THREAD(parent,
+				BEGIN_DO_IN_MAIN_THREAD()
 					auto ptr = std::make_shared<T>();
 					if (options)
 						ptr->set_options(options);
@@ -55,24 +69,23 @@ namespace utils
 					if (!deferred)
 						ptr->post_construct(); // Allow to run code after the constructor worked out
 					return ptr;
-				)
+				END_DO_IN_MAIN_THREAD(parent)
 			}
 
 			template <typename T>
 			static std::shared_ptr<T> create_abstract(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
-				DO_IN_MAIN_THREAD(parent,
+				BEGIN_DO_IN_MAIN_THREAD()
 					auto ptr = create_node<T>(parent, options, app, true);
 					ptr->set_factory(ptr->get_app().get_factory());
 					if (!deferred)
 						ptr->post_construct();
 					return ptr;
-				)
+				END_DO_IN_MAIN_THREAD(parent)
 			}
 
 			template <typename T>
 			std::shared_ptr<T> create_final(node& parent, const vl::Object& options = nullptr, app* app = nullptr) const {
-				node* n = &parent;
-				DO_IN_MAIN_THREAD(n,
+				BEGIN_DO_IN_MAIN_THREAD()
 					auto ptr = std::make_shared<T>();
 					ptr->set_options(options);
 					parent.add_node(ptr);
@@ -81,7 +94,7 @@ namespace utils
 					impl->post_construct();
 					ptr->post_construct(); // Allow to run code after the constructor worked out
 					return ptr;
-				)
+				END_DO_IN_MAIN_THREAD((&parent))
 			}
 			
 			template <typename T>
