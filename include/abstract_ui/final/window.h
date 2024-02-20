@@ -26,6 +26,10 @@ namespace utils
 				}
 
 			protected:
+				void on_set_impl() override {
+					base::on_set_impl();
+				}
+				
 				ui::window_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::window>(final::widget::impl());
 				}

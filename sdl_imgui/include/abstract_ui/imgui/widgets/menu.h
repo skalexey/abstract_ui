@@ -13,7 +13,7 @@ namespace utils
 			{
 			public:
 				using base = ui::menu;
-
+				
 			protected:
 				bool update_children(float dt) override final;
 				

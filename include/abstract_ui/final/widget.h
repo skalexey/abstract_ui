@@ -49,8 +49,14 @@ namespace utils
 				}
 
 			protected:
+				void on_set_impl() override {
+					base::on_set_impl();
+					on_set_size_policy();
+				}
+
 				void on_set_size_policy() override {
-					impl()->set_size_policy(get_size_policy());
+					if (auto impl = this->impl())
+						impl->set_size_policy(get_size_policy());
 				}
 				ui::widget_ptr impl() const {
 					return std::dynamic_pointer_cast<ui::widget>(final::node::impl());

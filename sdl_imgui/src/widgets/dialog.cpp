@@ -83,9 +83,7 @@ namespace utils
 					m_position = new_position;
 					on_position_changed();
 				}
-				if (!base::update_children(dt))
-					return false;
-
+				bool result = base::update_children(dt);
 				// Close button
 				if (!p_open)
 					close();
@@ -95,7 +93,7 @@ namespace utils
 					ImGui::EndPopup();
 				else
 					ImGui::End();
-				return true;
+				return result;
 			}
 		}
 	}

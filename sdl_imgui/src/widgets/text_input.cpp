@@ -20,7 +20,7 @@ namespace utils
 			{
 				// TODO: do smth with this resize:
 				m_edit_value.resize(strlen(m_edit_value.c_str()));
-				auto ret = ImGui::InputText(m_input_label.c_str(), m_edit_value.data(), m_edit_value.capacity());
+				ImGui::InputText(m_input_label.c_str(), m_edit_value.data(), m_edit_value.capacity()); // Return value is not used
 				// TODO: move it to imgui::widget class:
 				// Store size and position of ImGui widget for further getting it with get_size() and get_position().
 				auto r_min = ImGui::GetItemRectMin();
@@ -38,7 +38,7 @@ namespace utils
 					SDL_SetTextInputRect(&rec);
 					sdl_app::request_keyboard();
 				}
-				return ret;
+				return true;
 			}
 
 			bool imgui::text_input::update_text(float dt)

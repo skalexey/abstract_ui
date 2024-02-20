@@ -12,11 +12,26 @@
 #include <functional>
 #include <VL.h>
 #include <abstract_ui/fwd.h>
+#include <abstract_ui/app.h>
 #include <abstract_ui/node.h>
 
 namespace
 {
 	void set_factory(utils::ui::node* node, const utils::ui::app& app);
+
+	#define DO_IN_MAIN_THREAD(parent, expr) \
+		auto create_f = [&]() { \
+			expr; \
+		}; \
+		std::shared_ptr<T> ptr; \
+		if (parent) \
+			parent->app().do_in_main_thread([&ptr, create_f]() { \
+				ptr = create_f(); \
+				return 0; \
+			}); \
+		else \
+			ptr = create_f(); \
+		return ptr;
 }
 
 namespace utils
@@ -27,39 +42,50 @@ namespace utils
 		{
 		public:
 			template <typename T>
-			static std::shared_ptr<T> create_node(node* parent = nullptr, app* app = nullptr, bool deferred = false) {
-				auto ptr = std::make_shared<T>();
-				if (parent)
-					parent->add_node(ptr);
-				if (app)
-					ptr->m_app = app;
-				if (!deferred)
-					ptr->post_construct(); // Allow to run code after the constructor worked out
-				return ptr;
+			static std::shared_ptr<T> create_node(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
+				// Make sure no update() is called between add_node and post_construct
+				DO_IN_MAIN_THREAD(parent,
+					auto ptr = std::make_shared<T>();
+					if (options)
+						ptr->set_options(options);
+					if (parent)
+						parent->add_node(ptr);
+					if (app)
+						ptr->m_app = app;
+					if (!deferred)
+						ptr->post_construct(); // Allow to run code after the constructor worked out
+					return ptr;
+				)
 			}
 
 			template <typename T>
 			static std::shared_ptr<T> create_abstract(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
-				auto ptr = create_node<T>(parent, app, true);
-				ptr->set_factory(ptr->get_app().get_factory());
-				if (!deferred)
-					ptr->post_construct();
-				return ptr;
+				DO_IN_MAIN_THREAD(parent,
+					auto ptr = create_node<T>(parent, options, app, true);
+					ptr->set_factory(ptr->get_app().get_factory());
+					if (!deferred)
+						ptr->post_construct();
+					return ptr;
+				)
 			}
 
 			template <typename T>
-			std::shared_ptr<T> create_final(node& parent, app* app = nullptr) const {
-				auto ptr = std::make_shared<T>();
-				parent.add_node(ptr);
-				auto impl = create<typename T::impl_t>(ptr.get(), app, true);
-				ptr->set_impl(impl);
-				impl->post_construct();
-				ptr->post_construct(); // Allow to run code after the constructor worked out
-				return ptr;
+			std::shared_ptr<T> create_final(node& parent, const vl::Object& options = nullptr, app* app = nullptr) const {
+				node* n = &parent;
+				DO_IN_MAIN_THREAD(n,
+					auto ptr = std::make_shared<T>();
+					ptr->set_options(options);
+					parent.add_node(ptr);
+					auto impl = create<typename T::impl_t>(ptr.get(), options, app, true);
+					ptr->set_impl(impl);
+					impl->post_construct();
+					ptr->post_construct(); // Allow to run code after the constructor worked out
+					return ptr;
+				)
 			}
 			
 			template <typename T>
-			std::shared_ptr<T> create(node* parent = nullptr, app* app = nullptr, bool deferred = false) const {
+			std::shared_ptr<T> create(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) const {
 				auto it = m_creators.find(typeid(T).name());
 #ifdef LOG_ON
 				if (it == m_creators.end())
@@ -67,19 +93,19 @@ namespace utils
 #endif
                 assert(it != m_creators.end() && "Type not found");
 				if (it != m_creators.end())
-					return std::dynamic_pointer_cast<T>(it->second(parent, app, deferred));
+					return std::dynamic_pointer_cast<T>(it->second(parent, options, app, deferred));
 				return nullptr;
 			}
 
 			template <typename Base, typename Final>
 			void register_creator() {
-				m_creators[typeid(Base).name()] = [](ui::node* parent, ui::app* app, bool deferred) {
-					return create_node<Final>(parent, app, deferred);
+				m_creators[typeid(Base).name()] = [](ui::node* parent, const vl::Object& options, ui::app* app, bool deferred) {
+					return create_node<Final>(parent, options, app, deferred);
 				};
 			}
 
 		protected:
-			using creator_t = std::function<widget_ptr(node*, app*, bool)>;
+			using creator_t = std::function<widget_ptr(node*, const vl::Object&, app*, bool)>;
 			using creators_t = std::unordered_map<std::string, creator_t>;
 
 		private:

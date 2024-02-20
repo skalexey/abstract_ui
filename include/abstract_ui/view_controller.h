@@ -11,9 +11,16 @@ namespace utils
 	{
 		class view_controller : public node
 		{
+		public:
+			using base = node;
+			~view_controller() override {
+				m_view->remove_from_parent();
+			}
+			
 		protected:
-			void set_view(const utils::ui::node_ptr& view) {
-				m_view = view;
+			template <typename T>
+			void set_view() {
+				m_view = std::dynamic_pointer_cast<utils::ui::node>(get_factory().create_final<T>(*parent(), get_options()));
 			}
 			const utils::ui::node_ptr& get_view() {
 				return m_view;

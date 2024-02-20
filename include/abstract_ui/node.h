@@ -15,6 +15,7 @@
 #include <cassert>
 #include <memory>
 #include <functional>
+#include <VL.h>
 #include <abstract_ui/fwd.h>
 #include <abstract_ui/entity.h>
 #include <utils/common.h>
@@ -31,6 +32,15 @@ namespace utils
 		public:
 			virtual ~node() {
 				destroy();
+			}
+
+			void set_options(const vl::Object& options) {
+				m_options = options;
+				on_set_options();
+			}
+
+			const vl::Object& get_options() const {
+				return m_options;
 			}
 
 			int post_construct() {
@@ -142,7 +152,7 @@ namespace utils
 				m_factory = const_cast<widget_factory*>(&factory);
 			}
 			
-			const widget_factory& get_factory() const {
+			virtual const widget_factory& get_factory() const {
 				assert(m_factory && "Forgot to call set_factory()?");
 				return *m_factory;
 			}
@@ -154,8 +164,10 @@ namespace utils
 			}
 
 		protected:
+			virtual void on_set_options() {}
 			// !!!Attention!!!
 			// Call this method in the destructor of every class that overrides on_destroy()
+			// to avoid calling the virtual method on a destroyed object.
 			void destroy() {
 				foreach_child<node>([](node* child) {
 					// TODO: support concurrency
@@ -233,6 +245,7 @@ namespace utils
 			std::vector<on_update_t> m_on_update;
 			std::vector<on_update_t> m_added_on_update;
 			std::vector<utils::int_cb> m_on_post_construct;
+			vl::Object m_options = nullptr;
 		};
 		using node_ptr = std::shared_ptr<node>;
 	}
