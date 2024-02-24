@@ -7,8 +7,7 @@
 #include <utils/common.h>
 #include <utils/string_utils.h>
 
-LOG_PREFIX("[user_input]: ");
-LOG_POSTFIX("\n");
+LOG_TITLE("user_input");
 
 namespace utils
 {

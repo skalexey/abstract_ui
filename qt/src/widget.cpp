@@ -7,7 +7,6 @@
 #include <abstract_ui/qt/app.h>
 #include <abstract_ui/qt/widget_model.h>
 #include <utils/Log.h>
-LOG_POSTFIX("\n");
 LOG_TITLE("qt::widget");
 namespace utils
 {

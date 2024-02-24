@@ -3,8 +3,7 @@
 #include <utils/Log.h>
 #include <abstract_ui/qt/widgets/button_model.h>
 
-LOG_PREFIX("[qt::button_model]: ");
-LOG_POSTFIX("\n");
+LOG_TITLE("qt::button_model");
 
 namespace utils
 {

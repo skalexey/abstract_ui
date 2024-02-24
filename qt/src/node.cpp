@@ -12,13 +12,12 @@
 #include <abstract_ui/helpers/user_input.h>
 #include <utils/log_stream.h>
 #include <utils/Log.h>
-SET_LOCAL_LOG_VERBOSE(true);
+SET_LOCAL_LOG_LEVEL(verbose);
 #ifdef LOG_ON
 #include <QDebug>
 #endif
 
-LOG_POSTFIX("\n");
-LOG_PREFIX("[qt::node]: ");
+LOG_TITLE("qt::node");
 
 namespace utils
 {

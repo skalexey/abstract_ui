@@ -3,8 +3,7 @@
 #include <utils/Log.h>
 #include <abstract_ui/qt/widget_model.h>
 
-LOG_PREFIX("[qt::widget_model]: ");
-LOG_POSTFIX("\n");
+LOG_TITLE("qt::widget_model");
 
 #define CHECK_PROPERTY(name) \
 	assert(m_##name.isValid()); \

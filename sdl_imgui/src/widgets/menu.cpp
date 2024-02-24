@@ -3,7 +3,6 @@
 #include <imgui.h>
 #include <utils/Log.h>
 LOG_TITLE("imgui::menu");
-LOG_POSTFIX("\n");
 
 namespace utils
 {

@@ -2,6 +2,8 @@
 #include <abstract_ui/node.h>
 #include <abstract_ui/app.h>
 #include <abstract_ui/final/node.h>
+#include <utils/Log.h>
+LOG_TITLE("utils::ui::node");
 
 namespace utils
 {

@@ -14,8 +14,7 @@
 
 #include <utils/Log.h>
 
-LOG_PREFIX("[qt::button] ");
-LOG_POSTFIX("\n");
+LOG_TITLE("qt::button");
 
 namespace
 {

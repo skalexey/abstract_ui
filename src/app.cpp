@@ -8,8 +8,7 @@
 #include <abstract_ui/app.h>
 #include <abstract_ui/menu_manager.h>
 
-LOG_POSTFIX("\n");
-LOG_PREFIX("[utils::ui::app]: ");
+LOG_TITLE("utils::ui::app");
 
 namespace
 {

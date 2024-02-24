@@ -10,8 +10,7 @@
 #include <QDebug>
 #endif
 
-LOG_POSTFIX("\n");
-LOG_PREFIX("[qt::dialog]: ");
+LOG_TITLE("qt::dialog");
 
 namespace utils
 {

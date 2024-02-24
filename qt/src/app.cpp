@@ -11,8 +11,7 @@
 #include <abstract_ui/qt/register_widgets.h>
 #include <utils/Log.h>
 
-LOG_PREFIX("[qt::app]: ");
-LOG_POSTFIX("\n");
+LOG_TITLE("qt::app");
 
 namespace utils
 {

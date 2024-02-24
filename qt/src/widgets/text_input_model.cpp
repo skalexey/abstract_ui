@@ -3,8 +3,7 @@
 #include <utils/Log.h>
 #include <abstract_ui/qt/widgets/text_input_model.h>
 
-LOG_PREFIX("[qt::text_input_model]: ");
-LOG_POSTFIX("\n");
+LOG_TITLE("qt::text_input_model");
 
 namespace utils
 {
