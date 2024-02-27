@@ -71,8 +71,12 @@ namespace utils
 					close();
 				}
 
+				virtual int on_dialog_yes_no_post_construct() {
+					return 0;
+				}
+
 			private:
-				int on_post_construct()
+				int on_post_construct() final
 				{
 					set_title("Dialog Yes No");
 					add_button();
@@ -85,7 +89,7 @@ namespace utils
 						if (up)
 							self->on_answer(false);
 					});
-					return 0;
+					return on_dialog_yes_no_post_construct();
 				}
 
 			private:

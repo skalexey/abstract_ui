@@ -30,7 +30,7 @@ namespace utils
 
 			protected:
 				void button_yes_show() override;
-				int on_post_construct() override;
+				int on_dialog_yes_no_post_construct() override;
 			};
 		}
 	}

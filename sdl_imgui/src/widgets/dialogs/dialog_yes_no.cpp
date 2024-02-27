@@ -16,7 +16,7 @@ namespace utils
 		{
 			REGISTER_WIDGET_DECLARATIVELY(imgui::widget_factory, imgui::dialog_yes_no);
 
-			int imgui::dialog_yes_no::on_post_construct()
+			int imgui::dialog_yes_no::on_dialog_yes_no_post_construct()
 			{
 				yes_button().set_on_before_update([this](float dt) {
 					ImGuiStyle& style = ImGui::GetStyle();
