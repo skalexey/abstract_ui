@@ -16,7 +16,9 @@ namespace utils
 				
 			protected:
 				bool update_children(float dt) override final;
-				
+
+			private:
+				bool update_menu_list(float dt);
 			};
 			using menu_list_ptr = std::shared_ptr<menu_list>;
 		}
