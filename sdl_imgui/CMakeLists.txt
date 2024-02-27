@@ -43,6 +43,9 @@ macro(setup_module)
 	# Base dependency	
 	add_dependency_module(${DEPS}/abstract_ui abstract_ui)
 
+	# For IDE
+	add_headers_to_sources()
+	
 	# add library
 	module_add_library()
 
