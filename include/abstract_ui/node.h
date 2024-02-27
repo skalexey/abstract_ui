@@ -25,7 +25,7 @@ namespace utils
 {
 	namespace ui
 	{
-		class node : public virtual entity, public std::enable_shared_from_this<node>
+		class node : public virtual entity
 		{
 			friend class widget_factory;
 
