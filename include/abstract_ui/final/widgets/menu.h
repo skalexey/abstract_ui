@@ -1,7 +1,6 @@
 #pragma once
 
 #include <abstract_ui/fwd.h>
-#include <abstract_ui/window.h>
 #include <abstract_ui/final/window.h>
 #include <abstract_ui/widgets/menu.h>
 

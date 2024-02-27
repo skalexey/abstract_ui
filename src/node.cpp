@@ -37,10 +37,13 @@ namespace utils
 			// TODO: support concurrency
 			assert(node && "Adding a null node");
 			assert(node.get() && "Adding a half-null node");
+			assert(node->m_parent == nullptr && "Adding a node that already has a parent");
 			// This code is called from parent to avoid having a potentially called method
 			node->m_parent = this;
 			node->m_app = dynamic_cast<ui::app*>(node->root());
 			m_children.push_back(node);
+			on_add_node(node.get());
+			node->on_set_parent(this);
 		}
 	}
 }

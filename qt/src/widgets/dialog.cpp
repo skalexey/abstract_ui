@@ -35,7 +35,6 @@ namespace utils
 					return r;
 
 				m_dialog = qobject()->findChild<QObject*>("dialog");
-				m_content = m_dialog->findChild<QObject*>("content");
 
 				QVariant result = widget_qobject()->property("show");
 				if (result.canConvert<QJSValue>()) {

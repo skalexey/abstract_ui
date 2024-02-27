@@ -1,3 +1,5 @@
 import QtQuick.Layouts
 
-ColumnLayout {}
+ColumnLayout {
+	property var model
+}

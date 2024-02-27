@@ -1,4 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 
-Item {}
+Item {
+	property var model
+}

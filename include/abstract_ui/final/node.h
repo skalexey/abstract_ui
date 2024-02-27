@@ -26,12 +26,16 @@ namespace utils
 					m_impl = impl;
 					auto impl_actual_parent = impl->parent();
 					if (impl_actual_parent == nullptr)
-						add_node(m_impl);
+						ui::node::add_node(m_impl);
 					else
 						assert(impl_actual_parent == static_cast<ui::node*>(this) && "Trying to call set_impl(impl) with already used impl in another node");
 					on_set_impl();
 				}
 
+				void add_node(const ui::node_ptr& node) override {
+					impl()->add_node(node);
+				}
+				
 				// Create a widget of type T and add it as a child to this node.
 				template <typename T>
 				std::shared_ptr<T> create(ui::node* parent = nullptr) {
@@ -40,7 +44,7 @@ namespace utils
 
 				template <typename T>
 				std::shared_ptr<T> create_abstract(ui::node* parent = nullptr, const vl::Object& options = nullptr) {
-					return impl()->get_factory().template create_abstract<T>(parent ? parent : impl().get(), options);
+					return widget_factory::create_abstract<T>(parent ? parent : impl().get(), options);
 				}
 
 				template <typename T>

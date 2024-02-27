@@ -18,9 +18,6 @@ namespace utils
 
 				// We don't pass the title as argument because of virtual inheritance
 				dialog();
-				QObject* content_qobject() const override {
-					return m_content;
-				}
 				QObject* widget_qobject() const override {
 					return m_dialog;
 				}
@@ -35,7 +32,6 @@ namespace utils
 				bool on_update(float dt) override final;
 
 			private:
-				QObject* m_content = nullptr;
 				QObject* m_dialog = nullptr;
 			};
 			using dialog_ptr = std::shared_ptr<dialog>;

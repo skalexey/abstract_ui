@@ -10,7 +10,7 @@ namespace utils
 	{
 		namespace qt
 		{
-			class button_model : public widget_model
+			class clickable_item_model : public widget_model
 			{
 				Q_OBJECT
 				using base = widget_model;
@@ -23,8 +23,8 @@ namespace utils
 				}
 				
 			public slots:
-				void buttonClicked();
-				void buttonClicked(QString &in);
+				void itemClicked();
+				void itemClicked(QString &in);
 			
 			private:
 				on_click_t m_on_click;
@@ -32,4 +32,4 @@ namespace utils
 		}
 	}
 }
-Q_DECLARE_METATYPE(utils::ui::qt::button_model)
+Q_DECLARE_METATYPE(utils::ui::qt::clickable_item_model)

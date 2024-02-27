@@ -55,7 +55,7 @@ namespace utils
 
 				// Object for adding child nodes. It may be nested into qobject() due to layouting.
 				virtual QObject* content_qobject() const {
-					return m_object;
+					return m_content;
 				} // = 0; // TODO: set it to 0 then
 
 				QObject* parent_qobject() const;
@@ -77,6 +77,7 @@ namespace utils
 
 			private:
 				QObject* m_object = nullptr;
+				QObject* m_content = nullptr;
 				
 			};
 			using node_ptr = std::shared_ptr<qt::node>;

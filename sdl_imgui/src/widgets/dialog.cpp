@@ -39,7 +39,8 @@ namespace utils
 				m_last_size = sz;
 				// Create the window
 
-				ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse;
+				auto window_flags = this->window_flags();
+				window_flags |= ImGuiWindowFlags_NoCollapse;
 				
 				if (get_size_policy().horizontal == size_policy::type::automatic && get_size_policy().vertical == size_policy::type::automatic)
 					window_flags |= ImGuiWindowFlags_AlwaysAutoResize;

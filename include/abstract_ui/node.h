@@ -48,17 +48,12 @@ namespace utils
 				return on_after_post_construct();
 			}
 
-			virtual int post_construct_1() {
-				// Other implementations may want to call it from another thread (e.g. Qt)
-				RETURN_IF_NE_0(init());
-				for (auto&& cb : m_on_post_construct)
-					RETURN_IF_NE_0(cb());
-				RETURN_IF_NE_0(on_post_construct());
-				return 0;
-			}
-
 			virtual void do_on_post_construct(const utils::int_cb& cb) {
 				m_on_post_construct.push_back(cb);
+			}
+
+			virtual bool process_event(const std::string& name, const vl::Object& data) {
+				return false;
 			}
 
 			bool remove_node(node* node) {
@@ -72,7 +67,7 @@ namespace utils
 				return false;
 			}
 
-			void add_node(const node_ptr& node);
+			virtual void add_node(const node_ptr& node);
 
 			virtual void on_before_remove_from_parent() {}
 
@@ -165,6 +160,14 @@ namespace utils
 
 		protected:
 			virtual void on_set_options() {}
+			virtual int post_construct_1() {
+				// Other implementations may want to call it from another thread (e.g. Qt)
+				RETURN_IF_NE_0(init());
+				RETURN_IF_NE_0(on_post_construct());
+				for (auto&& cb : m_on_post_construct)
+					RETURN_IF_NE_0(cb());
+				return 0;
+			}
 			// !!!Attention!!!
 			// Call this method in the destructor of every class that overrides on_destroy()
 			// to avoid calling the virtual method on a destroyed object.
@@ -191,10 +194,6 @@ namespace utils
 			}
 
 			virtual int on_after_post_construct() {
-				auto parent_ptr = parent();
-				if (parent_ptr)
-					parent_ptr->on_add_node(this);
-				on_set_parent(parent_ptr);
 				return 0;
 			}
 			

@@ -25,6 +25,9 @@ namespace utils
 				void set_enabled(bool enabled) override {
 					m_enabled = enabled;
 				}
+				bool is_enabled() const override {
+					return m_enabled;
+				}
 
 			protected:
 				virtual bool on_imgui_button_update(float dt) {

@@ -34,6 +34,14 @@ namespace utils
 					return ptr;
 				});
 			}
+			const ui::menu_controller& get_current_menu() const {
+				assert(m_data.current_menu.menu);
+				return *m_data.current_menu.menu;
+			}
+			ui::menu_controller& current_menu() {
+				assert(m_data.current_menu.menu);
+				return const_cast<ui::menu_controller&>(get_current_menu());
+			}
 
 		protected:
 			void load_current_menu();

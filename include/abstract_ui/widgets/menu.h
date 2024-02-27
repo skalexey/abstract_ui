@@ -16,13 +16,7 @@ namespace utils
 			using base = window;
 			
 			menu() {
-				// Don't override on_post_construct to keep it free to use for derived classes
-				do_on_post_construct([self = this]() {
-					self->set_title("qt menu");
-					auto screen_size = self->get_screen_size();
-					self->set_size(screen_size);
-					return 0;
-				});
+				set_title("qt menu");
 			}
 
 			const std::string& get_title() const override {
@@ -50,7 +44,7 @@ namespace utils
 			virtual void create_back_button(ui::node* parent = nullptr);
 			virtual void remove_back_button();
 			
-		protected:	
+		protected:
 			virtual void on_set_back_button_enabled() {}
 			virtual void on_set_title() {}
 			bool on_update(float dt) override;

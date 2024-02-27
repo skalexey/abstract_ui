@@ -37,6 +37,8 @@ namespace utils
 
 		bool ui::menu::on_update(float dt)
 		{
+			auto screen_size = get_screen_size();
+			set_size(screen_size);
 			auto back_button = get_back_button_ptr();
 			if (m_use_back_button && !back_button)
 				create_back_button();

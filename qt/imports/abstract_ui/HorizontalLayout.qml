@@ -1,3 +1,5 @@
 import QtQuick.Layouts
 
-RowLayout {}
+RowLayout {
+	property var model
+}

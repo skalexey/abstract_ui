@@ -27,7 +27,7 @@ macro(setup_module)
 	# setup_module_includes()
     # set_headers()
 	qt_wrap_cpp(MOC_FILES ${DEPS}/abstract_ui/qt/include/abstract_ui/qt/widget_model.h)
-	qt_wrap_cpp(MOC_FILES ${DEPS}/abstract_ui/qt/include/abstract_ui/qt/widgets/button_model.h)
+	qt_wrap_cpp(MOC_FILES ${DEPS}/abstract_ui/qt/include/abstract_ui/qt/widgets/clickable_item_model.h)
 	qt_wrap_cpp(MOC_FILES ${DEPS}/abstract_ui/qt/include/abstract_ui/qt/widgets/text_input_model.h)
 	module_message("MOC_FILES: ${MOC_FILES}")
     add_src(

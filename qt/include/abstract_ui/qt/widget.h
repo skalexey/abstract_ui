@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <QObject>
 #include <abstract_ui/qt/node.h>
 #include <abstract_ui/widget.h>
 

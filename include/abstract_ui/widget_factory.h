@@ -57,7 +57,7 @@ namespace utils
 		public:
 			template <typename T>
 			static std::shared_ptr<T> create_node(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
-				// Make sure no update() is called between add_node and post_construct
+				// Make sure no update() is called between add_node and post_construct by invoking the whole process in the main thread
 				BEGIN_DO_IN_MAIN_THREAD()
 					auto ptr = std::make_shared<T>();
 					if (options)
@@ -86,10 +86,11 @@ namespace utils
 			template <typename T>
 			std::shared_ptr<T> create_final(node& parent, const vl::Object& options = nullptr, app* app = nullptr) const {
 				BEGIN_DO_IN_MAIN_THREAD()
+					// TODO: move it to any final class constructor if possible, or combine with create()
 					auto ptr = std::make_shared<T>();
 					ptr->set_options(options);
 					parent.add_node(ptr);
-					auto impl = create<typename T::impl_t>(ptr.get(), options, app, true);
+					auto impl = create<typename T::impl_t>(nullptr, options, app, true);
 					ptr->set_impl(impl);
 					impl->post_construct();
 					ptr->post_construct(); // Allow to run code after the constructor worked out

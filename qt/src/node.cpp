@@ -85,6 +85,9 @@ namespace utils
 						QQmlContext* ctx = self->app().engine().rootContext();
 						if (self->m_object = component.createWithInitialProperties(finalinitial_properties, ctx))
 						{
+							self->m_content = self->m_object->findChild<QObject*>("content");
+							if (!self->m_content)
+								self->m_content = self->m_object;
 							return 0;
 						}
 						else
@@ -97,7 +100,7 @@ namespace utils
 								if (auto uinput = dynamic_cast<utils::ui::user_input*>(&self->app()))
 									uinput->show_message(e);
 							}
-							LOG_ERROR("There were errors during creating a dialog from qml");
+							LOG_ERROR("There were errors during creating a node from qml");
 							return -1;
 						}
 					}
@@ -127,7 +130,7 @@ namespace utils
 			void qt::node::on_set_parent(const ui::node* parent)
 			{
 				// TODO: don't do it if the parent is the same
-				app().do_in_main_thread([self = this, parent]() {
+				auto job = [self = this, parent] {
 					QObject* parent_qobject = nullptr;
 					if (parent)
 					{
@@ -145,7 +148,7 @@ namespace utils
 							parent_qobject = parent_qnode_to_add->content_qobject();
 							if (level_up > 0)
 							{
-								LOG_WARNING(self << "on_set_parent(" << parent << "): The parent is not a qt::node, so this node will be attached to " << level_up << " level above ");
+								LOG_WARNING(self << " on_set_parent(" << parent << "): The parent is not a qt::node, so this node will be attached to " << level_up << " level above ");
 							}
 						}
 					}
@@ -155,7 +158,11 @@ namespace utils
 					if (current_parent != parent_qobject)
 						qobject->setParent(parent_qobject);
 					return 0;
-				});
+				};
+				if (content_qobject())
+					app().do_in_main_thread(job);
+				else
+					do_on_post_construct(job);
 			}
 
 			QObject* qt::node::parent_qobject() const

@@ -34,6 +34,11 @@ namespace utils
 
 		void menu_manager::open_menu(const std::string& name, const vl::Object& options)
 		{
+			if (m_data.current_menu.name == name)
+			{
+				current_menu().process_event("open", options);
+				return;
+			}
 			if (m_data.current_menu.menu)
 				unload_current_menu();
 			m_data.menu_stack.push_back({name, options});

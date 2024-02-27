@@ -13,6 +13,9 @@ namespace utils
 			{
 			public:
 				using base = ui::menu;
+
+			protected:
+				int init() override;
 			};
 			using menu_ptr = std::shared_ptr<menu>;
 		}
