@@ -27,6 +27,14 @@ namespace utils
 				node();
 				~node() override;
 				
+				bool is_initialized() const override {
+					if (!base::is_initialized())
+						return false;
+					return m_object != nullptr;
+				}
+				// Contains shared code to be called by derived classes upon the construction
+				virtual int init(const QUrl& componentUrl, const QVariantMap& initial_properties = {});
+
 				const qt::node* get_parent() const {
 					return get_typed_parent<qt::node>();
 				}
@@ -62,15 +70,9 @@ namespace utils
 
 			protected:
 				void on_destroy() override;
-				void on_set_parent(const ui::node* parent) override;
+				void on_set_parent(ui::node* parent) override;
 
-				// Contains shared code to be called by derived classes upon the construction
-				virtual int init(const QUrl& componentUrl, const QVariantMap& initial_properties);
-				
-				int init(QObject* object) {
-					m_object = object;
-					return 0;
-				}
+				int init(QObject* object, QObject* content_qobject = nullptr);
 
 			private:
 				int post_construct_1() override final;

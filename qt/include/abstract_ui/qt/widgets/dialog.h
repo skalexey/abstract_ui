@@ -23,13 +23,15 @@ namespace utils
 				}
 
 			protected:
+				void on_show() override;
 				void on_before_show() override;
 				void on_set_title() override;
 				int init() override;
 				void on_set_modal() override;
-
+			
 			private:
 				bool on_update(float dt) override final;
+				int qml_show();
 
 			private:
 				QObject* m_dialog = nullptr;

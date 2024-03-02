@@ -16,7 +16,7 @@ namespace utils
 				m_back_button->remove_from_parent();
 			set_back_button_enabled(true);
 			m_back_button = get_factory().create<button>(parent ? parent : this);
-			if (app().menu_manager().get_menu_stack_size() > 1)
+			if (app().menu_manager().get_menu_stack().size() > 1)
 				m_back_button->set_text("Back");
 			else
 				m_back_button->set_text("Close");

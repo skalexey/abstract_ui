@@ -16,7 +16,7 @@ namespace utils
 			using base = window;
 			
 			menu() {
-				set_title("qt menu");
+				set_title("ui::menu");
 			}
 
 			const std::string& get_title() const override {

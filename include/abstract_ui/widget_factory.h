@@ -54,6 +54,13 @@ namespace utils
 	{
 		class widget_factory
 		{
+		protected:
+			using creator_t = std::function<widget_ptr(node*, const vl::Object&, app*, bool)>;
+			using creators_t = std::unordered_map<std::string, creator_t>;
+
+		private:
+			creators_t m_creators;
+
 		public:
 			template <typename T>
 			static std::shared_ptr<T> create_node(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
@@ -62,12 +69,12 @@ namespace utils
 					auto ptr = std::make_shared<T>();
 					if (options)
 						ptr->set_options(options);
-					if (parent)
-						parent->add_node(ptr);
 					if (app)
 						ptr->m_app = app;
 					if (!deferred)
 						ptr->post_construct(); // Allow to run code after the constructor worked out
+					if (parent)
+						parent->add_node(ptr);
 					return ptr;
 				END_DO_IN_MAIN_THREAD(parent)
 			}
@@ -75,10 +82,12 @@ namespace utils
 			template <typename T>
 			static std::shared_ptr<T> create_abstract(node* parent = nullptr, const vl::Object& options = nullptr, app* app = nullptr, bool deferred = false) {
 				BEGIN_DO_IN_MAIN_THREAD()
-					auto ptr = create_node<T>(parent, options, app, true);
+					auto ptr = create_node<T>(nullptr, options, app, true);
 					ptr->set_factory(ptr->get_app().get_factory());
 					if (!deferred)
 						ptr->post_construct();
+					if (parent)
+						parent->add_node(ptr);
 					return ptr;
 				END_DO_IN_MAIN_THREAD(parent)
 			}
@@ -89,11 +98,11 @@ namespace utils
 					// TODO: move it to any final class constructor if possible, or combine with create()
 					auto ptr = std::make_shared<T>();
 					ptr->set_options(options);
-					parent.add_node(ptr);
 					auto impl = create<typename T::impl_t>(nullptr, options, app, true);
-					ptr->set_impl(impl);
 					impl->post_construct();
+					ptr->set_impl(impl);
 					ptr->post_construct(); // Allow to run code after the constructor worked out
+					parent.add_node(ptr);
 					return ptr;
 				END_DO_IN_MAIN_THREAD((&parent))
 			}
@@ -112,18 +121,11 @@ namespace utils
 			}
 
 			template <typename Base, typename Final>
-			void register_creator() {
-				m_creators[typeid(Base).name()] = [](ui::node* parent, const vl::Object& options, ui::app* app, bool deferred) {
+			void register_creator(const creator_t& custom_creator = nullptr) {
+				m_creators[typeid(Base).name()] = custom_creator ? custom_creator : [](ui::node* parent, const vl::Object& options, ui::app* app, bool deferred) {
 					return create_node<Final>(parent, options, app, deferred);
 				};
 			}
-
-		protected:
-			using creator_t = std::function<widget_ptr(node*, const vl::Object&, app*, bool)>;
-			using creators_t = std::unordered_map<std::string, creator_t>;
-
-		private:
-			creators_t m_creators;
 		};
 	}
 }

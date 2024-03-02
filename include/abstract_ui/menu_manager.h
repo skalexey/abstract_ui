@@ -15,7 +15,7 @@ namespace utils
 		{
 		public:
 			menu_manager(ui::app& app) : m_app(&app), m_data(m_all_data[m_app]) {}
-			void open_menu(const std::string& name, const vl::Object& options = vl::NullObject());
+			bool open_menu(const std::string& name, const vl::Object& options = vl::NullObject());
 			void back();
 			void close_current_menu() {
 				back();
@@ -24,8 +24,14 @@ namespace utils
 				while (!m_data.menu_stack.empty())
 					back();
 			}
-			int get_menu_stack_size() const {
-				return m_data.menu_stack.size();
+			struct menu_stack_entry
+			{
+				std::string name;
+				vl::Object options;
+			};
+			using menu_stack_t = std::vector<menu_stack_entry>;
+			const menu_stack_t& get_menu_stack() const {
+				return m_data.menu_stack;
 			}
 			template <typename T>
 			void register_menu(const std::string& name) {
@@ -67,12 +73,7 @@ namespace utils
 					std::string name;
 					ui::menu_controller_ptr menu;
 				} current_menu;
-				struct menu_stack_entry
-				{
-					std::string name;
-					vl::Object options;
-				};
-				std::vector<menu_stack_entry> menu_stack;
+				menu_stack_t menu_stack;
 			};
 			menu_manager_data& data() {
 				return m_data;

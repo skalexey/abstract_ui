@@ -10,12 +10,12 @@ namespace utils
 	{
 		void menu_list_base::add_item(const std::string& title, const action_t& action)
 		{
-			auto widget = get_factory().create<ui::menu_item>(this);
-			//add_widget(widget);
+			auto widget = get_factory().create<ui::menu_item>();
 			widget->set_text(title);
 			widget->set_on_click([action](bool) {
 				action();
 			});
+			add_widget(widget);
 		}
 	}
 }

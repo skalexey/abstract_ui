@@ -40,13 +40,7 @@ namespace utils
 					LOG_WARNING("Could not find main window");
 					return -1;
 				}
-				qt::node::init(m_main_window);
-				return 0;
-			}
-
-            QObject* app::content_qobject() const
-			{
-				return m_main_window->contentItem();
+				return qt::node::init(m_main_window, m_main_window->contentItem());
 			}
 
 			int app::on_run()

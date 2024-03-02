@@ -32,17 +32,18 @@ namespace utils
 			return nullptr;
 		}
 
-		void menu_manager::open_menu(const std::string& name, const vl::Object& options)
+		bool menu_manager::open_menu(const std::string& name, const vl::Object& options)
 		{
-			if (m_data.current_menu.name == name)
+			if (m_data.current_menu.name == name && m_data.menu_stack.back().options.Same(options))
 			{
-				current_menu().process_event("open", options);
-				return;
+				//current_menu().process_event("open", options);
+				return false;
 			}
 			if (m_data.current_menu.menu)
 				unload_current_menu();
 			m_data.menu_stack.push_back({name, options});
 			load_current_menu();
+			return true;
 		}
 
 		void menu_manager::back()

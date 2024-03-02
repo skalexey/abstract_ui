@@ -41,8 +41,6 @@ namespace utils
 					return m_qml_engine;
 				}
 
-				QObject* content_qobject() const override;
-
 			protected:
 				void update_qt();
 				int on_run() override final;

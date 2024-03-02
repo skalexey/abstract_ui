@@ -26,6 +26,9 @@ namespace utils
 					});
 				}
 
+				int init() override;
+				int init(const QUrl& componentUrl, const QVariantMap& initial_properties = {}) override;
+
 				// *** Position and size type consideration: ***
 				// All the positions and sizes are in pixels, therefore integer type is used for such properties.				
 				// *** *** *** *** *** *** *** *** *** *** *****
@@ -55,8 +58,6 @@ namespace utils
 				}
 
 			protected:
-				int init() override;
-				int init(const QUrl& componentUrl, const QVariantMap& initial_properties = {}) override;
 				virtual qt::widget_model* create_model() const;
 				void on_horizontal_alignment_set() override;
 				void on_vertical_alignment_set() override;

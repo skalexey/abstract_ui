@@ -7,17 +7,10 @@ ToolBar {
 	RowLayout {
 		objectName: "content"
 		anchors.fill: parent
-
-		ToolButton {
-			text: qsTr("TolBaton")
-		}
-
-		Menu {
-			title: qsTr("Test menu")
-		}
 	}
 }
 
+// QML MenuBar does not support buttons, so ToolBar is used instead.
 /*MenuBar {
 	property var model
 }*/

@@ -16,6 +16,7 @@ namespace utils
 
 			protected:
 				int init() override;
+				void on_set_title() override;
 			};
 			using menu_ptr = std::shared_ptr<menu>;
 		}

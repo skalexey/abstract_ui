@@ -16,6 +16,7 @@
 #include <memory>
 #include <functional>
 #include <VL.h>
+#include <utils/ordered_map.h>
 #include <abstract_ui/fwd.h>
 #include <abstract_ui/entity.h>
 #include <utils/common.h>
@@ -28,7 +29,7 @@ namespace utils
 		class node : public virtual entity
 		{
 			friend class widget_factory;
-
+			friend class final::node;
 		public:
 			virtual ~node() {
 				destroy();
@@ -68,6 +69,7 @@ namespace utils
 			}
 
 			virtual void add_node(const node_ptr& node);
+			virtual void add_node_base(const node_ptr& node);
 
 			virtual void on_before_remove_from_parent() {}
 
@@ -158,6 +160,26 @@ namespace utils
 				return 0;
 			}
 
+			virtual bool is_initialized() const {
+				return true;
+			}
+
+			bool_cb& add_on_set_parent(const void* subscriber, const bool_cb& cb) {
+				return m_on_set_parent.add(subscriber, cb);
+			}
+
+			bool clear_on_set_parent(const void* subscriber) {
+				return m_on_set_parent.erase(subscriber);
+			}
+
+			const std::vector<node_ptr>& get_children() const {
+				return m_children;
+			}
+
+			std::vector<node_ptr>& children() {
+				return m_children;
+			}
+
 		protected:
 			virtual void on_set_options() {}
 			virtual int post_construct_1() {
@@ -216,10 +238,6 @@ namespace utils
 				});
 			}
 
-			const std::vector<node_ptr>& get_children() const {
-				return m_children;
-			}
-
 			bool user_update(float dt) {
 				if (!m_added_on_update.empty())
 				{
@@ -231,9 +249,17 @@ namespace utils
 						return false;
 				return true;
 			}
-
+			
 			virtual void on_add_node(node* node) {}
-			virtual void on_set_parent(const ui::node* parent) {}
+			virtual void on_set_parent(ui::node* parent) {}
+			void on_set_parent_impl(ui::node* parent) {
+				on_set_parent(parent);
+				for(auto it = m_on_set_parent.begin(); it != m_on_set_parent.end();)
+					if (!(*it).second())
+						it = m_on_set_parent.erase(it);
+					else
+						++it;
+			}
 
 		private:
 			node* m_parent = nullptr;
@@ -244,6 +270,7 @@ namespace utils
 			std::vector<on_update_t> m_on_update;
 			std::vector<on_update_t> m_added_on_update;
 			std::vector<utils::int_cb> m_on_post_construct;
+			utils::ordered_map<const void*, bool_cb> m_on_set_parent;
 			vl::Object m_options = nullptr;
 		};
 		using node_ptr = std::shared_ptr<node>;

@@ -16,7 +16,8 @@ namespace utils
 		public:
 			using base = node;
 			~view_controller() override {
-				m_view->remove_from_parent();
+				if (m_view)
+					m_view->remove_from_parent();
 			}
 			
 			template <typename T>

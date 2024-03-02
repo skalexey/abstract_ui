@@ -15,7 +15,8 @@ namespace utils
 			{
 			public:
 				using impl_t = ui::node;
-				
+				using base = impl_t;
+
 				node() = default;
 				
 				node(const ui::node_ptr& impl) {
@@ -26,7 +27,7 @@ namespace utils
 					m_impl = impl;
 					auto impl_actual_parent = impl->parent();
 					if (impl_actual_parent == nullptr)
-						ui::node::add_node(m_impl);
+						ui::node::add_node_base(m_impl); // Avoid calling on_set_parent
 					else
 						assert(impl_actual_parent == static_cast<ui::node*>(this) && "Trying to call set_impl(impl) with already used impl in another node");
 					on_set_impl();
@@ -38,8 +39,8 @@ namespace utils
 				
 				// Create a widget of type T and add it as a child to this node.
 				template <typename T>
-				std::shared_ptr<T> create(ui::node* parent = nullptr) {
-					return impl()->get_factory().template create<T>(parent ? parent : impl().get());
+				std::shared_ptr<T> create(ui::node* parent = nullptr, const vl::Object& options = nullptr, ui::app* app = nullptr, bool deferred = false) {
+					return impl()->get_factory().template create<T>(parent ? parent : impl().get(), options, app, deferred);
 				}
 
 				template <typename T>
@@ -62,7 +63,11 @@ namespace utils
 
 			protected:
 				virtual void on_set_impl() {}
-				
+				void on_set_parent(ui::node* parent) override {
+					base::on_set_parent(parent);
+					impl()->on_set_parent_impl(parent); // TODO: think more about this
+				}
+
 			private:
 				ui::node_ptr m_impl;
 			};

@@ -64,18 +64,37 @@ namespace utils
 				return dynamic_cast<const qt::app&>(base::get_app());
 			}
 
+			int qt::node::init(QObject* object, QObject* content_qobject)
+			{
+				m_object = object;
+				if (content_qobject)
+					m_content = content_qobject;
+				else
+				{
+					m_content = m_object;
+					if (m_object)
+						if (auto content_qobject = m_object->findChild<QObject*>("content"))
+							m_content = content_qobject;
+				}
+				return 0;
+			}
+
 			int qt::node::init(const QUrl& componentUrl, const QVariantMap& initial_properties)
 			{
 				return app().do_in_main_thread([self = this, initial_properties, componentUrl] {
 					try
 					{
 						QVariantMap finalinitial_properties = initial_properties;
-						if (auto parent_ptr = self->parent())
+						auto parent_ptr = self->parent();
+						QObject* parent_qobject = nullptr;
+						if (parent_ptr)
 						{
-							if (QObject* parent_qbject = parent_ptr->content_qobject())
+							assert(parent_ptr->content_qobject());
+							if (parent_qobject = parent_ptr->content_qobject())
 							{
-								LOCAL_VERBOSE("Setting parent to " << parent_qbject);
-								finalinitial_properties["parent"] = QVariant::fromValue(parent_qbject);
+								LOCAL_VERBOSE("Setting parent to " << parent_qobject);
+								// Set the visual parent stored in "parent" property of the created QML Item
+								finalinitial_properties["parent"] = QVariant::fromValue(parent_qobject);
 							}
 							else
 								LOG_WARNING("Parent content object is null!");
@@ -83,12 +102,20 @@ namespace utils
 
 						QQmlComponent component(&self->app().engine(), componentUrl);
 						QQmlContext* ctx = self->app().engine().rootContext();
-						if (self->m_object = component.createWithInitialProperties(finalinitial_properties, ctx))
+						if (auto object = component.createWithInitialProperties(finalinitial_properties, ctx))
 						{
-							self->m_content = self->m_object->findChild<QObject*>("content");
-							if (!self->m_content)
-								self->m_content = self->m_object;
-							return 0;
+							if (parent_ptr)
+							{
+								auto parent_from_property = object->property("parent").value<QObject*>();
+								// Not every QML type has a parent property (e.g. QQuickMenuItem), so qobject->property("parent") will return nullptr in such cases.
+								// assert(parent_from_property == parent_qobject && "The parent is not the same as the one from the property");
+								assert(object->parent() == nullptr);
+								object->setParent(parent_qobject); // Set the logical parent, not visual
+								QQuickItem* item = qobject_cast<QQuickItem*>(object); // Just for check (in case this is a QQuickItem)
+								// item may be nullptr as the node is not always a QQuickItem (e.g. QQuickMenu)
+								assert(!item || item && (!item->parentItem() || item->parentItem() && item->parentItem() == qobject_cast<QQuickItem*>(parent_qobject)));
+							}
+							return self->init(object);
 						}
 						else
 						{
@@ -127,9 +154,8 @@ namespace utils
 				});
 			}
 
-			void qt::node::on_set_parent(const ui::node* parent)
+			void qt::node::on_set_parent(ui::node* parent)
 			{
-				// TODO: don't do it if the parent is the same
 				auto job = [self = this, parent] {
 					QObject* parent_qobject = nullptr;
 					if (parent)
@@ -139,7 +165,7 @@ namespace utils
 						int level_up = 0;
 						while (!parent_qnode_to_add && parent_to_add)
 						{
-							parent_to_add = parent_to_add->get_parent();
+							parent_to_add = parent_to_add->parent();
 							parent_qnode_to_add = dynamic_cast<const qt::node*>(parent_to_add);
 							++level_up;
 						}
@@ -147,22 +173,44 @@ namespace utils
 						{
 							parent_qobject = parent_qnode_to_add->content_qobject();
 							if (level_up > 0)
-							{
 								LOG_WARNING(self << " on_set_parent(" << parent << "): The parent is not a qt::node, so this node will be attached to " << level_up << " level above ");
-							}
 						}
 					}
-					QObject* qobject = self->content_qobject();
+					if (!parent_qobject)
+						return -1;
+					QObject* qobject = self->qobject();
 					Q_ASSERT(qobject);
 					auto current_parent = qobject->parent();
 					if (current_parent != parent_qobject)
-						qobject->setParent(parent_qobject);
+					{
+						auto parent_from_property = qobject->property("parent").value<QObject*>();
+						assert(parent_from_property == current_parent && "Every node should have set its QObject parent to the one from the 'parent' property in qt::node::init()");
+						if (parent_from_property != parent_qobject)
+						{
+							// Set the visual parent stored in "parent" property of the created QML Item.
+							// We can't use item->setParentItem(parent_qitem) because the node is not always a QQuickItem (e.g. QQuickMenu)
+							qobject->setProperty("parent", QVariant::fromValue(parent_qobject));
+							//item->setParentItem(parent_qitem);
+							auto new_parent_from_property = qobject->property("parent").value<QObject*>();
+							// Some QML types may not have a parent property (e.g. QQuickMenuItem), so qobject->property("parent") will return nullptr
+							qobject->setParent(parent_qobject); // Set the logical parent, not visual
+						}
+					}
+					current_parent = qobject->parent();
+					assert(current_parent == parent_qobject);
 					return 0;
 				};
-				if (content_qobject())
-					app().do_in_main_thread(job);
-				else
+				//assert(is_initialized() && "Please, initialize the object prior to adding");
+				if (!is_initialized())
 					do_on_post_construct(job);
+				else if (app().do_in_main_thread(job) != 0)
+					parent->add_on_set_parent(this, [job]() {
+						auto result = job();
+						if (result != 0)
+							LOG_ERROR("on_set_parent() failed with result " << result);
+						assert(result == 0);
+						return false;
+					});
 			}
 
 			QObject* qt::node::parent_qobject() const

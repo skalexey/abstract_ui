@@ -33,19 +33,9 @@ namespace utils
 				Q_ASSERT(qobject());
 				if (r != 0)
 					return r;
-
 				m_dialog = qobject()->findChild<QObject*>("dialog");
-
-				QVariant result = widget_qobject()->property("show");
-				if (result.canConvert<QJSValue>()) {
-					QJSValue jsFunction = result.value<QJSValue>();
-					if (jsFunction.isCallable()) {
-						QJSValueList args;
-						// LOG_DEBUG("Call jsFunction from thread '" << std::this_thread::get_id() << "'");
-						QJSValue returnValue = jsFunction.call(args);
-					}
-				}
-
+				// Show the dialog by default.
+				show();
 				return 0;
 			}
 
@@ -64,6 +54,58 @@ namespace utils
 			void qt::dialog::on_before_show()
 			{
 				qt::window::on_before_show();
+			}
+
+			int qt::dialog::qml_show()
+			{
+				QVariant result = widget_qobject()->property("show");
+				if (result.canConvert<QJSValue>()) {
+					QJSValue jsFunction = result.value<QJSValue>();
+					if (jsFunction.isCallable()) {
+						QJSValueList args;
+						// LOG_DEBUG("Call jsFunction from thread '" << std::this_thread::get_id() << "'");
+						QJSValue returnValue = jsFunction.call(args);
+						return 0;
+					}
+					else
+					{
+						LOG_ERROR("jsFunction show() is not callable");
+						return -1;
+					}
+				}
+				else
+				{
+					LOG_ERROR("jsFunction show() is not a QJSValue");
+					return -2;
+				}
+				return 1;
+			}
+
+			void qt::dialog::on_show()
+			{
+				assert(is_initialized() && "Dialog has not been initialized yet?");
+				qt::window::on_show();
+				// TODO: simplify the code below.
+				// Even if it seems not excessive for the cases, it still looks like some not covered cases may exist.
+				// Maybe move it to update()?
+				auto job = [self = this]() {
+					auto parent = self->parent();
+					assert(parent);
+					if (parent->is_initialized())
+						return self->qml_show();
+					else
+						parent->do_on_post_construct([self]() {
+							return self->qml_show();
+						});
+					return 0;
+				};
+				if (parent())
+					job();
+				else
+					add_on_set_parent(this, [job]() {
+						job();
+						return false;
+					});
 			}
 
 			bool qt::dialog::on_update(float dt)

@@ -18,6 +18,9 @@ namespace utils
 
 				menu_list_base() = default;
 				menu_list_base(const ui::menu_list_base_ptr& impl) : base(impl) {}
+				void add_item(const std::string& title, const action_t& action) override {
+					impl()->add_item(title, action);
+				}
 				void add_widget(const ui::widget_ptr& widget) override {
 					impl()->add_widget(widget);
 				}

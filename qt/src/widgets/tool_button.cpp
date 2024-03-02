@@ -1,8 +1,8 @@
 #include <QUrl>
 #include <utils/Log.h>
 #include <utils/string_utils.h>
-#include <abstract_ui/qt/widgets/menu_item.h>
-LOG_TITLE("qt::menu_item");
+#include <abstract_ui/qt/widgets/tool_button.h>
+LOG_TITLE("qt::tool_button");
 
 namespace utils
 {
@@ -10,9 +10,9 @@ namespace utils
 	{
 		namespace qt
 		{
-			int qt::menu_item::init()
+			int qt::tool_button::init()
 			{
-				QUrl url(u"qrc:abstract_ui_qml/MenuItem.qml"_qs);
+				QUrl url(u"qrc:abstract_ui_qml/ToolButton.qml"_qs);
 				return qt::clickable_item::init(url);
 			}
 		}

@@ -32,7 +32,7 @@ namespace utils
 		}
 
 		// All the dynamic casts require a fully defined type.
-		void ui::node::add_node(const node_ptr& node)
+		void ui::node::add_node_base(const node_ptr& node)
 		{
 			// TODO: support concurrency
 			assert(node && "Adding a null node");
@@ -42,8 +42,13 @@ namespace utils
 			node->m_parent = this;
 			node->m_app = dynamic_cast<ui::app*>(node->root());
 			m_children.push_back(node);
+		}
+
+		void ui::node::add_node(const node_ptr& node)
+		{
+			add_node_base(node);
 			on_add_node(node.get());
-			node->on_set_parent(this);
+			node->on_set_parent_impl(this);
 		}
 	}
 }
