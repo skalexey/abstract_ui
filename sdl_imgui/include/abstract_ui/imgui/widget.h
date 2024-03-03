@@ -33,6 +33,11 @@ namespace utils
 			};
 
 			using widget_ptr = std::shared_ptr<imgui::widget>;
+
+			inline int next_id() {
+				static int id = 0;
+				return id++;
+			}
 		}
 	}
 }

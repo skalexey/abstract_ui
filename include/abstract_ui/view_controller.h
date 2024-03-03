@@ -11,7 +11,7 @@ namespace utils
 {
 	namespace ui
 	{
-		class view_controller : public node
+		class view_controller : public virtual node
 		{
 		public:
 			using base = node;

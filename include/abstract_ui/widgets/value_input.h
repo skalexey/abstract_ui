@@ -18,14 +18,14 @@ namespace utils
 			using on_update_t = std::function<void(const T&)>;
 			using on_new_value_t = std::function<void(const T&)>;
 
-			value_input(
+			void construct(
 				const std::string& label
 				, const T& default_value = {}
 				, const on_update_t& on_update = nullptr
 			)
-				: m_default_value(default_value)
-				, m_on_update(on_update)
 			{
+				m_default_value = default_value;
+				m_on_update = on_update;
 				if (!label.empty())
 					set_label(label);
 			}

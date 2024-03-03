@@ -15,15 +15,9 @@ namespace utils
 			{
 			public:
 				using base = ui::text_input;
-
-				text_input(
-					const std::string& label = {}
-					, const std::string& default_value = {}
-					, const on_update_t& on_update = nullptr
-				)
-					: base(label, default_value, on_update)
-				{
+				text_input() {
 					m_edit_value.reserve(256);
+					m_input_label = "##" + std::to_string(next_id());
 				}
 
 				const std::string& get_value() const override;
