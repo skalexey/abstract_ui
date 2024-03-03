@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <utils/common.h>
-#include <utils/ordered_map.h>
+#include <utils/ordered_multihashmap.h>
 #include <abstract_ui/widgets/menu_list_base.h>
 
 namespace utils
@@ -25,7 +25,7 @@ namespace utils
 			}
 
 			const void_cb& add_on_set_title(const void* subscriber, const void_cb& cb) {
-				return m_on_set_title.add(subscriber, cb);
+				return m_on_set_title.add(subscriber, cb)->second;
 			}
 
 			const void_cb& set_on_set_title(const void* subscriber, const void_cb& cb) {
@@ -35,7 +35,7 @@ namespace utils
 					(*it).second = cb;
 					return it->second;
 				}
-				return m_on_set_title.add(subscriber, cb);
+				return m_on_set_title.add(subscriber, cb)->second;
 			}
 
 			bool remove_on_set_title(const void* subscriber) {
@@ -47,7 +47,7 @@ namespace utils
 			
 		private:
 			std::string m_title;
-			utils::ordered_map<const void*, void_cb> m_on_set_title;
+			utils::ordered_multihashmap<const void*, void_cb> m_on_set_title;
 		};
 		using menu_list_ptr = std::shared_ptr<menu_list>;
 	}

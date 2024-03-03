@@ -165,7 +165,7 @@ namespace utils
 			}
 
 			bool_cb& add_on_set_parent(const void* subscriber, const bool_cb& cb) {
-				return m_on_set_parent.add(subscriber, cb);
+				return m_on_set_parent.add(subscriber, cb).first->second;
 			}
 
 			bool clear_on_set_parent(const void* subscriber) {
@@ -270,7 +270,7 @@ namespace utils
 			std::vector<on_update_t> m_on_update;
 			std::vector<on_update_t> m_added_on_update;
 			std::vector<utils::int_cb> m_on_post_construct;
-			utils::ordered_map<const void*, bool_cb> m_on_set_parent;
+			utils::ordered_hashmap<const void*, bool_cb> m_on_set_parent;
 			vl::Object m_options = nullptr;
 		};
 		using node_ptr = std::shared_ptr<node>;
