@@ -37,22 +37,6 @@ namespace utils
 					impl()->add_node(node);
 				}
 				
-				// Create a widget of type T and add it as a child to this node.
-				template <typename T>
-				std::shared_ptr<T> create(ui::node* parent = nullptr, const vl::Object& options = nullptr, ui::app* app = nullptr, bool deferred = false) {
-					return impl()->get_factory().template create<T>(parent ? parent : impl().get(), options, app, deferred);
-				}
-
-				template <typename T>
-				std::shared_ptr<T> create_abstract(ui::node* parent = nullptr, const vl::Object& options = nullptr) {
-					return widget_factory::create_abstract<T>(parent ? parent : impl().get(), options);
-				}
-
-				template <typename T>
-				std::shared_ptr<T> create_final() {
-					return impl()->get_factory().template create_final<T>(*impl());
-				}
-
 				ui::node_ptr impl() const {
 					return m_impl;
 				}
@@ -66,6 +50,22 @@ namespace utils
 				void on_set_parent(ui::node* parent) override {
 					base::on_set_parent(parent);
 					impl()->on_set_parent_impl(parent); // TODO: think more about this
+				}
+
+				// Create a widget of type T and add it as a child to the impl node.
+				template <typename T>
+				std::shared_ptr<T> create(ui::node* parent = nullptr, const vl::Object& options = nullptr, ui::app* app = nullptr, bool deferred = false) {
+					return impl()->get_factory().template create<T>(parent ? parent : impl().get(), options, app, deferred);
+				}
+
+				template <typename T>
+				std::shared_ptr<T> create_abstract(ui::node* parent = nullptr, const vl::Object& options = nullptr) {
+					return widget_factory::create_abstract<T>(parent ? parent : impl().get(), options);
+				}
+
+				template <typename T>
+				std::shared_ptr<T> create_final() {
+					return impl()->get_factory().template create_final<T>(*impl());
 				}
 
 			private:
