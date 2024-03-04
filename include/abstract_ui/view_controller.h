@@ -28,23 +28,33 @@ namespace utils
 				return widget_factory::create_abstract<T>(this, final_options);
 			}
 
-			const utils::ui::node& get_view() const {
+			const base& get_view() const {
 				return *m_view;
 			}
 
-			utils::ui::node& view() {
+			base& view() {
 				return *m_view;
 			}
 
-		protected:
+			void close() {
+				if (m_view)
+					m_view->remove_from_parent();
+			}
+
 			template <typename T>
 			void set_view(ui::node* parent = nullptr) {
-				auto* final_parent = parent;
+				auto final_parent = parent;
 				auto&& options = get_options();
 				if (parent == nullptr)
 					if (options.Has("view_parent"))
 						final_parent = options["view_parent"].AsPointer().Val<ui::node>();
-				m_view = std::dynamic_pointer_cast<utils::ui::node>(get_factory().create_final<T>(*final_parent, options));
+				m_view = std::dynamic_pointer_cast<base>(get_factory().create_final<T>(*final_parent, options));
+			}
+
+			// Create a widget of type T and add it as a child to the view.
+			template <typename T>
+			std::shared_ptr<T> create(ui::node* parent = nullptr, const vl::Object& options = nullptr, ui::app* app = nullptr, bool deferred = false) {
+				return get_factory().template create<T>(parent ? parent : &view(), options, app, deferred);
 			}
 
 		private:

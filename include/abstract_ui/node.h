@@ -30,7 +30,14 @@ namespace utils
 		{
 			friend class widget_factory;
 			friend class final::node;
+
 		public:
+			// Create a widget of type T and add it as a child to this node.
+			template <typename T>
+			std::shared_ptr<T> create(ui::node* parent = nullptr, const vl::Object& options = nullptr, ui::app* app = nullptr, bool deferred = false) {
+				return get_factory().template create<T>(parent ? parent : this, options, app, deferred);
+			}
+			
 			virtual ~node() {
 				destroy();
 			}
