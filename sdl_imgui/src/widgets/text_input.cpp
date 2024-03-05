@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <abstract_ui/widgets/text_input.h>
 #include <utils/io_utils.h>
 #include <abstract_ui/imgui/widgets/text_input.h>
