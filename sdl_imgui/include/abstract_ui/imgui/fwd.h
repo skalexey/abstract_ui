@@ -10,6 +10,7 @@ namespace utils
 		{
 			class entity;
 			class node;
+			class sdl_node;
 			class app;
 			class sdl_app;
 			class widget;
@@ -22,6 +23,7 @@ namespace utils
 			class text_input;
 			using entity_ptr = std::shared_ptr<entity>;
 			using node_ptr = std::shared_ptr<node>;
+			using sdl_node_ptr = std::shared_ptr<sdl_node>;
 			using window_ptr = std::shared_ptr<window>;
 			using widget_ptr = std::shared_ptr<widget>;
 			using dialog_ptr = std::shared_ptr<dialog>;

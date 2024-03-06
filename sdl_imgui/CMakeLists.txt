@@ -36,9 +36,22 @@ macro(setup_module)
 		${GLFW_DIR}/include
 		${SDL_INCLUDES}
 	)
+
 	# target_include_directories(imgui PUBLIC ${IMGUI_INCLUDES})
 	add_dependency_library(imgui)
 	module_add_includes(${IMGUI_INCLUDES})
+
+	# SDL_Image dependency
+	# set(SDL_IMAGE_DIR ${DEPS}/SDL_image)
+	# set(SDL_IMAGE_BUILD_DIR ${SDL_IMAGE_DIR}/${BUILD_DIR_NAME})
+	# add_subdirectory(${SDL_IMAGE_DIR} ${SDL_IMAGE_BUILD_DIR} EXCLUDE_FROM_ALL)
+	# set(SDL_IMAGE_INCLUDES ${SDL_IMAGE_DIR}/include)
+	# module_add_includes(${SDL_IMAGE_INCLUDES})
+
+	# STB dependency
+	set(STB_DIR ${DEPS}/stb)
+	set(STB_INCLUDES ${STB_DIR})
+	module_add_includes(${STB_INCLUDES})
 
 	# Base dependency	
 	add_dependency_module(${DEPS}/abstract_ui abstract_ui)

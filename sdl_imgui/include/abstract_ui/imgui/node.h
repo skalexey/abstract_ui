@@ -12,14 +12,12 @@ namespace utils
 	{
 		namespace imgui
 		{
-			// Hide ui::node* interface using protected inheritance
 			class node : public virtual ui::node
 			{
 				friend class ui::widget_factory;
 				using base = ui::node;
 
 			public:
-				// TODO: support constructor with imgui::node* 
 				node();
 
 				const imgui::node* get_parent() const {

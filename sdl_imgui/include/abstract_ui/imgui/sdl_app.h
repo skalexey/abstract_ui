@@ -16,14 +16,23 @@ namespace utils
 		{
 			class sdl_app : public imgui::app
 			{
-				using base = imgui::app;
+				friend class imgui::sdl_node;
 
 			public:
+				using base = imgui::app;
+
 				sdl_app(int argc, char* argv[])
 					: ui::app(argc, argv)
 					, base::app(argc, argv)
 				{}
 				bool update(float dt) override final;
+				virtual SDL_Window* create_window();
+				SDL_Window* window() {
+					return m_window;
+				}
+				SDL_Renderer* renderer() {
+					return m_renderer;
+				}
 
 			public:
 				static void request_keyboard();
@@ -32,10 +41,6 @@ namespace utils
 				int on_run() override final;
 				void cleanup() override final;
 				
-			protected:
-				virtual SDL_Window* create_window();
-				SDL_Window* get_window() { return m_window; }
-
 			private:
 				SDL_Renderer* m_renderer = nullptr;
 				SDL_Window* m_window = nullptr;

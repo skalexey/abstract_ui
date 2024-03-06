@@ -28,7 +28,7 @@ namespace utils
 					{
 						if (g_keyboard_request_count > 0)
 						{
-							if (!SDL_ScreenKeyboardShown(get_window()))
+							if (!SDL_ScreenKeyboardShown(window()))
 							{
 								// SDL_Rect r = { m_resolution.x + 60, m_resolution.y + 30, m_resolution.x - 180, m_resolution.y - 60 };
 								SDL_Rect r = { 0, 0, 0, 0 };
@@ -37,7 +37,7 @@ namespace utils
 							}
 						}
 						else
-							if (SDL_ScreenKeyboardShown(get_window()))
+							if (SDL_ScreenKeyboardShown(window()))
 								SDL_StopTextInput();
 					}
 					return true;

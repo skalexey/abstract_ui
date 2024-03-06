@@ -15,6 +15,7 @@
 #include <abstract_ui/qt/widgets/label.h>
 #include <abstract_ui/qt/widgets/text.h>
 #include <abstract_ui/qt/widgets/text_input.h>
+#include <abstract_ui/qt/widgets/image.h>
 #include <abstract_ui/qt/widgets/dialogs/dialog_input_text.h>
 #include <abstract_ui/qt/widgets/dialogs/dialog_message.h>
 #include <abstract_ui/qt/widgets/dialogs/dialog_with_buttons.h>
@@ -41,6 +42,7 @@ namespace utils
 				REGISTER_WIDGET(qt::widget_factory, qt::label);
 				REGISTER_WIDGET(qt::widget_factory, qt::text);
 				REGISTER_WIDGET(qt::widget_factory, qt::text_input);
+				REGISTER_WIDGET(qt::widget_factory, qt::image);
 				REGISTER_WIDGET(qt::widget_factory, qt::dialog_input_text);
 				REGISTER_WIDGET(qt::widget_factory, qt::dialog_message);
 				REGISTER_WIDGET(qt::widget_factory, qt::dialog_with_buttons);

@@ -28,6 +28,7 @@ namespace utils
 		class menu_list;
 		class menu_bar;
 		class menu;
+		class image;
 		class menu_manager;
 		class menu_controller;
 		class view_controller;
@@ -50,6 +51,7 @@ namespace utils
 		using menu_list_ptr = std::shared_ptr<menu_list>;
 		using menu_bar_ptr = std::shared_ptr<menu_bar>;
 		using menu_ptr = std::shared_ptr<menu>;
+		using image_ptr = std::shared_ptr<image>;
 		using menu_controller_ptr = std::shared_ptr<menu_controller>;
 		using view_controller_ptr = std::shared_ptr<view_controller>;
 	}

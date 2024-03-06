@@ -15,6 +15,7 @@
 #include <abstract_ui/imgui/widgets/label.h>
 #include <abstract_ui/imgui/widgets/text.h>
 #include <abstract_ui/imgui/widgets/text_input.h>
+#include <abstract_ui/imgui/widgets/image.h>
 #include <abstract_ui/imgui/widgets/dialogs/dialog_input_text.h>
 #include <abstract_ui/imgui/widgets/dialogs/dialog_message.h>
 #include <abstract_ui/imgui/widgets/dialogs/dialog_with_buttons.h>
@@ -41,6 +42,7 @@ namespace utils
 				REGISTER_WIDGET(imgui::widget_factory, imgui::label);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::text);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::text_input);
+				REGISTER_WIDGET(imgui::widget_factory, imgui::image);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::dialog_input_text);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::dialog_message);
 				REGISTER_WIDGET(imgui::widget_factory, imgui::dialog_with_buttons);
