@@ -30,6 +30,14 @@ namespace utils
 					// TODO: implement
 					return -1;
 				}
+
+			protected:
+				bool update_children(float dt) override;
+
+			private:
+				bool update_widget(float dt) {
+					return true;
+				}
 			};
 
 			using widget_ptr = std::shared_ptr<imgui::widget>;
