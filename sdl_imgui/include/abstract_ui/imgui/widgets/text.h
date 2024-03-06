@@ -33,7 +33,11 @@ namespace utils
 				}
 				
 			private:
-				bool on_update(float dt) override final;
+				bool on_update(float dt) override final {
+					if (!imgui_text_update(dt))
+						return false;
+					return imgui::widget::on_update(dt);
+				}
 
 			private:
 				std::string m_text;

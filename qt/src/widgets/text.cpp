@@ -25,7 +25,7 @@ namespace utils
 				initial_properties["horizontalAlignment"] = convert_horizontal_alignment(horizontal_alignment);
 				auto vertical_alignment = get_text_vertical_alignment();
 				initial_properties["verticalAlignment"] = convert_vertical_alignment(vertical_alignment);
-				auto r = qt::node::init(url, initial_properties);
+				auto r = qt::widget::init(url, initial_properties);
 				if (r != 0)
 					return r; // For putting BP here while debugging
 				return 0;

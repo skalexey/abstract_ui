@@ -15,13 +15,6 @@ namespace utils
 	{
 		namespace imgui
 		{
-			bool imgui::text::on_update(float dt)
-			{
-				if (!imgui_text_update(dt))
-					return false;
-				return imgui::widget::on_update(dt);
-			}
-
 			bool imgui::text::imgui_text_update(float dt)
 			{
 				ImGui::TextWrapped("%s", get_text().c_str());
