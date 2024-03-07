@@ -38,8 +38,8 @@ namespace utils
 						, fixed
 						, automatic
 					};
-					size_policy::type horizontal = size_policy::type::unchanged;
-					size_policy::type vertical = size_policy::type::unchanged;
+					size_policy::type horizontal = size_policy::unchanged;
+					size_policy::type vertical = size_policy::unchanged;
 				};
 
 				bool show() {
@@ -118,7 +118,7 @@ namespace utils
 					set_position({ x, get_position().y });
 				}
 				virtual void set_size(const vec2i& size) {
-					if (m_size_policy.horizontal == size_policy::type::automatic && m_size_policy.vertical == size_policy::type::automatic)
+					if (m_size_policy.horizontal == size_policy::automatic && m_size_policy.vertical == size_policy::automatic)
 						return;
 					bool size_changed = size != m_size;
 					m_size = size;
@@ -126,10 +126,10 @@ namespace utils
 					if (size_changed)
 						on_size_changed();
 				}
-				void set_size_policy(size_policy::type horizontal, size_policy::type vertical = size_policy::type::unchanged) {
-					if (vertical != size_policy::type::unchanged)
+				void set_size_policy(size_policy::type horizontal, size_policy::type vertical = size_policy::unchanged) {
+					if (vertical != size_policy::unchanged)
 						m_size_policy.vertical = vertical;
-					if (horizontal != size_policy::type::unchanged)
+					if (horizontal != size_policy::unchanged)
 						m_size_policy.horizontal = horizontal;
 					on_set_size_policy();
 				}

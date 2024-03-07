@@ -83,7 +83,7 @@ namespace utils
 			void qt::widget::set_size(const vec2i& size)
 			{
 				auto&& size_policy = get_size_policy();
-				if (size_policy.horizontal == size_policy::type::automatic && size_policy.vertical == size_policy::type::automatic)
+				if (size_policy.horizontal == size_policy::automatic && size_policy.vertical == size_policy::automatic)
 						return;
 				if (auto object = widget_qobject())
 				{

@@ -42,7 +42,7 @@ namespace utils
 				auto window_flags = this->window_flags();
 				window_flags |= ImGuiWindowFlags_NoCollapse;
 				
-				if (get_size_policy().horizontal == size_policy::type::automatic && get_size_policy().vertical == size_policy::type::automatic)
+				if (get_size_policy().horizontal == size_policy::automatic && get_size_policy().vertical == size_policy::automatic)
 					window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
 	
 				auto label = utils::format_str("%s##", get_title().c_str());

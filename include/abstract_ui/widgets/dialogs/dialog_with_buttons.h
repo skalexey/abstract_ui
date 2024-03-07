@@ -58,7 +58,7 @@ namespace utils
 		protected:
 			int init() override
 			{
-				set_size_policy(size_policy::type::automatic, size_policy::type::automatic);
+				set_size_policy(size_policy::automatic, size_policy::automatic);
 				set_max_width(200);
 				set_title("Dialog With Buttons");
 				// Factory here is supposed to be already set in the implementation class
