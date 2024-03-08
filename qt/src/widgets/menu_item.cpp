@@ -1,5 +1,5 @@
 #include <QUrl>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <utils/string_utils.h>
 #include <abstract_ui/qt/widgets/menu_item.h>
 LOG_TITLE("qt::menu_item");

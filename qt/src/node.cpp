@@ -11,7 +11,7 @@
 #include <abstract_ui/qt/node.h>
 #include <abstract_ui/helpers/user_input.h>
 #include <utils/log_stream.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 SET_LOCAL_LOG_LEVEL(verbose);
 #ifdef LOG_ON
 #include <QDebug>

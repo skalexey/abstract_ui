@@ -3,7 +3,7 @@
 #include <abstract_ui/widgets/dialogs/dialog_message.h>
 #include <abstract_ui/widgets/dialogs/dialog_input_text.h>
 #include <abstract_ui/helpers/user_input.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <utils/common.h>
 #include <utils/string_utils.h>
 

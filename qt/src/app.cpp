@@ -9,7 +9,7 @@
 #include <abstract_ui/qt/app_environment.h>
 #include <abstract_ui/qt/import_qml_plugins.h>
 #include <abstract_ui/qt/register_widgets.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 
 LOG_TITLE("qt::app");
 

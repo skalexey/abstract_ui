@@ -1,7 +1,7 @@
 #include <filesystem>
 #include <QVariant>
 #include <QObject>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/qt/app.h>
 #include <abstract_ui/qt/widget_factory.h>
 #include <abstract_ui/qt/widgets/image.h>

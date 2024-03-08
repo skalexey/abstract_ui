@@ -5,7 +5,7 @@
 #include <abstract_ui/qt/widget_factory.h>
 #include <abstract_ui/qt/widgets/clickable_item_model.h>
 #include <abstract_ui/qt/widgets/clickable_item.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 
 LOG_TITLE("qt::clickable_item");
 

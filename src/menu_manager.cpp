@@ -4,7 +4,7 @@
 #include <abstract_ui/menu_manager.h>
 #include <abstract_ui/widgets/menu.h>
 #include <abstract_ui/menu_controller.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("menu_manager");
 
 namespace utils

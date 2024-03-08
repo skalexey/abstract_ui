@@ -4,7 +4,7 @@
 #include <condition_variable>
 #include <limits>
 #include <cassert>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/app.h>
 #include <abstract_ui/menu_manager.h>
 

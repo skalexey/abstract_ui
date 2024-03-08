@@ -8,7 +8,7 @@
 #include <abstract_ui/qt/widgets/tool_button.h>
 #include <abstract_ui/widget_factory.h>
 #include <abstract_ui/widgets/menu_item.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("qt::menu_bar");
 
 namespace utils

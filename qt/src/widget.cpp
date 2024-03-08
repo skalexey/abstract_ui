@@ -6,7 +6,7 @@
 #include <abstract_ui/qt/widget.h>
 #include <abstract_ui/qt/app.h>
 #include <abstract_ui/qt/widget_model.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("qt::widget");
 namespace utils
 {

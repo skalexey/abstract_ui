@@ -3,7 +3,7 @@
 #include <QVariantMap>
 #include <abstract_ui/qt/widgets/button.h>
 #include <abstract_ui/qt/widget_factory.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 
 LOG_TITLE("qt::button");
 

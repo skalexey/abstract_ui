@@ -5,7 +5,7 @@
 #include <utils/string_utils.h>
 #include <abstract_ui/qt/widgets/dialog.h>
 #include <abstract_ui/qt/app.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 #ifdef LOG_ON
 #include <QDebug>
 #endif

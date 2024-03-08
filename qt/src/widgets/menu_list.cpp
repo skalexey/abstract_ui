@@ -6,7 +6,7 @@
 #include <abstract_ui/widgets/menu_item.h>
 #include <abstract_ui/qt/widgets/menu_list_model.h>
 #include <abstract_ui/qt/widgets/menu_list.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("qt::menu_list");
 
 namespace utils

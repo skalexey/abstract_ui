@@ -1,7 +1,7 @@
 #include <QUrl>
 #include <utils/string_utils.h>
 #include <abstract_ui/qt/widgets/menu.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("qt::menu");
 
 namespace utils

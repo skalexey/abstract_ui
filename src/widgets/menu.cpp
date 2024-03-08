@@ -2,7 +2,7 @@
 #include <abstract_ui/widget_factory.h>
 #include <abstract_ui/menu_manager.h>
 #include <abstract_ui/widgets/button.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/widgets/menu.h>
 LOG_TITLE("menu");
 

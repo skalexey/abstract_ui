@@ -1,7 +1,7 @@
 #include <utils/string_utils.h>
 #include <abstract_ui/imgui/widgets/dialog.h>
 #include <imgui.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("imgui::dialog");
 namespace utils
 {

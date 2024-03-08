@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/qt/widget_model.h>
 
 LOG_TITLE("qt::widget_model");

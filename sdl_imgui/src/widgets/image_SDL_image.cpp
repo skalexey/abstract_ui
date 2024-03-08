@@ -7,7 +7,7 @@
 #include <imgui.h>
 #include <imgui_impl_sdl3.h>
 #include <imgui_impl_opengl3.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/imgui/widget_factory.h>
 #include <abstract_ui/imgui/widgets/image.h>
 

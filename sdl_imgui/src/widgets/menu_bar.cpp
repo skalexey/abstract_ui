@@ -1,6 +1,6 @@
 #include <utils/string_utils.h>
 #include <imgui.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/imgui/widgets/menu_bar.h>
 LOG_TITLE("imgui::menu_bar");
 

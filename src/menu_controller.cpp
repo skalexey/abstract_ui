@@ -1,6 +1,6 @@
 #include <abstract_ui/menu_controller.h>
 #include <abstract_ui/widgets/menu.h>
-#include <utils/Log.h>
+#include <utils/log.h>
 LOG_TITLE("menu_controller");
 namespace utils
 {

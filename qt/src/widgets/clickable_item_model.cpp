@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utils/Log.h>
+#include <utils/log.h>
 #include <abstract_ui/qt/widgets/clickable_item_model.h>
 
 LOG_TITLE("qt::clickable_item_model");
