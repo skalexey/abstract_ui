@@ -1,6 +1,7 @@
 #include <abstract_ui/widgets/layouts/auto_layout.h>
 #include <utils/log.h>
 LOG_TITLE("utils::ui::auto_layout");
+
 namespace utils
 {
 	namespace ui
