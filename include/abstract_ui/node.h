@@ -18,7 +18,7 @@
 #include <VL.h>
 #include <utils/ordered_map.h>
 #include <abstract_ui/fwd.h>
-#include <abstract_ui/entity.h>
+#include <utils/entity.h>
 #include <utils/common.h>
 #include <utils/common_macros.h>
 
@@ -26,7 +26,7 @@ namespace utils
 {
 	namespace ui
 	{
-		class node : public virtual entity
+		class node : public virtual utils::entity
 		{
 			friend class widget_factory;
 			friend class final::node;

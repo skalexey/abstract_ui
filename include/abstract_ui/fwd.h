@@ -5,9 +5,9 @@
 
 namespace utils
 {
+	class entity;
 	namespace ui
 	{
-		class entity;
 		class node;
 		class app;
 		class widget;
