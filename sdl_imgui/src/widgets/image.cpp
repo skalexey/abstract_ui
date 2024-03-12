@@ -117,11 +117,12 @@ namespace utils
 			int imgui::image::init_texture()
 			{
 				auto path = std::filesystem::path("assets/textures/" + get_texture());
-				auto& size = get_size();
 				if (auto texture_info = texture_manager(&app()).texture_info(path.string()))
 				{
 					m_texture = texture_info->texture;
-					set_size({ texture_info->width, texture_info->height });
+					auto& size = get_size();
+					if (size == std::remove_reference<decltype(size)>::type(0, 0))
+						set_size({ texture_info->width, texture_info->height });
 					return 0;
 				}
 				return -1;
