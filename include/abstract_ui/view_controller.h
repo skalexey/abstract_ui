@@ -47,7 +47,7 @@ namespace utils
 				auto&& options = get_options();
 				if (parent == nullptr)
 					if (options.Has("view_parent"))
-						final_parent = options["view_parent"].AsPointer().Val<ui::node>();
+						final_parent = options["view_parent"].as<vl::Pointer>().Val<ui::node>();
 				m_view = std::dynamic_pointer_cast<base>(get_factory().create_final<T>(*final_parent, options));
 			}
 

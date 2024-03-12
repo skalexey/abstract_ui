@@ -121,14 +121,14 @@ namespace utils
 				auto update_ptr = m_model->grab_update();
 				if (!update_ptr)
 					return;
-				auto update = update_ptr->AsObject();
+				auto update = update_ptr->as<vl::Object>();
 				// Position
 				bool has_x = update.Has("x");
 				bool has_y = update.Has("y");
 				if (has_x)
-					m_position.x = update.Get("x").AsNumber().Val();
+					m_position.x = update.Get("x").as<vl::Number>().Val();
 				if (has_y)
-					m_position.y = update.Get("y").AsNumber().Val();
+					m_position.y = update.Get("y").as<vl::Number>().Val();
 				if (has_x || has_y)
 				{
 					on_position_changed();
@@ -138,9 +138,9 @@ namespace utils
 				bool has_width = update.Has("width");
 				bool has_height = update.Has("height");
 				if (has_width)
-					m_size.x = update.Get("width").AsNumber().Val();
+					m_size.x = update.Get("width").as<vl::Number>().Val();
 				if (has_height)	
-					m_size.y = update.Get("height").AsNumber().Val();
+					m_size.y = update.Get("height").as<vl::Number>().Val();
 				if (has_width || has_height)
 					on_size_changed();
 			}

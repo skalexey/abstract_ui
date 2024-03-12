@@ -39,7 +39,7 @@ namespace ImGui
 		const char* getSelectedType() {
 			auto list = m_get_variants();
 			if (m_selected_index >= 0 && m_selected_index < list.Size())
-				return list.At(m_selected_index).AsString().Val().c_str();
+				return list.At(m_selected_index).as<vl::String>().Val().c_str();
 			return nullptr;
 		}
 
@@ -48,7 +48,7 @@ namespace ImGui
 			auto list = m_get_variants();
 			variants.reserve(list.Size());
 			for (int i = 0; i < list.Size(); i++)
-				variants.push_back(list.At(i).AsString().Val().c_str());
+				variants.push_back(list.At(i).as<vl::String>().Val().c_str());
 			return variants;
 		}
 
